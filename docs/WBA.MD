@@ -13,7 +13,10 @@ order. All team members should help out one another when the need arises.
 | Jack        | UML class diagrams and Design rationale for REQ6 & REQ7. Sequence diagram for the Trading functionality (REQ5) | Rishi, Prasanth            | 9/4/22   |
 
 
+<br />
+
 Prasanth: 	I accept this WBA
+<br />
 Rishi	:	I accept this WBA
 
 
