@@ -18,6 +18,8 @@ order. All team members should help out one another when the need arises.
 Prasanth: 	I accept this WBA
 <br />
 Rishi	:	I accept this WBA
+<br />
+Jack: I accept this WBA
 
 
 
