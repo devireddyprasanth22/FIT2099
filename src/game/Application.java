@@ -21,7 +21,8 @@ public class Application {
 
     public static void main(String[] args) {
 
-        World world = new World(new Display());
+        MainWorld world = new MainWorld(new Display());
+
 
         FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Sprout());
 
@@ -46,29 +47,16 @@ public class Application {
                 "......................................................#.........................",
                 ".......................................................##.......................");
         GameMap gameMap = new GameMap(groundFactory, map);
-        HashMap<int[], Sprout> treeHashMap = Application.setTrees(map);
+//        HashMap<int[], Sprout> treeHashMap = Application.setTrees(map);
         world.addGameMap(gameMap);
         Actor mario = new Player("Player", 'm', 100);
         world.addPlayer(mario, gameMap.at(42, 10));
 
         // FIXME: the Goomba should be generated from the Tree
         gameMap.at(35, 10).addActor(new Goomba());
-
-        treeHashMap.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));
+        world.setTreeList(map);
+//        treeHashMap.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));
         world.run();
-    }
-
-    public static HashMap<int[], Sprout> setTrees(List<String> map) {
-        HashMap<int[], Sprout> treeHashMap = new HashMap<>();
-        for (int i = 0; i < map.size(); i++) {
-            for(int j = 0; j < map.get(i).length(); j++){
-                if (map.get(i).charAt(j) == "+".charAt(0)){
-                    int[] location = new int[]{i, j};
-                    treeHashMap.put(location, new Sprout());
-                }
-            }
-        }
-        return treeHashMap;
     }
 
 }
