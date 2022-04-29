@@ -1,7 +1,9 @@
 package game.tree;
 
 import edu.monash.fit2099.engine.positions.Ground;
+import edu.monash.fit2099.engine.positions.Location;
 
+import java.util.Locale;
 import java.util.Random;
 
 public abstract class Tree extends Ground {
@@ -23,6 +25,10 @@ public abstract class Tree extends Ground {
 
     public void incrementTurn() {
         this.turn += 1;
+    }
+
+    public void tick(Location location){
+        this.incrementTurn();
     }
 
     public boolean chance(int chancePercent) {

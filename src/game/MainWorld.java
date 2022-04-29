@@ -46,7 +46,6 @@ public class MainWorld extends World {
             GameMap playersMap = actorLocations.locationOf(player).map();
             playersMap.draw(display);
 //            System.out.println("Helllo Woooorlrld!!");
-            treeList.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));
 //            System.out.println(treeList);
             // Process all the actors.
             for (Actor actor : actorLocations) {
@@ -58,6 +57,8 @@ public class MainWorld extends World {
             for (GameMap gameMap : gameMaps) {
                 gameMap.tick();
             }
+            treeList.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value.getTurn()));
+
         }
         display.println(endGameMessage());
     }

@@ -21,7 +21,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        MainWorld world = new MainWorld(new Display());
+        World world = new World(new Display());
 
 
         FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Sprout());
@@ -54,7 +54,7 @@ public class Application {
 
         // FIXME: the Goomba should be generated from the Tree
         gameMap.at(35, 10).addActor(new Goomba());
-        world.setTreeList(map);
+//        world.setTreeList(map);
 //        treeHashMap.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));
         world.run();
     }
