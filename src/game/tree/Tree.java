@@ -35,6 +35,7 @@ public abstract class Tree extends Ground {
         return r.nextInt(100) < (chancePercent);
     }
 
+
     // Abstract method to check the turns
-    public abstract TreeState checkState();
+    //public abstract TreeState checkState();
 }
