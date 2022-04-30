@@ -1,9 +1,12 @@
 package game.tree;
 
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Coin;
 import game.Dirt;
 import game.Goomba;
+
+import java.util.ArrayList;
 
 public class Mature extends Tree {
     public Mature() {
@@ -17,23 +20,20 @@ public class Mature extends Tree {
             location.addActor(new Goomba());
         }
         if (this.getTurn() % 5 == 0) {
-
+            ArrayList<Exit> exits = new ArrayList<>();
+            Dirt dirt = new Dirt();
+            for(Exit exit: location.getExits()){
+                if (exit.getDestination().getGround().getClass().equals(dirt.getClass())){
+                    exits.add(exit);
+                }
+            }
+            Exit randomExit = this.chooseRandomExit(exits);
+            randomExit.getDestination().setGround(new Sprout());
         }
         if(chance(20)){
             location.setGround(new Dirt());
         }
     }
-//    @Override
-//    public TreeState checkState() {
-//        if (this.chance(20)) {
-//            return TreeState.DIE;
-//        }
-//        if (this.getTurn() % 5 == 0) {
-//            return TreeState.GROW;
-//        } else if (this.chance(15)) {
-//            return TreeState.SPAWN;
-//        } else {
-//            return TreeState.UNKNOWN_ERROR;
-//        }
-//    }
+
+
 }

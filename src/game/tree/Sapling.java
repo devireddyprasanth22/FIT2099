@@ -17,7 +17,7 @@ public class Sapling extends Tree {
         if (chance(10)) {
             location.addItem(new Coin());
         }
-        if (this.getTurn() == 10) {
+        if (this.getTurn() == 1) {
             location.setGround(new Mature());
         }
     }

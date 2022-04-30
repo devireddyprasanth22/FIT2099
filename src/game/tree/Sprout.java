@@ -1,6 +1,5 @@
 package game.tree;
 
-import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Goomba;
 
@@ -18,7 +17,7 @@ public class Sprout extends Tree {
         if (chance(10) && !location.containsAnActor()) {
             location.addActor(new Goomba());
         }
-        if (this.getTurn() == 10) {
+        if (this.getTurn() == 1) {
             location.setGround(new Sapling());
         }
     }
@@ -34,6 +33,4 @@ public class Sprout extends Tree {
 //            return TreeState.UNKNOWN_ERROR;
 //        }
 //    }
-//}
-
 }
