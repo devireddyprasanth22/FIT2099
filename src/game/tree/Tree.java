@@ -37,6 +37,7 @@ public abstract class Tree extends Ground {
         this.incrementTurn();
     }
 
+
     public boolean chance(int chancePercent) {
         Random r = new Random();
         return r.nextInt(100) < (chancePercent);
@@ -48,31 +49,9 @@ public abstract class Tree extends Ground {
         return exits.get(randomIndex);
     }
 
-    public ActionList allowableActions(Player actor, Location location, String direction) {
-        ActionList actions = new ActionList();
-        for (Exit exit : location.getExits()) {
-            if (exit.getDestination().getDisplayChar() == "+".charAt(0)) {
-                if (actor.successfulJump("+".charAt(0))) {
-                    actor.addCapability(Status.CAN_JUMP);
-                }
-                actions.add(new JumpActorAction(exit.getDestination(), exit.getName(), exit.getHotKey()));
-//                    actor.jumped(location);
-            }
-            if (exit.getDestination().getDisplayChar() == "t".charAt(0)) {
-                if (actor.successfulJump("t".charAt(0))) {
-                    actor.addCapability(Status.CAN_JUMP);
-                }
-                actions.add(new JumpActorAction(exit.getDestination(), exit.getName(), exit.getHotKey()));
-            }
-            if (exit.getDestination().getDisplayChar() == "T".charAt(0)) {
-                if (actor.successfulJump("T".charAt(0))) {
-                    actor.addCapability(Status.CAN_JUMP);
-                }
-                actions.add(new JumpActorAction(exit.getDestination(), exit.getName(), exit.getHotKey()));
-            }
-        }
-
-        return actions;
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction) {
+        return new ActionList();
     }
 
 

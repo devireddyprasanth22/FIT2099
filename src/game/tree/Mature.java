@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.Coin;
 import game.Dirt;
 import game.Goomba;
+import game.Koopa;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class Mature extends Tree {
     public void tick(Location location) {
         this.incrementTurn();
         if (chance(15)&& !location.containsAnActor()) {
-            location.addActor(new Goomba());
+            location.addActor(new Koopa());
         }
         if (this.getTurn() % 5 == 0) {
             ArrayList<Exit> exits = new ArrayList<>();
