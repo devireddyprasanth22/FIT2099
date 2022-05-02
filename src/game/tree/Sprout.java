@@ -18,7 +18,7 @@ public class Sprout extends Tree {
         if (chance(10) && !location.containsAnActor()) {
             location.addActor(new Goomba());
         }
-        if (this.getTurn() == 10) {
+        if (this.getTurn() == 1) {
             location.setGround(new Sapling());
         }
     }

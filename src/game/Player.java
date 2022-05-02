@@ -35,8 +35,14 @@ public class Player extends Actor implements Jump {
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
-//		if()
         // return/print the console menu;
+
+        if(actorLocation.getDisplayChar() == "$".charAt(0)){
+            this.addItemToInventory(new Coin());
+        }
+        this.getInventory().forEach(item -> {
+            System.out.println(item.getClass());
+        });
 
         System.out.println(this.printHp());
 
@@ -49,61 +55,8 @@ public class Player extends Actor implements Jump {
         return this.hasCapability(Status.TALL) ? Character.toUpperCase(super.getDisplayChar()) : super.getDisplayChar();
     }
 
-//    private boolean jumpResult(int chance, int damage) {
-//        boolean successful = false;
-//        boolean probability = new Random().nextInt(100) < chance;
-//        if (probability) {
-//            successful = true;
-//        } else {
-//            this.hurt(damage);
-//        }
-//        return successful;
-//    }
-
-//	public boolean successfulJump(Location location) {
-//		boolean successful = true;
-//		if(location.getDisplayChar() == "#".charAt(0)){
-//			// WALL
-//			this.jumpResult(80, 20);
-//		}else if(location.getDisplayChar() == "+".charAt(0)){
-//			// SPROUT
-//			this.jumpResult(90, 10);
-//		}else if(location.getDisplayChar() == "t".charAt(0)){
-//			// SAPLING
-//			this.jumpResult(80, 20);
-//		}else if(location.getDisplayChar() == "T".charAt(0)){
-//			// MATURE
-//			this.jumpResult(70, 30);
-//		}
-//		return successful;
-//	}
-
-    private boolean jumpResult(int chance) {
-        return new Random().nextInt(100) < chance;
-    }
-
     @Override
     public boolean successfulJump(char jumpOn) {
-        boolean successful = false;
-        if (jumpOn == "#".charAt(0)) {
-            // WALL
-            successful = this.jumpResult(80);
-        } else if (jumpOn == "+".charAt(0)) {
-            // SPROUT
-            successful = this.jumpResult(0);
-        } else if (jumpOn == "t".charAt(0)) {
-            // SAPLING
-            successful = this.jumpResult(80);
-        } else if (jumpOn == "T".charAt(0)) {
-            // MATURE
-            successful = this.jumpResult(70);
-        }
-        return successful;
+        return false;
     }
-
-
-//	public ActionList allowableActions(Actor actor, String direction, GameMap map){
-//		ActionList actions = new ActionList();
-//		if actio
-//	}
 }
