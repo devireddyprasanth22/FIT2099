@@ -11,6 +11,7 @@ public class Sprout extends Tree {
         super('+');
     }
 
+
     @Override
     public void tick(Location location) {
         this.incrementTurn();

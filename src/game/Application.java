@@ -10,6 +10,8 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.magicalItems.PowerStar;
+import game.magicalItems.SuperMushroom;
 import game.tree.Sprout;
 import game.tree.Tree;
 
@@ -54,6 +56,8 @@ public class Application {
 
         // FIXME: the Goomba should be generated from the Tree
         gameMap.at(35, 10).addActor(new Goomba());
+        gameMap.at(42, 15).addItem(new PowerStar());
+        gameMap.at(20, 4).addItem(new SuperMushroom());
 //        world.setTreeList(map);
 //        treeHashMap.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));
         world.run();
