@@ -15,7 +15,8 @@ public enum Status {
     INVINCIBLE, // Take 0 damage as all enemy attacks are useless
     PASS_HIGH_GROUND,// Player does not have to jump to higher level ground, high ground is converted to dirt from ground if actor is on it
     CONVERT_COINS, // For every destroyed ground, drop $5
-    INSTANT_KILL // A successful attack will instantly kill enemies
+    INSTANT_KILL, // A successful attack will instantly kill enemies
 
-
+    IS_JUMPABLE,
+    CAN_JUMP
 }
