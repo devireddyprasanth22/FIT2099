@@ -7,32 +7,104 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
+import edu.monash.fit2099.engine.positions.World;
+import game.tree.Tree;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 /**
  * A little fungus guy.
  */
 public class Goomba extends Actor {
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+	private int hp;
+
 
 	/**
 	 * Constructor.
 	 */
 	public Goomba() {
-		super("Goomba", 'g', 50);
+		super("Goomba", 'g', 20);
 		this.behaviours.put(10, new WanderBehaviour());
+
 	}
 
-	/**
-	 * At the moment, we only make it can be attacked by Player.
-	 * You can do something else with this method.
-	 * @param otherActor the Actor that might perform an action.
-	 * @param direction  String representing the direction of the other Actor
-	 * @param map        current GameMap
-	 * @return list of actions
-	 * @see Status#HOSTILE_TO_ENEMY
-	 */
+	public void tick(Location currentLocation){
+		int r1 = (int)(Math.random()*(11-1)+1);
+		System.out.println(r1);
+		//suicide mechanic
+		if(r1 == 10 || this.getHp() < 0){
+			currentLocation.map().removeActor(this);
+		}
+		//attack mechanic
+		else if(isPlayerInAttackRange(currentLocation)){
+			//goomba is in attack range
+			if(r1 > 5){
+				//Goomba attacks player
+				System.out.println("Goomba attacks player");
+				getPlayerObj(currentLocation).hurt(10);
+			} else{
+				//goomba misses player
+				System.out.println("Goomba misses player");
+			}
+		}
+	}
+
+	public int getHp(){
+		return hp;
+	}
+
+	public boolean isPlayerInAttackRange(Location currentLocation){
+		int x = currentLocation.x();
+		int y = currentLocation.y();
+		int[] xArr = {-1, 0, 1};
+		int[] yArr = {-1, 0, 1};
+
+		for(int i = 0; i < xArr.length; i++){
+			for(int j = 0; j<yArr.length; j++){
+				try{
+					Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
+					if(newLocation.containsAnActor()){
+						if(newLocation.getActor().getDisplayChar() == 'm'){
+							return true;
+						}
+					}
+				} catch(Exception e){
+					//doing nothing
+				}
+
+			}
+		}
+		return false;
+	}
+	public Actor getPlayerObj(Location currentLocation){
+		int x = currentLocation.x();
+		int y = currentLocation.y();
+		int[] xArr = {-1, 0, 1};
+		int[] yArr = {-1, 0, 1};
+
+		for(int i = 0; i < xArr.length; i++){
+			for(int j = 0; j<yArr.length; j++){
+				try{
+					Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
+					if(newLocation.containsAnActor()){
+						if(newLocation.getActor().getDisplayChar() == 'm'){
+							return newLocation.getActor();
+						}
+					}
+				} catch(Exception e){
+					//do nothing
+				}
+			}
+		}
+		return null;
+	}
+
+
 	@Override
 	public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 		ActionList actions = new ActionList();
@@ -49,10 +121,14 @@ public class Goomba extends Actor {
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+		Location location = map.locationOf(this);
+		tick(location);
 		for(Behaviour Behaviour : behaviours.values()) {
-			Action action = Behaviour.getAction(this, map);
-			if (action != null)
-				return action;
+			if(location.map().locationOf(this) != null) {
+				Action action = Behaviour.getAction(this, map);
+				if (action != null)
+					return action;
+			}
 		}
 		return new DoNothingAction();
 	}
