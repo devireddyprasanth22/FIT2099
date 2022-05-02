@@ -1,4 +1,4 @@
-package game;
+package game.enemies;
 
 
 import edu.monash.fit2099.engine.actions.Action;
@@ -9,6 +9,10 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.World;
+import game.AttackAction;
+import game.Behaviour;
+import game.Status;
+import game.WanderBehaviour;
 import game.tree.Tree;
 
 import java.util.ArrayList;

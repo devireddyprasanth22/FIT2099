@@ -6,11 +6,17 @@ import game.Coin;
 
 
 public class Sapling extends Tree {
-
+    /**
+     * Constructor for Sapling
+     */
     public Sapling() {
         super('t');
     }
-
+    /**
+     * Method called tick that helps keep track of turns and gets location
+     * Adds a new coin at a 10% chance and becomes a Mature tree if turn is 10
+     * @param location
+     */
     @Override
     public void tick(Location location) {
         this.incrementTurn();
