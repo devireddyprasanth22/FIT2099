@@ -55,7 +55,6 @@ public class Application {
         world.addPlayer(mario, gameMap.at(42, 10));
 
         // FIXME: the Goomba should be generated from the Tree
-        gameMap.at(35, 10).addActor(new Goomba());
         gameMap.at(42, 15).addItem(new PowerStar());
         gameMap.at(20, 4).addItem(new SuperMushroom());
 //        world.setTreeList(map);
