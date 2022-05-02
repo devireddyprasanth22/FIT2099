@@ -40,14 +40,19 @@ public class Player extends Actor implements Jump {
         // return/print the console menu;
 
         // PLayer picks up coin -> it is added to the inventory
-        if(actorLocation.getDisplayChar() == "$".charAt(0)){
+        if (actorLocation.getDisplayChar() == "$".charAt(0)) {
             this.addItemToInventory(new Coin());
         }
 
-        for(Exit exit : actorLocation.getExits()){
+        for (Exit exit : actorLocation.getExits()) {
             Location destination = exit.getDestination();
 
-            if(destination.getDisplayChar() == "#".charAt(0)){
+            if (
+                    destination.getDisplayChar() == "#".charAt(0) ||
+                            destination.getDisplayChar() == "+".charAt(0) ||
+                            destination.getDisplayChar() == "t".charAt(0) ||
+                            destination.getDisplayChar() == "T".charAt(0)
+            ) {
                 actions.add(new JumpActorAction(destination, exit.getName(), exit.getHotKey()));
             }
         }
