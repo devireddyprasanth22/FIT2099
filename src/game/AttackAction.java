@@ -31,7 +31,7 @@ public class AttackAction extends Action {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param target the Actor to attack
 	 */
 	public AttackAction(Actor target, String direction) {
@@ -51,7 +51,7 @@ public class AttackAction extends Action {
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 		target.hurt(damage);
-		if (!target.isConscious()) {
+		if (!target.isConscious() && target.getDisplayChar()!='K' && target.getDisplayChar()!='D') {
 			ActionList dropActions = new ActionList();
 			// drop all items
 			for (Item item : target.getInventory())
@@ -61,6 +61,14 @@ public class AttackAction extends Action {
 			// remove actor
 			map.removeActor(target);
 			result += System.lineSeparator() + target + " is killed.";
+		} else {
+			ActionList dropActions = new ActionList();
+			// drop all items
+			for (Item item : target.getInventory())
+				dropActions.add(item.getDropAction(actor));
+			for (Action drop : dropActions)
+				drop.execute(target, map);
+			result += System.lineSeparator() + target + " is dormant.";
 		}
 
 		return result;
