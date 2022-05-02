@@ -4,9 +4,11 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
+import game.actions.JumpActorAction;
 
 import java.util.Random;
 
@@ -37,12 +39,22 @@ public class Player extends Actor implements Jump {
             return lastAction.getNextAction();
         // return/print the console menu;
 
+        // PLayer picks up coin -> it is added to the inventory
         if(actorLocation.getDisplayChar() == "$".charAt(0)){
             this.addItemToInventory(new Coin());
         }
-        this.getInventory().forEach(item -> {
-            System.out.println(item.getClass());
-        });
+
+        for(Exit exit : actorLocation.getExits()){
+            Location destination = exit.getDestination();
+
+            if(destination.getDisplayChar() == "#".charAt(0)){
+                actions.add(new JumpActorAction(destination, exit.getName(), exit.getHotKey()));
+            }
+        }
+        // Print inventory
+//        this.getInventory().forEach(item -> {
+//            System.out.println(item.getClass());
+//        });
 
         System.out.println(this.printHp());
 
