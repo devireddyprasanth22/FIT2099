@@ -3,16 +3,22 @@ package game.tree;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Dirt;
-import game.Goomba;
-import game.Koopa;
+import game.enemies.Koopa;
 
 import java.util.ArrayList;
 
 public class Mature extends Tree {
+    /**
+     * Constructor for Mature
+     */
     public Mature() {
         super('T');
     }
-
+    /**
+     * Method called tick that helps keep track of turns and gets location
+     * Adds a koopa at a 15% chance; sets a new sprout at a random fertile exit every 5 turns; becomes dirt at a 20% chance
+     * @param location
+     */
     @Override
     public void tick(Location location) {
         this.incrementTurn();

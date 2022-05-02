@@ -25,39 +25,49 @@ public abstract class Tree extends Ground {
         super(displayChar);
     }
 
+    /**
+     * A getter for turn
+     * @return turn
+     */
     public int getTurn() {
         return turn;
     }
 
+    /**
+     * method that increments turn
+     */
     public void incrementTurn() {
         this.turn += 1;
     }
 
+    /**
+     * method that takes in location and keeps track of turn
+     * @param location The location of the Ground
+     */
     public void tick(Location location) {
         this.incrementTurn();
     }
 
-
+    /**
+     * a method that returns a boolean value if chancePercent is within the acceptable range
+     * @param chancePercent
+     * @return
+     */
     public boolean chance(int chancePercent) {
         Random r = new Random();
         return r.nextInt(100) < (chancePercent);
     }
 
+    /**
+     * method called Exit that chooses a random exit point
+     * @param exits
+     * @return
+     */
     public Exit chooseRandomExit(ArrayList<Exit> exits) {
         Random r = new Random();
         int randomIndex = r.nextInt(exits.size());
         return exits.get(randomIndex);
     }
 
-    @Override
-    public ActionList allowableActions(Actor actor, Location location, String direction) {
-        return new ActionList();
-    }
 
-
-//    public abstract TreeState checkState();
-
-
-    // Abstract method to check the turns
-    //public abstract TreeState checkState();
 }
