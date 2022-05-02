@@ -5,10 +5,12 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Toad extends Actor {
@@ -30,6 +32,7 @@ public class Toad extends Actor {
                     "Being imprisoned in these walls can drive a fungus crazy :("
             };
 
+    private List<Item> playerInventory;
 
     public Toad() {
         super("Toad", 'O', 100);
@@ -40,14 +43,36 @@ public class Toad extends Actor {
         return new DoNothingAction();
     }
 
-    public String speak(){
-        int randomIndex = new Random().nextInt(this.monologueLines.length);
-        return this.monologueLines[randomIndex];
+    public String speak(Player player) {
+        this.playerInventory = player.getInventory();
+
+        String spokenLine = null;
+
+        if (this.playerInventory.isEmpty()) {
+            int randomIndex = new Random().nextInt(this.monologueLines.length);
+            // display everything
+             spokenLine = this.monologueLines[randomIndex];
+
+        } else if (this.playerInventory.contains(new Coin())) {
+            // TODO: Replace with Wrench
+
+            List<String> copyMonologueLines = new ArrayList<>(){};
+            copyMonologueLines.addAll(List.of(this.monologueLines));
+
+            copyMonologueLines.remove(2);
+            int randomIndex = new Random().nextInt(copyMonologueLines.size());
+            spokenLine = copyMonologueLines.get(randomIndex);
+        }
+        return spokenLine;
     }
 
-    public void sayStuff(Player player){
-        if(player.getInventory().isEmpty()){
-            // display everything
-        }
-    }
+//    public void sayStuff(Player player){
+//        this.playerInventory = player.getInventory();
+//
+//        if(this.playerInventory.isEmpty()){
+//            // display everything
+//        }else if(this.playerInventory.contains(new Coin())){
+////
+//        }
+//    }
 }

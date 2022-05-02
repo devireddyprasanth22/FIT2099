@@ -68,8 +68,8 @@ public class Player extends Actor implements Jump {
             }
 
             if (destination.getDisplayChar() == 'O'){
-                toad.sayStuff(this);
-                System.out.println("TOAD SAYS ::: " + toad.speak());
+                String spoken = toad.speak(this);
+                System.out.println("TOAD SAYS ::: " + spoken);
             }
         }
         // Print inventory
