@@ -35,6 +35,8 @@ public class Player extends Actor implements Jump {
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         Location actorLocation = new Location(map, 0, 0).map().locationOf(this);
+        Toad toad = (Toad) map.getActorAt(new Location(map, 45, 10));
+
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
@@ -49,10 +51,10 @@ public class Player extends Actor implements Jump {
             Location destination = exit.getDestination();
 
             if (
-                    destination.getDisplayChar() == "#".charAt(0) ||
-                            destination.getDisplayChar() == "+".charAt(0) ||
-                            destination.getDisplayChar() == "t".charAt(0) ||
-                            destination.getDisplayChar() == "T".charAt(0)
+                    destination.getDisplayChar() == '#' ||
+                            destination.getDisplayChar() == '+' ||
+                            destination.getDisplayChar() == 't' ||
+                            destination.getDisplayChar() == 'T'
             ) {
                 actions.add(new JumpActorAction(destination, exit.getName(), exit.getHotKey()));
                 System.out.println(exit.getHotKey());
@@ -63,6 +65,11 @@ public class Player extends Actor implements Jump {
                     }
                 }
                 actions.remove(actionToRemove);
+            }
+
+            if (destination.getDisplayChar() == 'O'){
+                toad.sayStuff(this);
+                System.out.println("TOAD SAYS ::: " + toad.speak());
             }
         }
         // Print inventory

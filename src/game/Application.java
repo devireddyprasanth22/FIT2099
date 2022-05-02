@@ -52,7 +52,10 @@ public class Application {
 //        HashMap<int[], Sprout> treeHashMap = Application.setTrees(map);
         world.addGameMap(gameMap);
         Actor mario = new Player("Player", 'm', 100);
+
         world.addPlayer(mario, gameMap.at(42, 10));
+
+        gameMap.at( 45, 10).addActor(new Toad());
 
         // FIXME: the Goomba should be generated from the Tree
         gameMap.at(42, 15).addItem(new PowerStar());
