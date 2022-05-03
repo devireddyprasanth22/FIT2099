@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.magicalItems.PowerStar;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -48,18 +49,45 @@ public class Toad extends Actor {
 
         String spokenLine = null;
 
+        boolean hasWrench = false;
+        for(Item item: this.playerInventory){
+            if (item.getDisplayChar() == 'W') {
+                hasWrench = true;
+                break;
+            }
+        }
+
+        boolean hasPowerStar = false;
+        for(Item item: this.playerInventory){
+            if (item.getDisplayChar() == '*') {
+                hasPowerStar = true;
+                break;
+            }
+        }
+
+
         if (this.playerInventory.isEmpty()) {
             int randomIndex = new Random().nextInt(this.monologueLines.length);
             // display everything
-             spokenLine = this.monologueLines[randomIndex];
+            spokenLine = this.monologueLines[randomIndex];
 
-        } else if (this.playerInventory.contains(new Coin())) {
-            // TODO: Replace with Wrench
-
-            List<String> copyMonologueLines = new ArrayList<>(){};
+        }
+        if (hasWrench) {
+            List<String> copyMonologueLines = new ArrayList<>() {
+            };
             copyMonologueLines.addAll(List.of(this.monologueLines));
 
-            copyMonologueLines.remove(2);
+            copyMonologueLines.remove(0);
+            System.out.println(copyMonologueLines);
+            int randomIndex = new Random().nextInt(copyMonologueLines.size());
+            spokenLine = copyMonologueLines.get(randomIndex);
+        }
+        if (hasPowerStar) {
+            List<String> copyMonologueLines = new ArrayList<>() {
+            };
+            copyMonologueLines.addAll(List.of(this.monologueLines));
+
+            copyMonologueLines.remove(1);
             int randomIndex = new Random().nextInt(copyMonologueLines.size());
             spokenLine = copyMonologueLines.get(randomIndex);
         }
