@@ -26,4 +26,5 @@ public abstract class MagicalItems extends Item {
         Random r = new Random();
         return r.nextInt(100) < (chancePercent);
     }
+
 }

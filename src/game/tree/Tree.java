@@ -27,6 +27,7 @@ public abstract class Tree extends Ground {
 
     /**
      * A getter for turn
+     *
      * @return turn
      */
     public int getTurn() {
@@ -42,6 +43,7 @@ public abstract class Tree extends Ground {
 
     /**
      * method that takes in location and keeps track of turn
+     *
      * @param location The location of the Ground
      */
     public void tick(Location location) {
@@ -50,6 +52,7 @@ public abstract class Tree extends Ground {
 
     /**
      * a method that returns a boolean value if chancePercent is within the acceptable range
+     *
      * @param chancePercent
      * @return
      */
@@ -60,13 +63,17 @@ public abstract class Tree extends Ground {
 
     /**
      * method called Exit that chooses a random exit point
+     *
      * @param exits
      * @return
      */
     public Exit chooseRandomExit(ArrayList<Exit> exits) {
         Random r = new Random();
-        int randomIndex = r.nextInt(exits.size());
-        return exits.get(randomIndex);
+        if (exits.size() >= 1) {
+            int randomIndex = r.nextInt(exits.size());
+            return exits.get(randomIndex);
+        }
+        return null;
     }
 
 

@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Koopa extends Actor{
+public class Koopa extends Actor {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
     private int hp;
 
@@ -33,40 +33,44 @@ public class Koopa extends Actor{
 
     }
 
-    public void tick(Location currentLocation){
+    public void tick(Location currentLocation) {
         /**
          *
          * currentLocation is location of object on the map
          *
          */
-        int r1 = (int)(Math.random()*(11-1)+1);
+        int r1 = (int) (Math.random() * (11 - 1) + 1);
         System.out.println(r1);
         //Dormant mechanic
-        if(this.getHp() <= 0){
+        if (this.getHp() <= 0) {
             this.setDisplayChar('D');
         }
         //attack mechanic
-        else if(isPlayerInAttackRange(currentLocation)){
+        else if (isPlayerInAttackRange(currentLocation)) {
             //koopa is in attack range
-            if(r1 > 5 && this.getDisplayChar() != 'D') {
+            if (r1 > 5 && this.getDisplayChar() != 'D') {
                 //koopa attacks player
                 System.out.println("Koopa attacks player");
                 getPlayerObj(currentLocation).hurt(30);
-            } else if(this.getDisplayChar() != 'D'){
+            } else if (this.getDisplayChar() != 'D') {
                 //koopa misses player
                 System.out.println("koopa misses player");
             }
         }
     }
 
-    public int getHp(){
+    public int getHp() {
         /**
          * returns hp of Koopa
          */
         return hp;
     }
 
-    public boolean isPlayerInAttackRange(Location currentLocation){
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public boolean isPlayerInAttackRange(Location currentLocation) {
         /**
          * currentLocation: location of Koopa on the map
          * returns: true or false if Mario is in attack range or not
@@ -76,16 +80,16 @@ public class Koopa extends Actor{
         int[] xArr = {-1, 0, 1};
         int[] yArr = {-1, 0, 1};
 
-        for(int i = 0; i < xArr.length; i++){
-            for(int j = 0; j<yArr.length; j++){
-                try{
+        for (int i = 0; i < xArr.length; i++) {
+            for (int j = 0; j < yArr.length; j++) {
+                try {
                     Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
-                    if(newLocation.containsAnActor()){
-                        if(newLocation.getActor().getDisplayChar() == 'm'){
+                    if (newLocation.containsAnActor()) {
+                        if (newLocation.getActor().getDisplayChar() == 'm') {
                             return true;
                         }
                     }
-                } catch(Exception e){
+                } catch (Exception e) {
                     //doing nothing
                 }
 
@@ -93,7 +97,8 @@ public class Koopa extends Actor{
         }
         return false;
     }
-    public Actor getPlayerObj(Location currentLocation){
+
+    public Actor getPlayerObj(Location currentLocation) {
         /**
          * currentLocation: current location of Koopa object
          * returns: Actor object in range of player. If not in range, return null
@@ -103,16 +108,16 @@ public class Koopa extends Actor{
         int[] xArr = {-1, 0, 1};
         int[] yArr = {-1, 0, 1};
 
-        for(int i = 0; i < xArr.length; i++){
-            for(int j = 0; j<yArr.length; j++){
-                try{
+        for (int i = 0; i < xArr.length; i++) {
+            for (int j = 0; j < yArr.length; j++) {
+                try {
                     Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
-                    if(newLocation.containsAnActor()){
-                        if(newLocation.getActor().getDisplayChar() == 'm'){
+                    if (newLocation.containsAnActor()) {
+                        if (newLocation.getActor().getDisplayChar() == 'm') {
                             return newLocation.getActor();
                         }
                     }
-                } catch(Exception e){
+                } catch (Exception e) {
                     //do nothing
                 }
             }
@@ -132,11 +137,12 @@ public class Koopa extends Actor{
          */
         ActionList actions = new ActionList();
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY) && this.getDisplayChar()!='D') {
-            actions.add(new AttackAction(this,direction));
+        if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY) && this.getDisplayChar() != 'D') {
+            actions.add(new AttackAction(this, direction));
         }
         return actions;
     }
+
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         /**
@@ -149,8 +155,8 @@ public class Koopa extends Actor{
          */
         Location location = map.locationOf(this);
         tick(location);
-        for(Behaviour Behaviour : behaviours.values()) {
-            if(location.map().locationOf(this) != null || this.getDisplayChar() != 'D') {
+        for (Behaviour Behaviour : behaviours.values()) {
+            if (location.map().locationOf(this) != null || this.getDisplayChar() != 'D') {
                 Action action = Behaviour.getAction(this, map);
                 if (action != null)
                     return action;

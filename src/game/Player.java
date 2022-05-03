@@ -5,11 +5,14 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.PickUpItemAction;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
+import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
+import game.magicalItems.SuperMushroom;
 
 import java.util.Random;
 
@@ -43,9 +46,24 @@ public class Player extends Actor implements Jump {
         // return/print the console menu;
 
         // PLayer picks up coin -> it is added to the inventory
-        if (actorLocation.getDisplayChar() == "$".charAt(0)) {
+        if (actorLocation.getDisplayChar() == '$') {
             this.addItemToInventory(new Coin());
+            actorLocation.setGround(new Dirt());
         }
+
+        new ConsumeItemAction("SuperMushroom", "aa");
+
+        if (actorLocation.getDisplayChar() == '^'){
+            SuperMushroom superMushroom = new SuperMushroom();
+//            this.addItemToInventory(superMushroom);
+//            superMushroom.newAction();
+
+//            new PickUpItemAction(new SuperMushroom());
+            actions.add(new PickUpItemAction(superMushroom));
+            superMushroom.getAllowableActions().add(new ConsumeItemAction("superMushroom", "aa"));
+        }
+
+
 
         for (Exit exit : actorLocation.getExits()) {
             Location destination = exit.getDestination();
@@ -57,7 +75,6 @@ public class Player extends Actor implements Jump {
                             destination.getDisplayChar() == 'T'
             ) {
                 actions.add(new JumpActorAction(destination, exit.getName(), exit.getHotKey()));
-                System.out.println(exit.getHotKey());
                 Action actionToRemove = null;
                 for(int i=0; i< actions.size(); i++){
                     if (actions.get(i).hotkey() == exit.getHotKey()){

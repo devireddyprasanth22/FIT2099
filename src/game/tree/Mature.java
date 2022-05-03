@@ -14,29 +14,33 @@ public class Mature extends Tree {
     public Mature() {
         super('T');
     }
+
     /**
      * Method called tick that helps keep track of turns and gets location
      * Adds a koopa at a 15% chance; sets a new sprout at a random fertile exit every 5 turns; becomes dirt at a 20% chance
+     *
      * @param location
      */
     @Override
     public void tick(Location location) {
         this.incrementTurn();
-        if (chance(15)&& !location.containsAnActor()) {
+        if (chance(15) && !location.containsAnActor()) {
             location.addActor(new Koopa());
         }
         if (this.getTurn() % 5 == 0) {
             ArrayList<Exit> exits = new ArrayList<>();
             Dirt dirt = new Dirt();
-            for(Exit exit: location.getExits()){
-                if (exit.getDestination().getGround().getClass().equals(dirt.getClass())){
+            for (Exit exit : location.getExits()) {
+                if (exit.getDestination().getGround().getClass().equals(dirt.getClass())) {
                     exits.add(exit);
                 }
             }
             Exit randomExit = this.chooseRandomExit(exits);
-            randomExit.getDestination().setGround(new Sprout());
+            if (randomExit != null) {
+                randomExit.getDestination().setGround(new Sprout());
+            }
         }
-        if(chance(20)){
+        if (chance(20)) {
             location.setGround(new Dirt());
         }
     }
