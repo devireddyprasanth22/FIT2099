@@ -11,7 +11,7 @@ public class PowerStar extends MagicalItems{
     public PowerStar() {
 
         super("Power Star", '*', true);
-        this.addCapability(Status.POWER_STAR);
+//        this.addCapability(Status.POWER_STAR);
     }
 
     public void tick(Location location){

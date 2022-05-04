@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Coin;
 import game.Dirt;
 import game.Status;
 
@@ -63,18 +64,22 @@ public class JumpActorAction extends Action {
         if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
             this.jumpValidation(map, actor, 100, 0, "Wall", actorLocation);
             this.moveToLocation.setGround(new Dirt());
-        }
+            this.moveToLocation.addItem(new Coin());
+       }
         if (this.moveToLocation.getDisplayChar() == "+".charAt(0)) {
             this.jumpValidation(map, actor, 100, 0, "Sprout", actorLocation);
             this.moveToLocation.setGround(new Dirt());
+            this.moveToLocation.addItem(new Coin());
         }
         if (this.moveToLocation.getDisplayChar() == "t".charAt(0)) {
             this.jumpValidation(map, actor, 100, 0, "Sapling", actorLocation);
             this.moveToLocation.setGround(new Dirt());
+            this.moveToLocation.addItem(new Coin());
         }
         if (this.moveToLocation.getDisplayChar() == "T".charAt(0)) {
             this.jumpValidation(map, actor, 100, 0, "Mature", actorLocation);
             this.moveToLocation.setGround(new Dirt());
+            this.moveToLocation.addItem(new Coin());
         }
     }
 

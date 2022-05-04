@@ -10,7 +10,7 @@ import java.util.List;
 public class SuperMushroom extends MagicalItems{
     public SuperMushroom() {
         super("Super Mushroom", '^', true);
-        this.addCapability(Status.SUPER_MUSHROOM);
+//        this.addCapability(Status.SUPER_MUSHROOM);
     }
 
 }
