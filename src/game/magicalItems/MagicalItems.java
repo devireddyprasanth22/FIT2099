@@ -2,6 +2,7 @@ package game.magicalItems;
 
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 
 import java.util.Random;
 
@@ -9,6 +10,7 @@ public abstract class MagicalItems extends Item {
     private int turn = 0;
     public MagicalItems(String name, char displayChar, boolean portable) {
         super(name, displayChar, portable);
+        this.addCapability(Status.IS_RESETTABLE);
     }
     public int getTurn() {
         return turn;
