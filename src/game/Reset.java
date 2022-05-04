@@ -19,6 +19,12 @@ public class Reset extends Action{
 
     }
 
+    /**
+     * This is the method that executes the actual reset.
+     * @param actor The actor performing the action.
+     * @param map The map the actor is on.
+     * @return null
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
         this.actor.setHasReset(true);
@@ -57,6 +63,11 @@ public class Reset extends Action{
 
     }
 
+    /**
+     * The menu description
+     * @param actor The actor performing the action.
+     * @return The string for menu description
+     */
     @Override
     public String menuDescription(Actor actor) {
         return "Reset game";

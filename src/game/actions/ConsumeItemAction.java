@@ -10,10 +10,20 @@ public class ConsumeItemAction extends Action {
 
     private final String actionFor;
 
+    /**
+     * Constructor for consuming items
+     * @param actionFor String value for the item you want to use it for eg: SuperMushroom or PowerStar
+     */
     public ConsumeItemAction(String actionFor) {
         this.actionFor = actionFor;
     }
 
+    /**
+     * This method is executed when the actor consumes the item
+     * @param actor The actor performing the action.
+     * @param map The map the actor is on.
+     * @return null
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
         if (this.actionFor == "SuperMushroom"){
@@ -49,6 +59,11 @@ public class ConsumeItemAction extends Action {
         return null;
     }
 
+    /**
+     * Menu description you want to show up
+     * @param actor The actor performing the action.
+     * @return String value of the menu description
+     */
     @Override
     public String menuDescription(Actor actor) {
         return actor + " consume " + this.actionFor;
