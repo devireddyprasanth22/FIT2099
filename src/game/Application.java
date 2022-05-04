@@ -64,7 +64,7 @@ public class Application {
         gameMap.at(42, 7).addItem(new SuperMushroom());
 
         mario.addItemToInventory(new SuperMushroom());
-
+        mario.addItemToInventory(new PowerStar());
 
 //        world.setTreeList(map);
 //        treeHashMap.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));

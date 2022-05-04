@@ -11,11 +11,7 @@ public class PowerStar extends MagicalItems{
     public PowerStar() {
 
         super("Power Star", '*', true);
-        this.addCapability(Status.PASS_HIGH_GROUND);
-        this.addCapability(Status.CONVERT_COINS);
-        this.addCapability(Status.INVINCIBLE);
-        this.addCapability(Status.INSTANT_KILL);
-        this.addCapability(Status.POWER_STAR);
+//        this.addCapability(Status.POWER_STAR);
     }
 
     public void tick(Location location){
