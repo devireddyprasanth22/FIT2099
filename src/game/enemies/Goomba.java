@@ -25,6 +25,7 @@ import java.util.Random;
  */
 public class Goomba extends Actor {
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+
 	private int hp;
 
 
@@ -71,6 +72,10 @@ public class Goomba extends Actor {
 		 * returns hp of Goomba
 		 */
 		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 
 	public boolean isPlayerInAttackRange(Location currentLocation){

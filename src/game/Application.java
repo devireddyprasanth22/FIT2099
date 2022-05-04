@@ -54,10 +54,18 @@ public class Application {
         Actor mario = new Player("Player", 'm', 100);
         world.addPlayer(mario, gameMap.at(42, 10));
 
+        gameMap.at( 45, 10).addActor(new Toad());
+
         // FIXME: the Goomba should be generated from the Tree
         gameMap.at(42, 15).addItem(new PowerStar());
         gameMap.at(20, 4).addItem(new SuperMushroom());
-        gameMap.at(42, 9).addItem(new SuperMushroom());
+
+
+        gameMap.at(42, 7).addItem(new SuperMushroom());
+
+        mario.addItemToInventory(new SuperMushroom());
+
+
 //        world.setTreeList(map);
 //        treeHashMap.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));
         world.run();

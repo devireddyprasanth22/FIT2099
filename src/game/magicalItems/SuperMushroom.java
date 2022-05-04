@@ -2,6 +2,7 @@ package game.magicalItems;
 
 import edu.monash.fit2099.engine.actions.Action;
 import game.Status;
+import game.actions.ConsumeItemAction;
 
 import java.util.ArrayList;
 import java.util.List;
