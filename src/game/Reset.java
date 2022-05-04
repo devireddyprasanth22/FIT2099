@@ -39,10 +39,7 @@ public class Reset extends Action{
                     System.out.println("Coin remover");
                 }
                 // Removes trees with 50% chance
-                if(currGround.getGround().getDisplayChar() == 'T' ||
-                        currGround.getGround().getDisplayChar() == 't' ||
-                        currGround.getGround().getDisplayChar() == '+' 
-                ){
+                if(currGround.getGround().hasCapability(Status.IS_RESETTABLE)){
                     if (new Random().nextInt(100) < 50) {
                         currGround.setGround(new Dirt());
                     }
