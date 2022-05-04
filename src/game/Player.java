@@ -35,6 +35,12 @@ public class Player extends Actor implements Jump {
 
     private boolean usingSuperMushroom = false;
 
+    private boolean hasReset = false;
+
+    public void setHasReset(boolean hasReset) {
+        this.hasReset = hasReset;
+    }
+
     /**
      * Constructor.
      *
@@ -97,24 +103,26 @@ public class Player extends Actor implements Jump {
 
         Location actorLocation = new Location(map, 0, 0).map().locationOf(this);
         Toad toad = (Toad) map.getActorAt(new Location(map, 45, 10));
-        actions.add(new Reset(this, map));
+        if (!hasReset) {
+            actions.add(new Reset(this, map));
+        }
 
-        if(isPlayerInRange(map)){
+        if (isPlayerInRange(map)) {
             //add power star
             actions.add(new Action() {
                 @Override
                 public String execute(Actor actor, GameMap map) {
                     //get wallet balance
                     int walletBalance = 0;
-                    for(Item item : actor.getInventory()){
-                        if(item.toString().equals("Coin")){
+                    for (Item item : actor.getInventory()) {
+                        if (item.toString().equals("Coin")) {
                             walletBalance += 200;
                         }
                     }
                     //check if player has enough money to buy item
-                    if(walletBalance < 600){
+                    if (walletBalance < 600) {
                         return "Mario doesn't have enough money! Collect more coins!";
-                    } else{
+                    } else {
                         actor.addItemToInventory(new PowerStar());
                         return "Mario bought a Power Star for $600!";
                     }
@@ -131,15 +139,15 @@ public class Player extends Actor implements Jump {
                 public String execute(Actor actor, GameMap map) {
                     //get wallet balance
                     int walletBalance = 0;
-                    for(Item item : actor.getInventory()){
-                        if(item.toString().equals("Coin")){
+                    for (Item item : actor.getInventory()) {
+                        if (item.toString().equals("Coin")) {
                             walletBalance += 200;
                         }
                     }
                     //check if player has enough money to buy item
-                    if(walletBalance < 400){
+                    if (walletBalance < 400) {
                         return "Mario doesn't have enough money! Collect more coins!";
-                    } else{
+                    } else {
                         actor.addItemToInventory(new SuperMushroom());
                         return "Mario bought a Super Mushroom for $400!";
                     }
@@ -155,15 +163,15 @@ public class Player extends Actor implements Jump {
                 public String execute(Actor actor, GameMap map) {
                     //get wallet balance
                     int walletBalance = 0;
-                    for(Item item : actor.getInventory()){
-                        if(item.toString().equals("Coin")){
+                    for (Item item : actor.getInventory()) {
+                        if (item.toString().equals("Coin")) {
                             walletBalance += 200;
                         }
                     }
                     //check if player has enough money to buy item
-                    if(walletBalance < 200){
+                    if (walletBalance < 200) {
                         return "Mario doesn't have enough money! Collect more coins!";
-                    } else{
+                    } else {
                         actor.addItemToInventory(new Wrench());
                         return "Mario bought a Wrench for $200!";
                     }

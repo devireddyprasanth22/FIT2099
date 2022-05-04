@@ -21,6 +21,7 @@ public class Reset extends Action{
 
     @Override
     public String execute(Actor actor, GameMap map) {
+        this.actor.setHasReset(true);
         this.actor.resetMaxHp(100);
         for(int i = 0; i< this.map.getXRange().max(); i++){
             for(int j = 0; j < this.map.getYRange().max(); j++){
@@ -39,11 +40,15 @@ public class Reset extends Action{
 //                    System.out.println("Coin remover");
 //                }
 
-//                currGround.getItems().forEach(item -> {
-//                    if (item.getDisplayChar() == '$'){
-//                        currGround.removeItem(item);
-//                    }
-//                });
+                Coin coinToRemove = null;
+//                List<Item> copy currGround.getItems()
+                if (currGround.getDisplayChar() == '$'){
+                    currGround.setGround(new Dirt());
+                }
+
+//                if(currGround.getItems().contains()){
+//                    currGround.setGround(new Dirt());
+//                }
 
                 // Removes trees with 50% chance
                 if(currGround.getGround().hasCapability(Status.IS_RESETTABLE)){

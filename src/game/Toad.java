@@ -78,7 +78,7 @@ public class Toad extends Actor {
             copyMonologueLines.addAll(List.of(this.monologueLines));
 
             copyMonologueLines.remove(0);
-            System.out.println(copyMonologueLines);
+//            System.out.println(copyMonologueLines);
             int randomIndex = new Random().nextInt(copyMonologueLines.size());
             spokenLine = copyMonologueLines.get(randomIndex);
         }
