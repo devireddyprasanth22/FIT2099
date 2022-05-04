@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.Player;
-import game.magicalItems.PowerStar;
+
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

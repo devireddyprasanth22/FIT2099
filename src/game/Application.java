@@ -56,8 +56,7 @@ public class Application {
         // adding power star and super mushroom to the game
         gameMap.at(42, 15).addItem(new PowerStar());
         gameMap.at(20, 4).addItem(new SuperMushroom());
-        gameMap.at(42, 7).addItem(new SuperMushroom());
-        // adding power star and super mushroom to inventory
+         // adding power star and super mushroom to inventory
         mario.addItemToInventory(new SuperMushroom());
         mario.addItemToInventory(new PowerStar());
         // runs the game
