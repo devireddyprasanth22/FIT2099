@@ -57,6 +57,7 @@ public class Application {
         // FIXME: the Goomba should be generated from the Tree
         gameMap.at(42, 15).addItem(new PowerStar());
         gameMap.at(20, 4).addItem(new SuperMushroom());
+        gameMap.at(42, 9).addItem(new SuperMushroom());
 //        world.setTreeList(map);
 //        treeHashMap.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));
         world.run();

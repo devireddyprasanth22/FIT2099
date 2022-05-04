@@ -12,6 +12,7 @@ public class SuperMushroom extends MagicalItems{
         this.addCapability(Status.INCREASE_MAX_HP);
         this.addCapability(Status.EVOLVE_CHAR);
         this.addCapability(Status.FREE_JUMP);
+        this.addCapability(Status.SUPER_MUSHROOM);
     }
 
 }

@@ -18,5 +18,9 @@ public enum Status {
     INSTANT_KILL, // A successful attack will instantly kill enemies
 
     IS_JUMPABLE,
-    CAN_JUMP
+    POWER_STAR,
+    SUPER_MUSHROOM,
+    CAN_JUMP,
+    REMOVE, // Resettable status
+    IS_RESETTABLE
 }

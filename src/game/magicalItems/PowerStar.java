@@ -15,6 +15,7 @@ public class PowerStar extends MagicalItems{
         this.addCapability(Status.CONVERT_COINS);
         this.addCapability(Status.INVINCIBLE);
         this.addCapability(Status.INSTANT_KILL);
+        this.addCapability(Status.POWER_STAR);
     }
 
     public void tick(Location location){

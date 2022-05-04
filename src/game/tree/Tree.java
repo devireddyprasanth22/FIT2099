@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
+import game.ResetManager;
 import game.Status;
 import game.actions.JumpActorAction;
 
@@ -23,6 +24,7 @@ public abstract class Tree extends Ground {
      */
     public Tree(char displayChar) {
         super(displayChar);
+        this.addCapability(Status.IS_RESETTABLE);
     }
 
     /**

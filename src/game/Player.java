@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.JumpActorAction;
+import game.magicalItems.SuperMushroom;
 
 import java.util.Random;
 
@@ -29,6 +30,7 @@ public class Player extends Actor implements Jump {
     public Player(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addCapability(Status.HOSTILE_TO_ENEMY);
+        this.addCapability(Status.IS_RESETTABLE);
     }
 
     @Override
@@ -43,7 +45,6 @@ public class Player extends Actor implements Jump {
         if(actorLocation.getDisplayChar() == "$".charAt(0)){
             this.addItemToInventory(new Coin());
         }
-
         for(Exit exit : actorLocation.getExits()){
             Location destination = exit.getDestination();
 
