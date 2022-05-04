@@ -8,12 +8,18 @@ import game.Status;
 import java.util.List;
 
 public class PowerStar extends MagicalItems{
+    /**
+     * Constructor for PowerStar
+     */
     public PowerStar() {
-
         super("Power Star", '*', true);
 //        this.addCapability(Status.POWER_STAR);
     }
 
+    /**
+     * tick takes in location, calls incrementTurn() and if the turn is 10, removes the item
+     * @param location
+     */
     public void tick(Location location){
         this.incrementTurn();
         if(this.getTurn() == 10){
