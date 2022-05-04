@@ -34,6 +34,16 @@ public class Reset extends Action{
                     }
                 }
                 Location currGround = this.map.at(i, j);
+                // Removes all coins 
+                for (Item item: currGround.getItems())
+                {
+                    if(item.hasCapability(Status.REMOVE)){
+                        currGround.removeItem(item);
+                        currGround.setGround(new Dirt());
+                        break;
+                    }
+
+                }
                 // Removes all coins - functionality not working yet
 //                if(currGround.getItems().{
 //                    currGround.setGround(new Dirt());
