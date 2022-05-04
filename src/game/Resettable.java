@@ -1,12 +1,15 @@
 package game;
 
+import edu.monash.fit2099.engine.positions.GameMap;
+
 public interface Resettable {
     /**
      * Allows any classes that use this interface to reset abilities, attributes, and/or items.
      * HINT: play around with capability, the actual implementation happens in the tick or playTurn method.
      * TODO: execute this method in a reset manager later.
+     * @param map
      */
-    void resetInstance();
+    void resetInstance(GameMap map);
 
     /**
      * a default interface method that register current instance to the Singleton manager.

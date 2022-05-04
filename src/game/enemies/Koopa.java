@@ -30,7 +30,7 @@ public class Koopa extends Actor {
          * Constructor
          */
         super("Koopa", 'K', 100);
-        this.hasCapability(Status.REMOVE);
+        this.addCapability(Status.REMOVE);
 
     }
 

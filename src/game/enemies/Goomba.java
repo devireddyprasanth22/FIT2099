@@ -38,7 +38,7 @@ public class Goomba extends Actor {
 		 */
 		super("Goomba", 'g', 20);
 		this.behaviours.put(10, new WanderBehaviour());
-		this.hasCapability(Status.REMOVE);
+		this.addCapability(Status.REMOVE);
 
 	}
 

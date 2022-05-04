@@ -1,17 +1,11 @@
 package game;
 
-import edu.monash.fit2099.engine.actions.Action;
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.actors.ActorLocationsIterator;
-import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.Item;
+
 import edu.monash.fit2099.engine.positions.GameMap;
-import edu.monash.fit2099.engine.positions.World;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * A global Singleton manager that does soft-reset on the instances.
@@ -20,7 +14,7 @@ import java.util.Map;
  * A3: Think about how will you improve this implementation in the future assessment.
  * What could be the drawbacks of this implementation?
  */
-public class ResetManager extends World implements Resettable{
+public class ResetManager{
     /**
      * A list of resettable instances (any classes that implements Resettable,
      * such as Player implements Resettable will be stored in here)
@@ -47,7 +41,6 @@ public class ResetManager extends World implements Resettable{
      * Constructor
      */
     private ResetManager(){
-        super(getInstance().display);
         resettableList = new ArrayList<>();
     }
 
@@ -55,14 +48,11 @@ public class ResetManager extends World implements Resettable{
      * Reset the game by traversing through all the list
      * By doing this way, it will avoid using `instanceof` all over the place.
      */
-    public void run(){
-        //Remove enemies
-        for (Actor actor: actorLocations){
-            lastActionMap.remove(actor.hasCapability(Status.REMOVE));
+    public void run(GameMap map){
+        for(Resettable reset: this.resettableList)
+        {
+            reset.resetInstance(map);
         }
-        //Remove all coins
-        //Remove all tree types with 50% chance
-        // Heal Player and reset player status
     }
 
     /**
@@ -70,6 +60,7 @@ public class ResetManager extends World implements Resettable{
      * FIXME: it does nothing, you need to implement it :)
      */
     public void appendResetInstance(Resettable reset){
+        this.resettableList.add(reset);
     }
 
 
@@ -79,15 +70,7 @@ public class ResetManager extends World implements Resettable{
      * FIXME: it does nothing, you need to implement it :)
      */
     public void cleanUp(Resettable resettable){
+        this.resettableList.remove(resettable);
     }
 
-    @Override
-    public void resetInstance() {
-
-    }
-
-    @Override
-    public void registerInstance() {
-        Resettable.super.registerInstance();
-    }
 }

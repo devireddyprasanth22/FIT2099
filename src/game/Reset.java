@@ -1,33 +1,60 @@
 package game;
 
+import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 
-public class Reset{
+import java.util.Random;
 
-    private final Actor actor;
+public class Reset extends Action{
+
+    private final Player actor;
     private final GameMap map;
 
-    public Reset(Actor actor, GameMap map) {
-        this.actor = actor;
+    public Reset(Player actor, GameMap map) {
         this.map = map;
+        this.actor = actor;
+
     }
 
-    public void execute(){
+    @Override
+    public String execute(Actor actor, GameMap map) {
         this.actor.resetMaxHp(100);
         for(int i = 0; i< this.map.getXRange().max(); i++){
             for(int j = 0; j < this.map.getYRange().max(); j++){
                 if(this.map.isAnActorAt(new Location(this.map, i, j))){
                     Actor currActor = this.map.getActorAt(new Location(this.map, i, j));
-                    if(currActor.getDisplayChar() != 'm' || currActor.getDisplayChar() != 'M'){
-//                        KILL ACTOR
-//                        currActor.allowableActions().add()
-                        currActor.hurt(20);
+                    // Remove enemies
+                    if (currActor.hasCapability(Status.REMOVE))
+                    {
+                        this.map.removeActor(currActor);
+                    }
+                }
+                Location currGround = this.map.at(i, j);
+                // Removes all coins - functionality not working yet
+                if(currGround.getGround().getDisplayChar() == "$".charAt(0)){
+                    currGround.setGround(new Dirt());
+                    System.out.println("Coin remover");
+                }
+                // Removes trees with 50% chance
+                if(currGround.getGround().getDisplayChar() == 'T' ||
+                        currGround.getGround().getDisplayChar() == 't' ||
+                        currGround.getGround().getDisplayChar() == '+' 
+                ){
+                    if (new Random().nextInt(100) < 50) {
+                        currGround.setGround(new Dirt());
                     }
                 }
             }
         }
+        return null;
 
+    }
+
+    @Override
+    public String menuDescription(Actor actor) {
+        return "Reset game";
     }
 }
