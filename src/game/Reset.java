@@ -33,11 +33,17 @@ public class Reset extends Action{
                     }
                 }
                 Location currGround = this.map.at(i, j);
-                // Removes all coins - functionality not working yet
-                if(currGround.getGround().getDisplayChar() == "$".charAt(0)){
-                    currGround.setGround(new Dirt());
-                    System.out.println("Coin remover");
+                // Removes all coins 
+                for (Item item: currGround.getItems())
+                {
+                    if(item.hasCapability(Status.REMOVE)){
+                        currGround.removeItem(item);
+                        currGround.setGround(new Dirt());
+                        break;
+                    }
+
                 }
+
                 // Removes trees with 50% chance
                 if(currGround.getGround().hasCapability(Status.IS_RESETTABLE)){
                     if (new Random().nextInt(100) < 50) {
