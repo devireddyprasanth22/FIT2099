@@ -9,7 +9,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.Behaviour;
+import game.behaviour.Behaviour;
 
 
 public class Bug extends Actor {

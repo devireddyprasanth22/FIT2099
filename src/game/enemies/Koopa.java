@@ -7,17 +7,13 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import edu.monash.fit2099.engine.positions.World;
-import game.AttackAction;
-import game.Behaviour;
+import game.actions.AttackAction;
+import game.behaviour.Behaviour;
 import game.Player;
 import game.Status;
-import game.tree.Tree;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Koopa extends Actor {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour

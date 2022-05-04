@@ -1,11 +1,7 @@
 package game.magicalItems;
 
-import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.positions.Location;
-import game.Dirt;
-import game.Status;
-
-import java.util.List;
+import game.groundItems.Dirt;
 
 public class PowerStar extends MagicalItems{
     /**

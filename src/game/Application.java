@@ -1,8 +1,6 @@
 package game;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import edu.monash.fit2099.engine.actors.Actor;
@@ -10,10 +8,12 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.groundItems.Dirt;
+import game.groundItems.Floor;
+import game.groundItems.Wall;
 import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
 import game.tree.Sprout;
-import game.tree.Tree;
 
 
 /**

@@ -2,21 +2,19 @@ package game;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
-import edu.monash.fit2099.engine.items.PickUpItemAction;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
+import game.groundItems.Dirt;
 import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
-
-import java.util.Random;
+import game.resetAction.Reset;
 
 /**
  * Class representing the Player.

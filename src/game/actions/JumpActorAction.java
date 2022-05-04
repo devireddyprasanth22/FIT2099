@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Coin;
-import game.Dirt;
+import game.groundItems.Dirt;
 import game.Status;
 
 import java.util.Random;
