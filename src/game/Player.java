@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.items.PickUpItemAction;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
@@ -51,19 +52,16 @@ public class Player extends Actor implements Jump {
             actorLocation.setGround(new Dirt());
         }
 
-        new ConsumeItemAction("SuperMushroom", "aa");
-
-        if (actorLocation.getDisplayChar() == '^'){
-            SuperMushroom superMushroom = new SuperMushroom();
-//            this.addItemToInventory(superMushroom);
-//            superMushroom.newAction();
-
-//            new PickUpItemAction(new SuperMushroom());
-            actions.add(new PickUpItemAction(superMushroom));
-            superMushroom.getAllowableActions().add(new ConsumeItemAction("superMushroom", "aa"));
+        boolean hasSuperMushroom = false;
+        for (Item item : this.getInventory()) {
+            if (item.getDisplayChar() == '^') {
+                hasSuperMushroom = true;
+                break;
+            }
         }
-
-
+        if (hasSuperMushroom || actorLocation.getDisplayChar() == '^') {
+            actions.add(new ConsumeItemAction("SuperMushroom"));
+        }
 
         for (Exit exit : actorLocation.getExits()) {
             Location destination = exit.getDestination();
@@ -76,15 +74,15 @@ public class Player extends Actor implements Jump {
             ) {
                 actions.add(new JumpActorAction(destination, exit.getName(), exit.getHotKey()));
                 Action actionToRemove = null;
-                for(int i=0; i< actions.size(); i++){
-                    if (actions.get(i).hotkey() == exit.getHotKey()){
-                        actionToRemove =  actions.get(i);
+                for (int i = 0; i < actions.size(); i++) {
+                    if (actions.get(i).hotkey() == exit.getHotKey()) {
+                        actionToRemove = actions.get(i);
                     }
                 }
                 actions.remove(actionToRemove);
             }
 
-            if (destination.getDisplayChar() == 'O'){
+            if (destination.getDisplayChar() == 'O') {
                 String spoken = toad.speak(this);
                 System.out.println("TOAD SAYS ::: " + spoken);
             }

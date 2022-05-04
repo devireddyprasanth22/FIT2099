@@ -19,10 +19,10 @@ public class Reset{
         for(int i = 0; i< this.map.getXRange().max(); i++){
             for(int j = 0; j < this.map.getYRange().max(); j++){
                 if(this.map.isAnActorAt(new Location(this.map, i, j))){
-                    Actor currActor = this.map.getActorAt(new Location(this.map, i, j))
+                    Actor currActor = this.map.getActorAt(new Location(this.map, i, j));
                     if(currActor.getDisplayChar() != 'm' || currActor.getDisplayChar() != 'M'){
 //                        KILL ACTOR
-                        currActor.allowableActions().add()
+//                        currActor.allowableActions().add()
                         currActor.hurt(20);
                     }
                 }
