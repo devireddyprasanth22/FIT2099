@@ -13,6 +13,7 @@ import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
+import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
 
 import java.util.Random;
@@ -46,11 +47,135 @@ public class Player extends Actor implements Jump {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
     }
 
+    public boolean isPlayerInRange(GameMap map) {
+        /**
+         * Determines if toad is in range of player to purchase items
+         *
+         * @param map current map both player and toad are on
+         * @returns true or false depending on if toad is in range of player
+         *
+         */
+        int[] xArr = {-1, 0, 1};
+        int[] yArr = {-1, 0, 1};
+
+        Location currentLocation = map.locationOf(this);
+
+        int x = currentLocation.x();
+        int y = currentLocation.y();
+
+        for (int i = 0; i < xArr.length; i++) {
+            for (int j = 0; j < yArr.length; j++) {
+                try {
+                    Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
+                    if (newLocation.containsAnActor()) {
+                        if (newLocation.getActor().getDisplayChar() == 'O') {
+                            return true;
+                        }
+                    }
+                } catch (Exception e) {
+                    //doing nothing
+                }
+
+            }
+        }
+        return false;
+    }
+
+
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        /**
+         * Does all necessary functions for a player's turn
+         *
+         * @param actions A list of actions the player can do
+         * @param lastAction Last action player did
+         * @param map Current map player is on
+         * @param display display object
+         *
+         * @return Action the player is doing this turn
+         */
+
         Location actorLocation = new Location(map, 0, 0).map().locationOf(this);
         Toad toad = (Toad) map.getActorAt(new Location(map, 45, 10));
-        actions.add(new Reset(this,map));
+        actions.add(new Reset(this, map));
+
+        if(isPlayerInRange(map)){
+            //add power star
+            actions.add(new Action() {
+                @Override
+                public String execute(Actor actor, GameMap map) {
+                    //get wallet balance
+                    int walletBalance = 0;
+                    for(Item item : actor.getInventory()){
+                        if(item.toString().equals("Coin")){
+                            walletBalance += 200;
+                        }
+                    }
+                    //check if player has enough money to buy item
+                    if(walletBalance < 600){
+                        return "Mario doesn't have enough money! Collect more coins!";
+                    } else{
+                        actor.addItemToInventory(new PowerStar());
+                        return "Mario bought a Power Star for $600!";
+                    }
+                }
+
+                @Override
+                public String menuDescription(Actor actor) {
+                    return "Mario buys Power Star ($600)";
+                }
+            });
+            //Add super mushroom
+            actions.add(new Action() {
+                @Override
+                public String execute(Actor actor, GameMap map) {
+                    //get wallet balance
+                    int walletBalance = 0;
+                    for(Item item : actor.getInventory()){
+                        if(item.toString().equals("Coin")){
+                            walletBalance += 200;
+                        }
+                    }
+                    //check if player has enough money to buy item
+                    if(walletBalance < 400){
+                        return "Mario doesn't have enough money! Collect more coins!";
+                    } else{
+                        actor.addItemToInventory(new SuperMushroom());
+                        return "Mario bought a Super Mushroom for $400!";
+                    }
+                }
+
+                @Override
+                public String menuDescription(Actor actor) {
+                    return "Mario buys Super Mushroom ($400)";
+                }
+            });
+            actions.add(new Action() {
+                @Override
+                public String execute(Actor actor, GameMap map) {
+                    //get wallet balance
+                    int walletBalance = 0;
+                    for(Item item : actor.getInventory()){
+                        if(item.toString().equals("Coin")){
+                            walletBalance += 200;
+                        }
+                    }
+                    //check if player has enough money to buy item
+                    if(walletBalance < 200){
+                        return "Mario doesn't have enough money! Collect more coins!";
+                    } else{
+                        actor.addItemToInventory(new Wrench());
+                        return "Mario bought a Wrench for $200!";
+                    }
+                }
+
+                @Override
+                public String menuDescription(Actor actor) {
+                    return "Mario buys Wrench ($200)";
+                }
+            });
+        }
+
 
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
@@ -69,7 +194,7 @@ public class Player extends Actor implements Jump {
             if (item.getDisplayChar() == '^') {
                 hasSuperMushroom = true;
             }
-            if (item.getDisplayChar() == '*'){
+            if (item.getDisplayChar() == '*') {
                 hasPowerStar = true;
             }
         }
@@ -77,15 +202,15 @@ public class Player extends Actor implements Jump {
             actions.add(new ConsumeItemAction("SuperMushroom"));
         }
 
-        if (hasPowerStar || actorLocation.getDisplayChar() == '*'){
+        if (hasPowerStar || actorLocation.getDisplayChar() == '*') {
             actions.add(new ConsumeItemAction("PowerStar"));
         }
 
         System.out.print("POWERSTAR IN USE :::" + this.hasCapability(Status.POWER_STAR));
 
-        if(this.hasCapability(Status.SUPER_MUSHROOM)){
+        if (this.hasCapability(Status.SUPER_MUSHROOM)) {
             this.setDisplayChar('M');
-        }else{
+        } else {
             this.setDisplayChar('m');
         }
 
@@ -134,8 +259,8 @@ public class Player extends Actor implements Jump {
         return false;
     }
 
-    public void deactivateSuperMushroom(){
-        if(this.hasCapability(Status.SUPER_MUSHROOM)){
+    public void deactivateSuperMushroom() {
+        if (this.hasCapability(Status.SUPER_MUSHROOM)) {
             this.removeCapability(Status.SUPER_MUSHROOM);
         }
     }
