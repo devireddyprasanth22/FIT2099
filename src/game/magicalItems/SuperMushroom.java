@@ -8,9 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SuperMushroom extends MagicalItems{
+    /**
+     * Constructor for SuperMushroom
+     */
     public SuperMushroom() {
         super("Super Mushroom", '^', true);
 //        this.addCapability(Status.SUPER_MUSHROOM);
     }
 
 }
+
