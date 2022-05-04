@@ -8,7 +8,7 @@ public class Coin extends Item {
      */
     public Coin() {
         super("Coin", '$', true);
-        this.addCapability(Status.IS_RESETTABLE);
+        this.addCapability(Status.REMOVE);
     }
 
 }

@@ -50,6 +50,7 @@ public class Player extends Actor implements Jump {
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         Location actorLocation = new Location(map, 0, 0).map().locationOf(this);
         Toad toad = (Toad) map.getActorAt(new Location(map, 45, 10));
+        actions.add(new Reset(this,map));
 
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
