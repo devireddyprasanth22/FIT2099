@@ -10,6 +10,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.World;
 import game.AttackAction;
 import game.Behaviour;
+import game.Player;
 import game.Status;
 import game.tree.Tree;
 
@@ -53,6 +54,11 @@ public class Koopa extends Actor {
                 //koopa attacks player
                 System.out.println("Koopa attacks player");
                 getPlayerObj(currentLocation).hurt(30);
+
+                Player player = (Player) getPlayerObj(currentLocation);
+                player.hurt(30);
+                player.deactivateSuperMushroom();
+
             } else if (this.getDisplayChar() != 'D') {
                 //koopa misses player
                 System.out.println("koopa misses player");
@@ -86,7 +92,7 @@ public class Koopa extends Actor {
                 try {
                     Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
                     if (newLocation.containsAnActor()) {
-                        if (newLocation.getActor().getDisplayChar() == 'm') {
+                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
                             return true;
                         }
                     }
@@ -114,7 +120,7 @@ public class Koopa extends Actor {
                 try {
                     Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
                     if (newLocation.containsAnActor()) {
-                        if (newLocation.getActor().getDisplayChar() == 'm') {
+                        if (newLocation.getActor().getDisplayChar() == 'm' ||newLocation.getActor().getDisplayChar() == 'M' ) {
                             return newLocation.getActor();
                         }
                     }

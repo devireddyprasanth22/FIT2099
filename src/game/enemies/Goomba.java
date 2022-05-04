@@ -9,10 +9,7 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.World;
-import game.AttackAction;
-import game.Behaviour;
-import game.Status;
-import game.WanderBehaviour;
+import game.*;
 import game.tree.Tree;
 
 import java.util.ArrayList;
@@ -60,6 +57,9 @@ public class Goomba extends Actor {
 				//Goomba attacks player
 				System.out.println("Goomba attacks player");
 				getPlayerObj(currentLocation).hurt(10);
+				Player player = (Player) getPlayerObj(currentLocation);
+				player.hurt(10);
+				player.deactivateSuperMushroom();
 			} else{
 				//goomba misses player
 				System.out.println("Goomba misses player");
@@ -93,7 +93,7 @@ public class Goomba extends Actor {
 				try{
 					Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
 					if(newLocation.containsAnActor()){
-						if(newLocation.getActor().getDisplayChar() == 'm'){
+						if(newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M'){
 							return true;
 						}
 					}
@@ -120,7 +120,7 @@ public class Goomba extends Actor {
 				try{
 					Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
 					if(newLocation.containsAnActor()){
-						if(newLocation.getActor().getDisplayChar() == 'm'){
+						if(newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M'){
 							return newLocation.getActor();
 						}
 					}

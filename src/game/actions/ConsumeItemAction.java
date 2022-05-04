@@ -26,6 +26,7 @@ public class ConsumeItemAction extends Action {
         }
         if(hasSuperMushroom){
             actor.addCapability(Status.SUPER_MUSHROOM);
+            actor.increaseMaxHp(50);
             return this.menuDescription(actor);
         }
 
