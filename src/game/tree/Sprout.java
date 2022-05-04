@@ -14,7 +14,7 @@ public class Sprout extends Tree {
     /**
      * Method called tick that helps keep track of turns and gets location
      * Adds goomba at a 10% chance and becomes a sapling if turn is 10
-     * @param location
+     * @param location Location object
      */
     @Override
     public void tick(Location location) {

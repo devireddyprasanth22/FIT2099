@@ -21,7 +21,7 @@ import java.util.Random;
 /**
  * Class representing the Player.
  */
-public class Player extends Actor  {
+public class Player extends Actor {
     /**
      * a menu object
      */
@@ -29,6 +29,7 @@ public class Player extends Actor  {
 
     /**
      * a boolean method that returns true if Player has super mushroom
+     *
      * @return
      */
     public boolean isUsingSuperMushroom() {
@@ -37,6 +38,7 @@ public class Player extends Actor  {
 
     /**
      * setUsingSuperMushroom takes the boolean value from isUsingSuperMushroom and sets the UsingSuperMushroom attribute if true
+     *
      * @param usingSuperMushroom
      */
     public void setUsingSuperMushroom(boolean usingSuperMushroom) {
@@ -50,6 +52,7 @@ public class Player extends Actor  {
 
     /**
      * setHasReset takes a boolean value and sets the hasReset attribute if true
+     *
      * @param hasReset
      */
     public void setHasReset(boolean hasReset) {
@@ -68,14 +71,13 @@ public class Player extends Actor  {
         this.addCapability(Status.HOSTILE_TO_ENEMY);
     }
 
+    /**
+     * Determines if toad is in range of player to purchase items
+     *
+     * @param map current map both player and toad are on
+     * @returns true or false depending on if toad is in range of player
+     */
     public boolean isPlayerInRange(GameMap map) {
-        /**
-         * Determines if toad is in range of player to purchase items
-         *
-         * @param map current map both player and toad are on
-         * @returns true or false depending on if toad is in range of player
-         *
-         */
         int[] xArr = {-1, 0, 1};
         int[] yArr = {-1, 0, 1};
 

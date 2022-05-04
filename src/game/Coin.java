@@ -4,7 +4,7 @@ import edu.monash.fit2099.engine.items.Item;
 
 public class Coin extends Item {
     /***
-     * Constructor.
+     * Constructor for creating a new coin
      */
     public Coin() {
         super("Coin", '$', true);

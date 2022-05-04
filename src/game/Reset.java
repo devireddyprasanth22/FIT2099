@@ -8,11 +8,17 @@ import edu.monash.fit2099.engine.positions.Location;
 
 import java.util.Random;
 
-public class Reset extends Action{
+public class Reset extends Action {
 
     private final Player actor;
     private final GameMap map;
 
+    /**
+     * Constrcutor for Reset
+     *
+     * @param actor mario
+     * @param map
+     */
     public Reset(Player actor, GameMap map) {
         this.map = map;
         this.actor = actor;
@@ -21,29 +27,28 @@ public class Reset extends Action{
 
     /**
      * This is the method that executes the actual reset.
+     *
      * @param actor The actor performing the action.
-     * @param map The map the actor is on.
+     * @param map   The map the actor is on.
      * @return null
      */
     @Override
     public String execute(Actor actor, GameMap map) {
         this.actor.setHasReset(true);
         this.actor.resetMaxHp(100);
-        for(int i = 0; i< this.map.getXRange().max(); i++){
-            for(int j = 0; j < this.map.getYRange().max(); j++){
-                if(this.map.isAnActorAt(new Location(this.map, i, j))){
+        for (int i = 0; i < this.map.getXRange().max(); i++) {
+            for (int j = 0; j < this.map.getYRange().max(); j++) {
+                if (this.map.isAnActorAt(new Location(this.map, i, j))) {
                     Actor currActor = this.map.getActorAt(new Location(this.map, i, j));
                     // Remove enemies
-                    if (currActor.hasCapability(Status.REMOVE))
-                    {
+                    if (currActor.hasCapability(Status.REMOVE)) {
                         this.map.removeActor(currActor);
                     }
                 }
                 Location currGround = this.map.at(i, j);
                 // Removes all coins 
-                for (Item item: currGround.getItems())
-                {
-                    if(item.hasCapability(Status.REMOVE)){
+                for (Item item : currGround.getItems()) {
+                    if (item.hasCapability(Status.REMOVE)) {
                         currGround.removeItem(item);
                         currGround.setGround(new Dirt());
                         break;
@@ -52,7 +57,7 @@ public class Reset extends Action{
                 }
 
                 // Removes trees with 50% chance
-                if(currGround.getGround().hasCapability(Status.IS_RESETTABLE)){
+                if (currGround.getGround().hasCapability(Status.IS_RESETTABLE)) {
                     if (new Random().nextInt(100) < 50) {
                         currGround.setGround(new Dirt());
                     }
@@ -65,6 +70,7 @@ public class Reset extends Action{
 
     /**
      * The menu description
+     *
      * @param actor The actor performing the action.
      * @return The string for menu description
      */
