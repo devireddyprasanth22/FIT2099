@@ -4,7 +4,7 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
 
 public class Wrench extends WeaponItem {
     /**
-     * Constructor.
+     * Constructor for wrench
      *
      */
     public Wrench() {

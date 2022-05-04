@@ -24,8 +24,6 @@ public class Application {
     public static void main(String[] args) {
 
         World world = new World(new Display());
-
-
         FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Sprout());
 
         List<String> map = Arrays.asList(
