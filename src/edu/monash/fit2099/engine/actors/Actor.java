@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * An entity that is alive by having hit points. It also holds inventory that stores items.
  */
-public abstract class Actor implements Capable, Printable {
+public abstract class 	Actor implements Capable, Printable {
 
 	/**
 	 * Actor's name

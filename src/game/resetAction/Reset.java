@@ -17,7 +17,7 @@ public class Reset extends Action {
     private final GameMap map;
 
     /**
-     * Constrcutor for Reset
+     * Constructor for Reset
      *
      * @param actor mario
      * @param map
