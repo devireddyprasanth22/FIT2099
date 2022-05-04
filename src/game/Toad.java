@@ -16,11 +16,7 @@ import java.util.Random;
 
 public class Toad extends Actor {
     /**
-     * Constructor.
-     *
-     * @param name        the name of the Actor
-     * @param displayChar the character that will represent the Actor in the display
-     * @param hitPoints   the Actor's starting hit points
+     * an array of string types called monologueLines that has the dialogues of Toad
      */
     private final String[] monologueLines = new String[]
             {
@@ -32,25 +28,44 @@ public class Toad extends Actor {
 
                     "Being imprisoned in these walls can drive a fungus crazy :("
             };
-
+    /**
+     * a private List of items called playerInventory
+     */
     private List<Item> playerInventory;
 
+    /**
+     * Constructor of the Toad class
+     */
     public Toad() {
         super("Toad", 'O', 100);
     }
+
+    /**
+     * playTurn method returns an action (in this instance, Toad does nothing as he is a NPC
+     * @param actions    collection of possible Actions for this Actor
+     * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+     * @param map        the map containing the Actor
+     * @param display    the I/O object to which messages may be written
+     * @return Action
+     */
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         return new DoNothingAction();
     }
 
+    /**
+     * speak is a method that returns a string from the monologueLines based off on some conditions
+     * @param player
+     * @return String
+     */
     public String speak(Player player) {
         this.playerInventory = player.getInventory();
 
         String spokenLine = null;
 
         boolean hasWrench = false;
-        for(Item item: this.playerInventory){
+        for (Item item : this.playerInventory) {
             if (item.getDisplayChar() == 'W') {
                 hasWrench = true;
                 break;
@@ -58,7 +73,7 @@ public class Toad extends Actor {
         }
 
         boolean hasPowerStar = false;
-        for(Item item: this.playerInventory){
+        for (Item item : this.playerInventory) {
             if (item.getDisplayChar() == '*') {
                 hasPowerStar = true;
                 break;
@@ -78,7 +93,6 @@ public class Toad extends Actor {
             copyMonologueLines.addAll(List.of(this.monologueLines));
 
             copyMonologueLines.remove(0);
-//            System.out.println(copyMonologueLines);
             int randomIndex = new Random().nextInt(copyMonologueLines.size());
             spokenLine = copyMonologueLines.get(randomIndex);
         }
@@ -93,14 +107,4 @@ public class Toad extends Actor {
         }
         return spokenLine;
     }
-
-//    public void sayStuff(Player player){
-//        this.playerInventory = player.getInventory();
-//
-//        if(this.playerInventory.isEmpty()){
-//            // display everything
-//        }else if(this.playerInventory.contains(new Coin())){
-////
-//        }
-//    }
 }

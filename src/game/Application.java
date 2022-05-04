@@ -49,25 +49,20 @@ public class Application {
                 "......................................................#.........................",
                 ".......................................................##.......................");
         GameMap gameMap = new GameMap(groundFactory, map);
-//        HashMap<int[], Sprout> treeHashMap = Application.setTrees(map);
+
         world.addGameMap(gameMap);
         Actor mario = new Player("Player", 'm', 100);
         world.addPlayer(mario, gameMap.at(42, 10));
-
+        // adding a toad character to the game
         gameMap.at( 45, 10).addActor(new Toad());
-
-        // FIXME: the Goomba should be generated from the Tree
+        // adding power star and super mushroom to the game
         gameMap.at(42, 15).addItem(new PowerStar());
         gameMap.at(20, 4).addItem(new SuperMushroom());
-
-
         gameMap.at(42, 7).addItem(new SuperMushroom());
-
+        // adding power star and super mushroom to inventory
         mario.addItemToInventory(new SuperMushroom());
         mario.addItemToInventory(new PowerStar());
-
-//        world.setTreeList(map);
-//        treeHashMap.forEach((key, value) -> System.out.println(Arrays.toString(key) + " " + value));
+        // runs the game
         world.run();
     }
 

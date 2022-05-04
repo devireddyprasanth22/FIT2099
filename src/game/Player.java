@@ -21,22 +21,37 @@ import java.util.Random;
 /**
  * Class representing the Player.
  */
-public class Player extends Actor implements Jump {
-
+public class Player extends Actor  {
+    /**
+     * a menu object
+     */
     private final Menu menu = new Menu();
 
+    /**
+     * a boolean method that returns true if Player has super mushroom
+     * @return
+     */
     public boolean isUsingSuperMushroom() {
         return usingSuperMushroom;
     }
 
+    /**
+     * setUsingSuperMushroom takes the boolean value from isUsingSuperMushroom and sets the UsingSuperMushroom attribute if true
+     * @param usingSuperMushroom
+     */
     public void setUsingSuperMushroom(boolean usingSuperMushroom) {
         this.usingSuperMushroom = usingSuperMushroom;
     }
+
 
     private boolean usingSuperMushroom = false;
 
     private boolean hasReset = false;
 
+    /**
+     * setHasReset takes a boolean value and sets the hasReset attribute if true
+     * @param hasReset
+     */
     public void setHasReset(boolean hasReset) {
         this.hasReset = hasReset;
     }
@@ -68,7 +83,7 @@ public class Player extends Actor implements Jump {
 
         int x = currentLocation.x();
         int y = currentLocation.y();
-
+        // a for loop that goes through the x and y location
         for (int i = 0; i < xArr.length; i++) {
             for (int j = 0; j < yArr.length; j++) {
                 try {
@@ -246,10 +261,7 @@ public class Player extends Actor implements Jump {
                 System.out.println("TOAD SAYS ::: " + spoken);
             }
         }
-        // Print inventory
-//        this.getInventory().forEach(item -> {
-//            System.out.println(item.getClass());
-//        });
+
 
         System.out.println(this.printHp());
 
@@ -258,15 +270,16 @@ public class Player extends Actor implements Jump {
     }
 
     @Override
+    /**
+     * getDisplayChar gets the char
+     */
     public char getDisplayChar() {
         return this.hasCapability(Status.TALL) ? Character.toUpperCase(super.getDisplayChar()) : super.getDisplayChar();
     }
 
-    @Override
-    public boolean successfulJump(char jumpOn) {
-        return false;
-    }
-
+    /**
+     * deactivateSuperMushroom checks if player has super mushroom and removes the capability if true
+     */
     public void deactivateSuperMushroom() {
         if (this.hasCapability(Status.SUPER_MUSHROOM)) {
             this.removeCapability(Status.SUPER_MUSHROOM);

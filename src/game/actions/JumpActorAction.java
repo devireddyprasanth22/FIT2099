@@ -24,11 +24,25 @@ public class JumpActorAction extends Action {
      */
     protected String hotKey;
 
+    /**
+     * Constructor for JumpActorAction
+     * @param moveToLocation
+     * @param direction
+     * @param hotKey
+     */
+
     public JumpActorAction(Location moveToLocation, String direction, String hotKey) {
         this.moveToLocation = moveToLocation;
         this.direction = direction;
         this.hotKey = hotKey;
     }
+
+    /**
+     * Method called normalJump that validates what its jumping over and the success and fail rate
+     * @param actor
+     * @param map
+     * @param actorLocation
+     */
 
     public void normalJump(Actor actor, GameMap map, Location actorLocation) {
         if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
@@ -45,6 +59,12 @@ public class JumpActorAction extends Action {
         }
     }
 
+    /**
+     *a method called superMushroomJump which basically allows the player to jump freely when they consume the super mushroom
+     * @param actor
+     * @param map
+     * @param actorLocation
+     */
     public void superMushroomJump(Actor actor, GameMap map, Location actorLocation) {
         if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
             this.jumpValidation(map, actor, 100, 0, "Wall", actorLocation);
@@ -60,6 +80,12 @@ public class JumpActorAction extends Action {
         }
     }
 
+    /**
+     * powerStarJump is a method that is implemented for when the player consumes the powerStar
+     * @param actor
+     * @param map
+     * @param actorLocation
+     */
     public void powerStarJump(Actor actor, GameMap map, Location actorLocation) {
         if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
             this.jumpValidation(map, actor, 100, 0, "Wall", actorLocation);
@@ -85,8 +111,10 @@ public class JumpActorAction extends Action {
 
 
     @Override
+    /**
+     * Method called execute that checks the capability and perform the appropriate jump action
+     */
     public String execute(Actor actor, GameMap map) {
-        // System.out.println("Jumped");
         // The actor has jumped
         Location actorLocation = map.locationOf(actor);
         if (actor.hasCapability(Status.SUPER_MUSHROOM)) {
@@ -101,14 +129,31 @@ public class JumpActorAction extends Action {
     }
 
     @Override
+    /**
+     * menuDescription returns a string that is displayed to the user
+     */
     public String menuDescription(Actor actor) {
         return actor + " jumps " + direction;
     }
 
+    /**
+     * successChance returns a boolean value depending on wether or not the chance percent is met
+     * @param chance
+     * @return
+     */
     private boolean successChance(int chance) {
         return new Random().nextInt(100) < chance;
     }
 
+    /**
+     * jumpValidation does a validation if the jump has been successful and displays where the actor has jumped to
+     * @param map
+     * @param actor
+     * @param chance
+     * @param damage
+     * @param toJumpOn
+     * @param actorLocation
+     */
     private void jumpValidation(GameMap map, Actor actor, int chance, int damage, String toJumpOn, Location actorLocation) {
         if (successChance(chance)) {
             map.moveActor(actor, this.moveToLocation);
