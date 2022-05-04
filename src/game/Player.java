@@ -24,6 +24,16 @@ public class Player extends Actor implements Jump {
 
     private final Menu menu = new Menu();
 
+    public boolean isUsingSuperMushroom() {
+        return usingSuperMushroom;
+    }
+
+    public void setUsingSuperMushroom(boolean usingSuperMushroom) {
+        this.usingSuperMushroom = usingSuperMushroom;
+    }
+
+    private boolean usingSuperMushroom = false;
+
     /**
      * Constructor.
      *
@@ -53,15 +63,24 @@ public class Player extends Actor implements Jump {
         }
 
         boolean hasSuperMushroom = false;
+        boolean hasPowerStar = false;
         for (Item item : this.getInventory()) {
             if (item.getDisplayChar() == '^') {
                 hasSuperMushroom = true;
-                break;
+            }
+            if (item.getDisplayChar() == '*'){
+                hasPowerStar = true;
             }
         }
         if (hasSuperMushroom || actorLocation.getDisplayChar() == '^') {
             actions.add(new ConsumeItemAction("SuperMushroom"));
         }
+
+        if (hasPowerStar || actorLocation.getDisplayChar() == '*'){
+            actions.add(new ConsumeItemAction("PowerStar"));
+        }
+
+        System.out.print("POWERSTAR IN USE :::" + this.hasCapability(Status.POWER_STAR));
 
         if(this.hasCapability(Status.SUPER_MUSHROOM)){
             this.setDisplayChar('M');

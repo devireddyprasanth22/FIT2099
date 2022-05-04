@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Dirt;
 import game.Status;
 
 import java.util.Random;
@@ -28,7 +29,7 @@ public class JumpActorAction extends Action {
         this.hotKey = hotKey;
     }
 
-    public void normalJump(Actor actor, GameMap map, Location actorLocation){
+    public void normalJump(Actor actor, GameMap map, Location actorLocation) {
         if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
             this.jumpValidation(map, actor, 80, 20, "Wall", actorLocation);
         }
@@ -43,7 +44,7 @@ public class JumpActorAction extends Action {
         }
     }
 
-    public void superMushroomJump(Actor actor, GameMap map, Location actorLocation){
+    public void superMushroomJump(Actor actor, GameMap map, Location actorLocation) {
         if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
             this.jumpValidation(map, actor, 100, 0, "Wall", actorLocation);
         }
@@ -58,15 +59,36 @@ public class JumpActorAction extends Action {
         }
     }
 
+    public void powerStarJump(Actor actor, GameMap map, Location actorLocation) {
+        if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
+            this.jumpValidation(map, actor, 100, 0, "Wall", actorLocation);
+            this.moveToLocation.setGround(new Dirt());
+        }
+        if (this.moveToLocation.getDisplayChar() == "+".charAt(0)) {
+            this.jumpValidation(map, actor, 100, 0, "Sprout", actorLocation);
+            this.moveToLocation.setGround(new Dirt());
+        }
+        if (this.moveToLocation.getDisplayChar() == "t".charAt(0)) {
+            this.jumpValidation(map, actor, 100, 0, "Sapling", actorLocation);
+            this.moveToLocation.setGround(new Dirt());
+        }
+        if (this.moveToLocation.getDisplayChar() == "T".charAt(0)) {
+            this.jumpValidation(map, actor, 100, 0, "Mature", actorLocation);
+            this.moveToLocation.setGround(new Dirt());
+        }
+    }
+
 
     @Override
     public String execute(Actor actor, GameMap map) {
         // System.out.println("Jumped");
         // The actor has jumped
         Location actorLocation = map.locationOf(actor);
-        if(actor.hasCapability(Status.SUPER_MUSHROOM)){
+        if (actor.hasCapability(Status.SUPER_MUSHROOM)) {
             this.superMushroomJump(actor, map, actorLocation);
-        }else{
+        } else if (actor.hasCapability(Status.POWER_STAR)) {
+            this.powerStarJump(actor, map, actorLocation);
+        } else {
             this.normalJump(actor, map, actorLocation);
         }
 
@@ -78,15 +100,15 @@ public class JumpActorAction extends Action {
         return actor + " jumps " + direction;
     }
 
-    private boolean successChance(int chance){
+    private boolean successChance(int chance) {
         return new Random().nextInt(100) < chance;
     }
 
-    private void jumpValidation(GameMap map, Actor actor, int chance, int damage,String toJumpOn, Location actorLocation){
-        if(successChance(chance)){
+    private void jumpValidation(GameMap map, Actor actor, int chance, int damage, String toJumpOn, Location actorLocation) {
+        if (successChance(chance)) {
             map.moveActor(actor, this.moveToLocation);
             System.out.println(toJumpOn + " (x,y) -> " + "(" + actorLocation.x() + "," + actorLocation.y() + ")");
-        }else{
+        } else {
             System.out.println("The actor was hurt");
             actor.hurt(damage);
         }

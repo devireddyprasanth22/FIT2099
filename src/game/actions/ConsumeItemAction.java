@@ -16,20 +16,36 @@ public class ConsumeItemAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        boolean hasSuperMushroom = false;
-        for(Item item: actor.getInventory()){
-            if (item.getDisplayChar() == '^') {
-                hasSuperMushroom = true;
-                actor.removeItemFromInventory(item);
-                break;
+        if (this.actionFor == "SuperMushroom"){
+            System.out.println("Super muchsroom reached");
+            boolean hasSuperMushroom = false;
+            for(Item item: actor.getInventory()){
+                if (item.getDisplayChar() == '^') {
+                    hasSuperMushroom = true;
+                    actor.removeItemFromInventory(item);
+                    break;
+                }
+            }
+            if(hasSuperMushroom){
+                actor.addCapability(Status.SUPER_MUSHROOM);
+                actor.increaseMaxHp(50);
+                return this.menuDescription(actor);
+            }
+        }else if(this.actionFor == "PowerStar"){
+            boolean hasPowerStar = false;
+            for(Item item: actor.getInventory()){
+                if (item.getDisplayChar() == '^') {
+                    hasPowerStar = true;
+                    actor.removeItemFromInventory(item);
+                    break;
+                }
+            }
+            if(hasPowerStar){
+                actor.addCapability(Status.POWER_STAR);
+                actor.heal(200);
+                return this.menuDescription(actor);
             }
         }
-        if(hasSuperMushroom){
-            actor.addCapability(Status.SUPER_MUSHROOM);
-            actor.increaseMaxHp(50);
-            return this.menuDescription(actor);
-        }
-
         return null;
     }
 
