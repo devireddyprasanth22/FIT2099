@@ -63,6 +63,12 @@ public class Player extends Actor implements Jump {
             actions.add(new ConsumeItemAction("SuperMushroom"));
         }
 
+        if(this.hasCapability(Status.SUPER_MUSHROOM)){
+            this.setDisplayChar('M');
+        }else{
+            this.setDisplayChar('m');
+        }
+
         for (Exit exit : actorLocation.getExits()) {
             Location destination = exit.getDestination();
 
@@ -106,5 +112,11 @@ public class Player extends Actor implements Jump {
     @Override
     public boolean successfulJump(char jumpOn) {
         return false;
+    }
+
+    public void deactivateSuperMushroom(){
+        if(this.hasCapability(Status.SUPER_MUSHROOM)){
+            this.removeCapability(Status.SUPER_MUSHROOM);
+        }
     }
 }
