@@ -10,5 +10,7 @@ public enum Status {
     POWER_STAR, // power star status
     SUPER_MUSHROOM, // super mushroom status
     REMOVE, // Remove status
-    IS_RESETTABLE,// is resettable status
+    IS_RESETTABLE, // is resettable status
+    ENEMY,
+    LAVA //use this status to locate lava ground
 }

@@ -121,6 +121,11 @@ public class Player extends Actor {
         if (!hasReset) {
             actions.add(new Reset(this, map));
         }
+        // inflict 15 damage to player per turn if player on Lava
+        if (actorLocation.getGround().hasCapability(Status.LAVA))
+        {
+            this.hurt(15);
+        }
 
         if (isPlayerInRange(map)) {
             //add power star
