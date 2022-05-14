@@ -3,6 +3,7 @@ package game.tree;
 
 import edu.monash.fit2099.engine.positions.Location;
 import game.Coin;
+import game.magicalItems.FireFlower;
 
 
 public class Sapling extends Tree {
@@ -25,6 +26,9 @@ public class Sapling extends Tree {
         }
         if (this.getTurn() == 10) {
             location.setGround(new Mature());
+            if (chance(50) && !location.containsAnActor()) {
+                location.addItem(new FireFlower());
+            }
         }
     }
 

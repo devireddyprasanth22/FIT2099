@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
+import edu.monash.fit2099.engine.positions.World;
 import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
 import game.groundItems.Dirt;
@@ -122,11 +123,9 @@ public class Player extends Actor {
             actions.add(new Reset(this, map));
         }
         // inflict 15 damage to player per turn if player on Lava
-        if (actorLocation.getGround().hasCapability(Status.LAVA))
-        {
+        if (actorLocation.getGround().hasCapability(Status.LAVA)) {
             this.hurt(15);
         }
-
         if (isPlayerInRange(map)) {
             //add power star
             actions.add(new Action() {

@@ -10,6 +10,7 @@ import game.Status;
 public class Lava extends Ground {
     public Lava() {
         super('L');
+        this.addCapability(Status.LAVA);
     }
     @Override
     public boolean canActorEnter(Actor actor) {
