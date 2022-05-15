@@ -9,7 +9,9 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.World;
+//import game.actions.TeleportAction;
 import game.groundItems.Dirt;
 import game.groundItems.Floor;
 import game.groundItems.Lava;
@@ -70,13 +72,18 @@ public class Application {
         world.addGameMap(gameMap);
         world.addGameMap(lavaZone);
 
-        Actor mario = new Player("Player", 'm', 100);
+        Player mario = new Player("Player", 'm', 100);
+        mario.accessToMaps(gameMap, lavaZone);
         world.addPlayer(mario, gameMap.at(0, 0));
 
         WarpPipe warpPipe = new WarpPipe();
-        warpPipe.addSampleAction(new MoveActorAction(lavaZone.at(0,0), "to Lava Zone"));
+//        Location marioLocation = gameMap.locationOf(mario);
+//        TeleportAction teleport = new TeleportAction()
+//        warpPipe.addSampleAction(new TeleportAction(lavaZone.at(0,0), "to Lava Zone", marioLocation ));
         gameMap.at(1,1).addItem(warpPipe);
         lavaZone.at(0,0).addItem(warpPipe);
+      //  warpPipe.addSampleAction(new TeleportAction(marioLocation, "to Game Map", marioLocation));
+
 
 
 //      List<Item> itemsAtGround = gameMap.locationOf(mario).getItems();

@@ -2,6 +2,7 @@ package game;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
@@ -12,10 +13,14 @@ import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.World;
 import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
+//import game.actions.TeleportAction;
 import game.groundItems.Dirt;
 import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
 import game.resetAction.Reset;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class representing the Player.
@@ -48,6 +53,9 @@ public class Player extends Actor {
     private boolean usingSuperMushroom = false;
 
     private boolean hasReset = false;
+    private ArrayList<GameMap> maps = new ArrayList<>();
+    Location locationOnMainMap;
+
 
     /**
      * setHasReset takes a boolean value and sets the hasReset attribute if true
@@ -68,6 +76,7 @@ public class Player extends Actor {
     public Player(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addCapability(Status.HOSTILE_TO_ENEMY);
+        this.addCapability(Status.TELEPORT_TO_LAVAZONE);
     }
 
     /**
@@ -269,6 +278,15 @@ public class Player extends Actor {
 
         System.out.println(this.printHp());
 
+//        TELEPORT
+//3
+        List<Item> itemsAtGround = actorLocation.getItems();
+        itemsAtGround.forEach(item -> {
+            if(item.getDisplayChar() == 'c'){
+                System.out.println("Reached");
+                this.teleport(actions);
+            }
+        });
 
         return menu.showMenu(this, actions, display);
     }
@@ -288,5 +306,28 @@ public class Player extends Actor {
         if (this.hasCapability(Status.SUPER_MUSHROOM)) {
             this.removeCapability(Status.SUPER_MUSHROOM);
         }
+    }
+
+    public void teleport(ActionList actions){
+//        WarpPipe warpPipe = new WarpPipe();
+        System.out.println("Reached");
+        if(this.hasCapability(Status.TELEPORT_TO_LAVAZONE)){
+//            Teleport to lavazone
+            locationOnMainMap = maps.get(0).locationOf(this);
+            actions.add(new MoveActorAction(maps.get(1).at(0, 0), "To LavaZone"));
+            this.removeCapability(Status.TELEPORT_TO_LAVAZONE);
+            this.addCapability(Status.TELEPORT_TO_MAINMAP);
+        }else if(this.hasCapability(Status.TELEPORT_TO_MAINMAP)){
+//            Teleport to main map
+            actions.add((new MoveActorAction(maps.get(0).at(locationOnMainMap.x(), locationOnMainMap.y()), "To MainMap")));
+            this.removeCapability(Status.TELEPORT_TO_MAINMAP);
+            this.addCapability(Status.TELEPORT_TO_LAVAZONE);
+        }else{
+//            Raise map not found
+        }
+    }
+
+    public void accessToMaps(GameMap... mapParams){
+        maps.addAll(List.of(mapParams));
     }
 }
