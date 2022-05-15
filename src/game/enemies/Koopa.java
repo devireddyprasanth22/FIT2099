@@ -15,9 +15,8 @@ import game.Status;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Koopa extends Actor {
+public class Koopa extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
-    private int hp;
 
     /**
      * Constructor for Koopa
@@ -26,7 +25,6 @@ public class Koopa extends Actor {
         super("Koopa", 'K', 100);
         this.addCapability(Status.REMOVE);
         this.addCapability(Status.ENEMY);
-
     }
 
     /**
@@ -60,17 +58,6 @@ public class Koopa extends Actor {
     }
 
     /**
-     * returns hp of Koopa
-     */
-    public int getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    /**
      * currentLocation: location of Koopa on the map
      * returns: true or false if Mario is in attack range or not
      */
@@ -80,10 +67,10 @@ public class Koopa extends Actor {
         int[] xArr = {-1, 0, 1};
         int[] yArr = {-1, 0, 1};
 
-        for (int i = 0; i < xArr.length; i++) {
-            for (int j = 0; j < yArr.length; j++) {
+        for (int k : xArr) {
+            for (int i : yArr) {
                 try {
-                    Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
+                    Location newLocation = currentLocation.map().at(x + k, y + i);
                     if (newLocation.containsAnActor()) {
                         if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
                             return true;
@@ -108,12 +95,12 @@ public class Koopa extends Actor {
         int[] xArr = {-1, 0, 1};
         int[] yArr = {-1, 0, 1};
 
-        for (int i = 0; i < xArr.length; i++) {
-            for (int j = 0; j < yArr.length; j++) {
+        for (int k : xArr) {
+            for (int i : yArr) {
                 try {
-                    Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
+                    Location newLocation = currentLocation.map().at(x + k, y + i);
                     if (newLocation.containsAnActor()) {
-                        if (newLocation.getActor().getDisplayChar() == 'm' ||newLocation.getActor().getDisplayChar() == 'M' ) {
+                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
                             return newLocation.getActor();
                         }
                     }

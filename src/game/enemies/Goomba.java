@@ -19,11 +19,8 @@ import java.util.Map;
 /**
  * A little fungus guy.
  */
-public class Goomba extends Actor {
+public class Goomba extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
-
-    private int hp;
-
 
     /**
      * Constructor.
@@ -63,16 +60,6 @@ public class Goomba extends Actor {
         }
     }
 
-    /**
-     * returns hp of Goomba
-     */
-    public int getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
 
     /**
      * currentLocation: location of Goomba on the map
