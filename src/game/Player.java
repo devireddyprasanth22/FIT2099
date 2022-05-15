@@ -14,6 +14,7 @@ import edu.monash.fit2099.engine.positions.World;
 import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
 //import game.actions.TeleportAction;
+import game.actions.TeleportAction;
 import game.groundItems.Dirt;
 import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
@@ -54,7 +55,7 @@ public class Player extends Actor {
 
     private boolean hasReset = false;
     private ArrayList<GameMap> maps = new ArrayList<>();
-    Location locationOnMainMap;
+    private Location locationOnMainMap;
 
 
     /**
@@ -282,7 +283,7 @@ public class Player extends Actor {
 //3
         List<Item> itemsAtGround = actorLocation.getItems();
         itemsAtGround.forEach(item -> {
-            if(item.getDisplayChar() == 'c'){
+            if(item.hasCapability(Status.TELEPORT)){
                 System.out.println("Reached");
                 this.teleport(actions);
             }
@@ -314,14 +315,11 @@ public class Player extends Actor {
         if(this.hasCapability(Status.TELEPORT_TO_LAVAZONE)){
 //            Teleport to lavazone
             locationOnMainMap = maps.get(0).locationOf(this);
-            actions.add(new MoveActorAction(maps.get(1).at(0, 0), "To LavaZone"));
-            this.removeCapability(Status.TELEPORT_TO_LAVAZONE);
-            this.addCapability(Status.TELEPORT_TO_MAINMAP);
+            System.out.println(locationOnMainMap.x() + " " + locationOnMainMap.y());
+            actions.add(new TeleportAction(maps.get(1).at(0, 0), "To LavaZone"));
         }else if(this.hasCapability(Status.TELEPORT_TO_MAINMAP)){
 //            Teleport to main map
-            actions.add((new MoveActorAction(maps.get(0).at(locationOnMainMap.x(), locationOnMainMap.y()), "To MainMap")));
-            this.removeCapability(Status.TELEPORT_TO_MAINMAP);
-            this.addCapability(Status.TELEPORT_TO_LAVAZONE);
+            actions.add((new TeleportAction(maps.get(0).at(locationOnMainMap.x(), locationOnMainMap.y()), "To MainMap")));
         }else{
 //            Raise map not found
         }

@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class Application {
                 ".......L...............................+#_____###++..........",
                 ".......................................+#______###...........",
                 "...................L....................+#_____###...........",
-                "........................+........................##.........." );
+                "........................+........................##..........");
         GameMap gameMap = new GameMap(groundFactory, map);
         GameMap lavaZone = new GameMap(groundFactory, lavaMap);
 
@@ -77,29 +78,21 @@ public class Application {
         world.addPlayer(mario, gameMap.at(0, 0));
 
         WarpPipe warpPipe = new WarpPipe();
-//        Location marioLocation = gameMap.locationOf(mario);
-//        TeleportAction teleport = new TeleportAction()
-//        warpPipe.addSampleAction(new TeleportAction(lavaZone.at(0,0), "to Lava Zone", marioLocation ));
-        gameMap.at(1,1).addItem(warpPipe);
-        lavaZone.at(0,0).addItem(warpPipe);
-      //  warpPipe.addSampleAction(new TeleportAction(marioLocation, "to Game Map", marioLocation));
-
-
-
-//      List<Item> itemsAtGround = gameMap.locationOf(mario).getItems();
-
-
-
-//        itemsAtGround.forEach(item -> {
-//            if(item.getDisplayChar() == 'c'){
-//                System.out.println("Reached");
-//                warpPipe.addSampleAction(new MoveActorAction(lavaZone.at(0,0), "to Lava Map"));
-//            }
-//        });
+        Location[] warpPipeLocations = {
+                new Location(gameMap, 1, 1),
+                new Location(gameMap, 10, 4),
+                new Location(gameMap, 5, 18),
+                new Location(gameMap, 55, 6),
+                new Location(gameMap, 8,15)
+        };
+        for(Location loc: warpPipeLocations){
+            gameMap.at(loc.x(), loc.y()).addItem(warpPipe);
+        }
+        lavaZone.at(0, 0).addItem(warpPipe);
 
 
         // adding a toad character to the game
-        gameMap.at( 45, 10).addActor(new Toad());
+        gameMap.at(45, 10).addActor(new Toad());
         // adding power star and super mushroom to the game
         gameMap.at(42, 15).addItem(new PowerStar());
         gameMap.at(20, 4).addItem(new SuperMushroom());
