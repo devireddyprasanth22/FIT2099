@@ -74,15 +74,21 @@ public class Application {
         world.addPlayer(mario, gameMap.at(0, 0));
 
         WarpPipe warpPipe = new WarpPipe();
-        gameMap.at(0,0).addItem(new WarpPipe());
-        List<Item> itemsAtGround = gameMap.locationOf(mario).getItems();
+        warpPipe.addSampleAction(new MoveActorAction(lavaZone.at(0,0), "to Lava Zone"));
+        gameMap.at(1,1).addItem(warpPipe);
+        lavaZone.at(0,0).addItem(warpPipe);
 
-        itemsAtGround.forEach(item -> {
-            if(item.getDisplayChar() == 'c'){
-                System.out.println("Reached");
-                warpPipe.addSampleAction(new MoveActorAction(lavaZone.at(0,0), "to Lava Map"));
-            }
-        });
+
+//      List<Item> itemsAtGround = gameMap.locationOf(mario).getItems();
+
+
+
+//        itemsAtGround.forEach(item -> {
+//            if(item.getDisplayChar() == 'c'){
+//                System.out.println("Reached");
+//                warpPipe.addSampleAction(new MoveActorAction(lavaZone.at(0,0), "to Lava Map"));
+//            }
+//        });
 
 
         // adding a toad character to the game

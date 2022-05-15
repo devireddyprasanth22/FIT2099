@@ -8,12 +8,12 @@ import game.Status;
 
 public class WarpPipe extends Item {
     public WarpPipe() {
-        super("Warp Pipe", 'c',false);
+        super("Warp Pipe", 'c', false);
         this.addCapability(Status.TELEPORT);
     }
 
     public void addSampleAction(Action newAction) {
         this.addAction(newAction);
     }
-
 }
+
