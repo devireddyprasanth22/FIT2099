@@ -12,5 +12,5 @@ public enum Status {
     REMOVE, // Remove status
     IS_RESETTABLE, // is resettable status
     ENEMY,
-    LAVA //use this status to locate lava ground
+    TELEPORT, FIRE_ATTACK, TELEPORT_TO_LAVAZONE, TELEPORT_TO_MAINMAP, LAVA //use this status to locate lava ground
 }

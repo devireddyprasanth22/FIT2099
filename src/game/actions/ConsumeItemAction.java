@@ -56,6 +56,21 @@ public class ConsumeItemAction extends Action {
                 return this.menuDescription(actor);
             }
         }
+        else if (this.actionFor == "FireFlower") {
+            boolean hasFireFlower = false;
+            for (Item item : actor.getInventory()) {
+                if (item.getDisplayChar() == 'f') {
+                    hasFireFlower = true;
+                    actor.removeItemFromInventory(item);
+                    break;
+                }
+            }
+            if (hasFireFlower) {
+                actor.addCapability(Status.FIRE_ATTACK);
+                // add functionality to use fire attack on enemies
+                return this.menuDescription(actor);
+            }
+        }
         return null;
     }
 

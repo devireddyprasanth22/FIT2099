@@ -2,6 +2,7 @@ package game.tree;
 
 import edu.monash.fit2099.engine.positions.Location;
 import game.enemies.Goomba;
+import game.magicalItems.FireFlower;
 
 public class Sprout extends Tree {
     /**
@@ -24,6 +25,9 @@ public class Sprout extends Tree {
         }
         if (this.getTurn() == 10) {
             location.setGround(new Sapling());
+            if (chance(50) && !location.containsAnActor()) {
+                location.addItem(new FireFlower());
+            }
         }
     }
 
