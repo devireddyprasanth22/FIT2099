@@ -11,6 +11,7 @@ import edu.monash.fit2099.engine.positions.World;
 //import game.actions.TeleportAction;
 import game.allies.PrincessPeach;
 import game.allies.Toad;
+import game.enemies.Bowser;
 import game.groundItems.Dirt;
 import game.groundItems.Floor;
 import game.groundItems.Lava;
@@ -73,9 +74,9 @@ public class Application {
 
         Player mario = new Player("Player", 'm', 100);
         mario.accessToMaps(gameMap, lavaZone);
-        world.addPlayer(mario, gameMap.at(0, 0));
+        world.addPlayer(mario, gameMap.at(42, 10));
 
-        //WarpPipe warpPipe = new WarpPipe();
+        WarpPipe warpPipe = new WarpPipe();
         Location[] warpPipeLocations = {
                 new Location(gameMap, 1, 1),
                 new Location(gameMap, 10, 4),
@@ -86,16 +87,17 @@ public class Application {
 
         // Adding items and actors to main map
         for(Location loc: warpPipeLocations){
-            gameMap.at(loc.x(), loc.y()).addItem(new WarpPipe());
+            gameMap.at(loc.x(), loc.y()).addItem(warpPipe);
         }
         gameMap.at(45, 10).addActor(new Toad()); // add toad
         gameMap.at(42, 15).addItem(new PowerStar()); // add power star
         gameMap.at(20, 4).addItem(new SuperMushroom()); // add super mushroom
 
         // Adding items and actors to lazazone map
-        lavaZone.at(0, 0).addItem(new WarpPipe());
         PrincessPeach princess = new PrincessPeach();
+        lavaZone.at(0, 0).addItem(warpPipe);
         lavaZone.at(20, 6).addActor(princess);
+        lavaZone.at(19, 5).addActor(new Bowser());
 
 
         // Adding items to inventory

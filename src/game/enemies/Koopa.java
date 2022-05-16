@@ -47,7 +47,7 @@ public class Koopa extends Enemy {
                 System.out.println("Koopa attacks player");
                 getPlayerObj(currentLocation).hurt(30);
 
-                Player player = (Player) getPlayerObj(currentLocation);
+                Player player = (Player) this.getPlayerObj(currentLocation);
                 player.hurt(30);
                 player.deactivateSuperMushroom();
 
@@ -57,35 +57,6 @@ public class Koopa extends Enemy {
             }
         }
     }
-
-
-    /**
-     * currentLocation: current location of Koopa object
-     * returns: Actor object in range of player. If not in range, return null
-     */
-    public Actor getPlayerObj(Location currentLocation) {
-        int x = currentLocation.x();
-        int y = currentLocation.y();
-        int[] xArr = {-1, 0, 1};
-        int[] yArr = {-1, 0, 1};
-
-        for (int k : xArr) {
-            for (int i : yArr) {
-                try {
-                    Location newLocation = currentLocation.map().at(x + k, y + i);
-                    if (newLocation.containsAnActor()) {
-                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
-                            return newLocation.getActor();
-                        }
-                    }
-                } catch (Exception e) {
-                    //do nothing
-                }
-            }
-        }
-        return null;
-    }
-
 
     /**
      * otherActor: Actor around the player

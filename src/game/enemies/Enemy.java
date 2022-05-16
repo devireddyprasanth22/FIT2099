@@ -43,7 +43,32 @@ public abstract class Enemy extends Actor {
     @Override
     abstract public ActionList allowableActions(Actor otherActor, String direction, GameMap map);
 
-    abstract  public Actor getPlayerObj(Location currentLocation);
+    /**
+     * currentLocation: current location of Goomba object
+     * returns: Actor object in range of player. If not in range, return null
+     */
+    public Actor getPlayerObj(Location currentLocation) {
+        int x = currentLocation.x();
+        int y = currentLocation.y();
+        int[] xArr = {-1, 0, 1};
+        int[] yArr = {-1, 0, 1};
+
+        for (int i = 0; i < xArr.length; i++) {
+            for (int j = 0; j < yArr.length; j++) {
+                try {
+                    Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
+                    if (newLocation.containsAnActor()) {
+                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
+                            return newLocation.getActor();
+                        }
+                    }
+                } catch (Exception e) {
+                    //do nothing
+                }
+            }
+        }
+        return null;
+    }
 
     abstract public void tick(Location currentLocation);
 
