@@ -45,7 +45,33 @@ public abstract class Enemy extends Actor {
 
     abstract  public Actor getPlayerObj(Location currentLocation);
 
-    abstract public boolean isPlayerInAttackRange(Location currentLocation);
-
     abstract public void tick(Location currentLocation);
+
+    /**
+     * currentLocation: location of Koopa on the map
+     * returns: true or false if Mario is in attack range or not
+     */
+    public boolean isPlayerInAttackRange(Location currentLocation) {
+        int x = currentLocation.x();
+        int y = currentLocation.y();
+        int[] xArr = {-1, 0, 1};
+        int[] yArr = {-1, 0, 1};
+
+        for (int k : xArr) {
+            for (int i : yArr) {
+                try {
+                    Location newLocation = currentLocation.map().at(x + k, y + i);
+                    if (newLocation.containsAnActor()) {
+                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
+                            return true;
+                        }
+                    }
+                } catch (Exception e) {
+                    //doing nothing
+                }
+
+            }
+        }
+        return false;
+    }
 }
