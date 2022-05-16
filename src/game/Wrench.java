@@ -9,5 +9,12 @@ public class Wrench extends WeaponItem {
      */
     public Wrench() {
         super("Wrench", 'W', 50, "hits", 80);
+        this.addCapability(Status.WRENCH);
     }
+
+    public String verb() {
+        return "hits";
+    }
+
+
 }

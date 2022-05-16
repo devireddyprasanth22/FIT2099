@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.AttackAction;
@@ -13,10 +14,12 @@ import game.Player;
 import game.Status;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Koopa extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+    private boolean playerHasWrench = false;
 
     /**
      * Constructor for Koopa
@@ -126,6 +129,19 @@ public class Koopa extends Enemy {
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY) && this.getDisplayChar() != 'D') {
             actions.add(new AttackAction(this, direction));
+        }
+        List<Item> itemsInInventory = otherActor.getInventory();
+        for(Item item: itemsInInventory)
+        {
+            if(item.hasCapability(Status.WRENCH)) {
+                playerHasWrench = true;
+                break;
+            }
+        }
+        if (playerHasWrench && this.getDisplayChar() == 'D')
+        {
+            actions.add(new AttackAction(this, direction));
+
         }
         return actions;
     }
