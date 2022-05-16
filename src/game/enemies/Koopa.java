@@ -23,8 +23,6 @@ public class Koopa extends Enemy {
      */
     public Koopa() {
         super("Koopa", 'K', 100);
-        this.addCapability(Status.REMOVE);
-        this.addCapability(Status.ENEMY);
     }
 
     /**

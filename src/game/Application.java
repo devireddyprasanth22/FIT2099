@@ -1,18 +1,15 @@
 package game;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.monash.fit2099.engine.actions.MoveActorAction;
-import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.World;
 //import game.actions.TeleportAction;
+import game.allies.Toad;
 import game.groundItems.Dirt;
 import game.groundItems.Floor;
 import game.groundItems.Lava;

@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 import game.behaviour.Behaviour;
 
 import java.util.HashMap;
@@ -23,6 +24,8 @@ public abstract class Enemy extends Actor {
      */
     public Enemy(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
+        this.addCapability(Status.REMOVE);
+        this.addCapability(Status.ENEMY);
     }
 
     public int getHp() {
