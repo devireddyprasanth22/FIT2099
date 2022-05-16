@@ -8,6 +8,8 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.Status;
+import game.magicalItems.SuperMushroom;
 
 /**
  * Special Action for attacking other Actors.
@@ -61,7 +63,20 @@ public class AttackAction extends Action {
 			// remove actor
 			map.removeActor(target);
 			result += System.lineSeparator() + target + " is killed.";
-		} else {
+		} else if(actor.hasCapability(Status.WRENCH) && target.getDisplayChar()=='D')
+		{
+			ActionList dropActions = new ActionList();
+			// drop all items
+			for (Item item : target.getInventory())
+				dropActions.add(item.getDropAction(actor));
+			for (Action drop : dropActions)
+				drop.execute(target, map);
+			// remove actor
+			map.locationOf(target).addItem(new SuperMushroom());
+			map.removeActor(target);
+			result += System.lineSeparator() + target + " is killed.";
+		}
+		else {
 			ActionList dropActions = new ActionList();
 			// drop all items
 			for (Item item : target.getInventory())

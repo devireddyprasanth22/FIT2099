@@ -201,6 +201,7 @@ public class Player extends Actor {
                         return "Mario doesn't have enough money! Collect more coins!";
                     } else {
                         actor.addItemToInventory(new Wrench());
+                        actor.addCapability(Status.WRENCH);
                         return "Mario bought a Wrench for $200!";
                     }
                 }

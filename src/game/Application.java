@@ -74,7 +74,7 @@ public class Application {
 
         Player mario = new Player("Player", 'm', 100);
         mario.accessToMaps(gameMap, lavaZone);
-        world.addPlayer(mario, gameMap.at(0, 0));
+        world.addPlayer(mario, gameMap.at(42, 10));
 
         WarpPipe warpPipe = new WarpPipe();
         Location[] warpPipeLocations = {
@@ -104,6 +104,7 @@ public class Application {
         // adding power star and super mushroom to inventory
         mario.addItemToInventory(new SuperMushroom());
         mario.addItemToInventory(new PowerStar());
+        mario.addItemToInventory(new Wrench());
 
 
         // runs the game

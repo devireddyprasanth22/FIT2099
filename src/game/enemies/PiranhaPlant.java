@@ -29,7 +29,7 @@ public class PiranhaPlant extends Enemy{
     }
     @Override
     public void tick(Location currentLocation) {
-        
+
     if(isPlayerInAttackRange(currentLocation) && chance(50)){
         System.out.println("Piranha Plant attacks player");
         getPlayerObj(currentLocation).hurt(90);
