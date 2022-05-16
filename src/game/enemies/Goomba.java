@@ -62,34 +62,6 @@ public class Goomba extends Enemy {
 
 
     /**
-     * currentLocation: location of Goomba on the map
-     * returns: true or false if Mario is in attack range or not
-     */
-    public boolean isPlayerInAttackRange(Location currentLocation) {
-        int x = currentLocation.x();
-        int y = currentLocation.y();
-        int[] xArr = {-1, 0, 1};
-        int[] yArr = {-1, 0, 1};
-
-        for (int i = 0; i < xArr.length; i++) {
-            for (int j = 0; j < yArr.length; j++) {
-                try {
-                    Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
-                    if (newLocation.containsAnActor()) {
-                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
-                            return true;
-                        }
-                    }
-                } catch (Exception e) {
-                    //doing nothing
-                }
-
-            }
-        }
-        return false;
-    }
-
-    /**
      * currentLocation: current location of Goomba object
      * returns: Actor object in range of player. If not in range, return null
      */
