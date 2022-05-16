@@ -53,6 +53,7 @@ public class AttackAction extends Action {
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 		target.hurt(damage);
+
 		if (!target.isConscious() && target.getDisplayChar()!='K' && target.getDisplayChar()!='D') {
 			ActionList dropActions = new ActionList();
 			// drop all items
@@ -63,7 +64,9 @@ public class AttackAction extends Action {
 			// remove actor
 			map.removeActor(target);
 			result += System.lineSeparator() + target + " is killed.";
-		} else if(actor.hasCapability(Status.WRENCH) && target.getDisplayChar()=='D')
+		}
+		// When player has wrench to kill dormant koopa
+		else if(actor.hasCapability(Status.WRENCH) && target.getDisplayChar()=='D')
 		{
 			ActionList dropActions = new ActionList();
 			// drop all items
@@ -74,6 +77,7 @@ public class AttackAction extends Action {
 			// remove actor
 			map.locationOf(target).addItem(new SuperMushroom());
 			map.removeActor(target);
+			actor.removeCapability(Status.WRENCH);
 			result += System.lineSeparator() + target + " is killed.";
 		}
 		else {

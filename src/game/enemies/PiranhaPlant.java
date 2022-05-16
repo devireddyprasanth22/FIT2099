@@ -16,8 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class PiranhaPlant extends Enemy{
+public class PiranhaPlant extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+
     /**
      * Constructor.
      */
@@ -26,21 +27,22 @@ public class PiranhaPlant extends Enemy{
         super("Piranha Plant", 'Y', 150);
         this.addCapability(Status.REMOVE);
         this.addCapability(Status.ENEMY);
+        this.addCapability(Status.PIRANHA_PLANT);
     }
+
     @Override
     public void tick(Location currentLocation) {
 
-    if(isPlayerInAttackRange(currentLocation) && chance(50)){
-        System.out.println("Piranha Plant attacks player");
-        getPlayerObj(currentLocation).hurt(90);
-        Player player = (Player) getPlayerObj(currentLocation);
-        player.hurt(90);
-    }
-    else {
-        //Piranha Plant misses player
-        System.out.println("Piranha Plant misses player");
-    }
-
+        if (isPlayerInAttackRange(currentLocation)) {
+            if (chance(50)) {
+                System.out.println("Piranha Plant attacks player");
+                getPlayerObj(currentLocation).hurt(90);
+                Player player = (Player) getPlayerObj(currentLocation);
+                player.hurt(90);
+            } else {
+                System.out.println("Piranha Plant misses player");
+            }
+        }
     }
 
     @Override
@@ -126,12 +128,6 @@ public class PiranhaPlant extends Enemy{
         Random r = new Random();
         return r.nextInt(100) < (chancePercent);
     }
-
-
-
-
-
-
 
 
 }
