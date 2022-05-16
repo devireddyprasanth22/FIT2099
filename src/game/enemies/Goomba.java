@@ -50,7 +50,7 @@ public class Goomba extends Enemy {
                 //Goomba attacks player
                 System.out.println("Goomba attacks player");
                 getPlayerObj(currentLocation).hurt(10);
-                Player player = (Player) getPlayerObj(currentLocation);
+                Player player = (Player) this.getPlayerObj(currentLocation);
                 player.hurt(10);
                 player.deactivateSuperMushroom();
             } else {
@@ -60,33 +60,6 @@ public class Goomba extends Enemy {
         }
     }
 
-
-    /**
-     * currentLocation: current location of Goomba object
-     * returns: Actor object in range of player. If not in range, return null
-     */
-    public Actor getPlayerObj(Location currentLocation) {
-        int x = currentLocation.x();
-        int y = currentLocation.y();
-        int[] xArr = {-1, 0, 1};
-        int[] yArr = {-1, 0, 1};
-
-        for (int i = 0; i < xArr.length; i++) {
-            for (int j = 0; j < yArr.length; j++) {
-                try {
-                    Location newLocation = currentLocation.map().at(x + xArr[i], y + yArr[j]);
-                    if (newLocation.containsAnActor()) {
-                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
-                            return newLocation.getActor();
-                        }
-                    }
-                } catch (Exception e) {
-                    //do nothing
-                }
-            }
-        }
-        return null;
-    }
 
 
     /**
