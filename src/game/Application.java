@@ -74,7 +74,7 @@ public class Application {
 
         Player mario = new Player("Player", 'm', 100);
         mario.accessToMaps(gameMap, lavaZone);
-        world.addPlayer(mario, gameMap.at(42, 10));
+        world.addPlayer(mario, gameMap.at(0, 0));
 
         WarpPipe warpPipe = new WarpPipe();
         Location[] warpPipeLocations = {
@@ -96,8 +96,8 @@ public class Application {
         // Adding items and actors to lazazone map
         PrincessPeach princess = new PrincessPeach();
         lavaZone.at(0, 0).addItem(warpPipe);
-        lavaZone.at(20, 6).addActor(princess);
-        lavaZone.at(19, 5).addActor(new Bowser());
+        lavaZone.at(4, 4).addActor(princess);
+        lavaZone.at(3, 3).addActor(new Bowser());
 
 
         // Adding items to inventory
