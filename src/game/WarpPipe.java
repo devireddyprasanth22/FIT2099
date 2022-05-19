@@ -37,7 +37,8 @@ public class WarpPipe extends Item {
     @Override
     public void tick(Location currentLocation) {
         this.incrementTurn();
-        if (this.getTurn() == 1d){
+        if (this.getTurn() == 1 && currentLocation.x() != 0 && currentLocation.y() != 0) // make functionality better, maybe play around with status of lava map
+        {
             currentLocation.addActor(new PiranhaPlant());
         }
     }

@@ -3,6 +3,7 @@ package game.tree;
 
 import edu.monash.fit2099.engine.positions.Location;
 import game.Coin;
+import game.Status;
 import game.magicalItems.FireFlower;
 
 
@@ -12,6 +13,7 @@ public class Sapling extends Tree {
      */
     public Sapling() {
         super('t');
+        this.addCapability(Status.SAPLING);
     }
     /**
      * Method called tick that helps keep track of turns and gets location

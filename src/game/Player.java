@@ -227,12 +227,16 @@ public class Player extends Actor {
 
         boolean hasSuperMushroom = false;
         boolean hasPowerStar = false;
+        boolean hasFireFlower = false;
         for (Item item : this.getInventory()) {
             if (item.getDisplayChar() == '^') {
                 hasSuperMushroom = true;
             }
             if (item.getDisplayChar() == '*') {
                 hasPowerStar = true;
+            }
+            if (item.hasCapability(Status.FIRE_ATTACK)){
+                hasFireFlower = true;
             }
         }
         if (hasSuperMushroom || actorLocation.getDisplayChar() == '^') {
@@ -242,6 +246,10 @@ public class Player extends Actor {
         if (hasPowerStar || actorLocation.getDisplayChar() == '*') {
             actions.add(new ConsumeItemAction("PowerStar"));
         }
+        if (hasFireFlower || actorLocation.getDisplayChar() == 'f') {
+            actions.add(new ConsumeItemAction("FireFlower"));
+        }
+
 
         System.out.print("POWERSTAR IN USE :::" + this.hasCapability(Status.POWER_STAR));
 
@@ -258,7 +266,8 @@ public class Player extends Actor {
                     destination.getDisplayChar() == '#' ||
                             destination.getDisplayChar() == '+' ||
                             destination.getDisplayChar() == 't' ||
-                            destination.getDisplayChar() == 'T'
+                            destination.getDisplayChar() == 'T' ||
+                            destination.getDisplayChar() == 'c'
             ) {
                 actions.add(new JumpActorAction(destination, exit.getName(), exit.getHotKey()));
                 Action actionToRemove = null;

@@ -10,6 +10,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
 import game.Status;
 import game.actions.AttackAction;
+import game.actions.FireAttackAction;
 import game.behaviour.Behaviour;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class PiranhaPlant extends Enemy {
      */
     public PiranhaPlant() {
 
-        super("Piranha Plant", 'Y', 150);
+        super("Piranha Plant", 'Y', 20);
         this.addCapability(Status.REMOVE);
         this.addCapability(Status.ENEMY);
         this.addCapability(Status.PIRANHA_PLANT);
@@ -37,8 +38,6 @@ public class PiranhaPlant extends Enemy {
             if (chance(50)) {
                 System.out.println("Piranha Plant attacks player");
                 getPlayerObj(currentLocation).hurt(90);
-                Player player = (Player) getPlayerObj(currentLocation);
-                player.hurt(90);
             } else {
                 System.out.println("Piranha Plant misses player");
             }
@@ -99,6 +98,10 @@ public class PiranhaPlant extends Enemy {
         ActionList actions = new ActionList();
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+            if (otherActor.hasCapability(Status.FIRE_ATTACK))
+            {
+                actions.add(new FireAttackAction(this,direction));
+            }
             actions.add(new AttackAction(this, direction));
         }
         return actions;

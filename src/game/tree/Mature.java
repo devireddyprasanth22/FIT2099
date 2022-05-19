@@ -2,6 +2,7 @@ package game.tree;
 
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 import game.groundItems.Dirt;
 import game.enemies.Koopa;
 
@@ -13,6 +14,7 @@ public class Mature extends Tree {
      */
     public Mature() {
         super('T');
+        this.addCapability(Status.MATURE);
     }
 
     /**

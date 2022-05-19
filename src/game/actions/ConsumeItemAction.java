@@ -27,7 +27,7 @@ public class ConsumeItemAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
         if (this.actionFor == "SuperMushroom"){
-            System.out.println("Super muchsroom reached");
+            System.out.println("Super mushroom reached");
             boolean hasSuperMushroom = false;
             for(Item item: actor.getInventory()){
                 if (item.getDisplayChar() == '^') {
@@ -59,7 +59,7 @@ public class ConsumeItemAction extends Action {
         else if (this.actionFor == "FireFlower") {
             boolean hasFireFlower = false;
             for (Item item : actor.getInventory()) {
-                if (item.getDisplayChar() == 'f') {
+                if (item.hasCapability(Status.FIRE_ATTACK)) {
                     hasFireFlower = true;
                     actor.removeItemFromInventory(item);
                     break;

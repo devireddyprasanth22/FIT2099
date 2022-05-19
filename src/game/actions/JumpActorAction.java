@@ -45,17 +45,21 @@ public class JumpActorAction extends Action {
      */
 
     public void normalJump(Actor actor, GameMap map, Location actorLocation) {
-        if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.WALL)) {
             this.jumpValidation(map, actor, 80, 20, "Wall", actorLocation);
         }
-        if (this.moveToLocation.getDisplayChar() == "+".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.SPROUT)) {
             this.jumpValidation(map, actor, 90, 10, "Sprout", actorLocation);
         }
-        if (this.moveToLocation.getDisplayChar() == "t".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.SAPLING)) {
             this.jumpValidation(map, actor, 80, 20, "Sapling", actorLocation);
         }
-        if (this.moveToLocation.getDisplayChar() == "T".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.MATURE)) {
             this.jumpValidation(map, actor, 70, 30, "Mature", actorLocation);
+        }
+        if (this.moveToLocation.getItems().iterator().next().hasCapability(Status.TELEPORT))
+        {
+            this.jumpValidation(map, actor, 100, 0, "Warp Pipe", actorLocation);
         }
     }
 
@@ -66,17 +70,21 @@ public class JumpActorAction extends Action {
      * @param actorLocation
      */
     public void superMushroomJump(Actor actor, GameMap map, Location actorLocation) {
-        if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.WALL)) {
             this.jumpValidation(map, actor, 100, 0, "Wall", actorLocation);
         }
-        if (this.moveToLocation.getDisplayChar() == "+".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.SPROUT)) {
             this.jumpValidation(map, actor, 100, 0, "Sprout", actorLocation);
         }
-        if (this.moveToLocation.getDisplayChar() == "t".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.SAPLING)) {
             this.jumpValidation(map, actor, 100, 0, "Sapling", actorLocation);
         }
-        if (this.moveToLocation.getDisplayChar() == "T".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.MATURE)) {
             this.jumpValidation(map, actor, 100, 0, "Mature", actorLocation);
+        }
+        if (this.moveToLocation.getItems().iterator().next().hasCapability(Status.TELEPORT))
+        {
+            this.jumpValidation(map, actor, 100, 0, "Warp Pipe", actorLocation);
         }
     }
 
@@ -87,22 +95,22 @@ public class JumpActorAction extends Action {
      * @param actorLocation
      */
     public void powerStarJump(Actor actor, GameMap map, Location actorLocation) {
-        if (this.moveToLocation.getDisplayChar() == "#".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.WALL)) {
             this.jumpValidation(map, actor, 100, 0, "Wall", actorLocation);
             this.moveToLocation.setGround(new Dirt());
             this.moveToLocation.addItem(new Coin());
        }
-        if (this.moveToLocation.getDisplayChar() == "+".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.SPROUT)) {
             this.jumpValidation(map, actor, 100, 0, "Sprout", actorLocation);
             this.moveToLocation.setGround(new Dirt());
             this.moveToLocation.addItem(new Coin());
         }
-        if (this.moveToLocation.getDisplayChar() == "t".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.SAPLING)) {
             this.jumpValidation(map, actor, 100, 0, "Sapling", actorLocation);
             this.moveToLocation.setGround(new Dirt());
             this.moveToLocation.addItem(new Coin());
         }
-        if (this.moveToLocation.getDisplayChar() == "T".charAt(0)) {
+        if (this.moveToLocation.getGround().hasCapability(Status.MATURE)) {
             this.jumpValidation(map, actor, 100, 0, "Mature", actorLocation);
             this.moveToLocation.setGround(new Dirt());
             this.moveToLocation.addItem(new Coin());

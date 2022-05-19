@@ -1,6 +1,7 @@
 package game.tree;
 
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 import game.enemies.Goomba;
 import game.magicalItems.FireFlower;
 
@@ -10,6 +11,7 @@ public class Sprout extends Tree {
      */
     public Sprout() {
         super('+');
+        this.addCapability(Status.SPROUT);
     }
 
     /**

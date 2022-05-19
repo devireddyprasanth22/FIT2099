@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 
 public class TeleportAction extends MoveActorAction {
+
     public TeleportAction(Location moveToLocation, String direction) {
         super(moveToLocation, direction);
     }

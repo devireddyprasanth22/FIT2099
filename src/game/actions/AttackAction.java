@@ -54,7 +54,7 @@ public class AttackAction extends Action {
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 		target.hurt(damage);
 
-		if (!target.isConscious() && target.getDisplayChar()!='K' && target.getDisplayChar()!='D') {
+		if (!target.isConscious() && target.getDisplayChar()!='K' && target.getDisplayChar()!='D' && target.hasCapability(Status.PIRANHA_PLANT)) {
 			ActionList dropActions = new ActionList();
 			// drop all items
 			for (Item item : target.getInventory())

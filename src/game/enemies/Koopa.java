@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.AttackAction;
+import game.actions.FireAttackAction;
 import game.behaviour.Behaviour;
 import game.Player;
 import game.Status;
@@ -70,6 +71,10 @@ public class Koopa extends Enemy {
         ActionList actions = new ActionList();
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY) && this.getDisplayChar() != 'D') {
+            if (otherActor.hasCapability(Status.FIRE_ATTACK))
+            {
+                actions.add(new FireAttackAction(this,direction));
+            }
             actions.add(new AttackAction(this, direction));
         }
         List<Item> itemsInInventory = otherActor.getInventory();

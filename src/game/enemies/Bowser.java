@@ -10,6 +10,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
 import game.Status;
 import game.actions.AttackAction;
+import game.actions.FireAttackAction;
 import game.behaviour.Behaviour;
 import game.behaviour.WanderBehaviour;
 
@@ -49,6 +50,10 @@ public class Bowser extends Enemy{
         ActionList actions = new ActionList();
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+            if (otherActor.hasCapability(Status.FIRE_ATTACK))
+            {
+                actions.add(new FireAttackAction(this,direction));
+            }
             actions.add(new AttackAction(this, direction));
         }
         return actions;
