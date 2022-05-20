@@ -29,6 +29,8 @@ public class PiranhaPlant extends Enemy {
         this.addCapability(Status.REMOVE);
         this.addCapability(Status.ENEMY);
         this.addCapability(Status.PIRANHA_PLANT);
+        System.out.println(this.getHp());
+
     }
 
     @Override
