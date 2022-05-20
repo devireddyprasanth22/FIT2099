@@ -26,9 +26,6 @@ public class FireAttackAction extends AttackAction {
         if (actor.hasCapability(Status.FIRE_ATTACK)) {
             map.at(map.locationOf(target).x(), map.locationOf(target).y()).setGround(new Fire());
             int damage = 20;
-            target.hurt(20);
-//            Enemy enemy = (Enemy) target;
-//            System.out.println("Main enemy hp " + enemy.getHp());
             result += System.lineSeparator() + actor + " " + "uses fire attack on" + " " + target + " for " + damage + " damage.";
             if (!target.isConscious())
             {

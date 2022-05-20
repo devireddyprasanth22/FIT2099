@@ -14,7 +14,6 @@ import java.util.Map;
 
 public abstract class Enemy extends Actor {
     private int hp;
-
     /**
      * Constructor.
      *
@@ -24,12 +23,18 @@ public abstract class Enemy extends Actor {
      */
     public Enemy(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
+        this.hp = hitPoints;
         this.addCapability(Status.REMOVE);
         this.addCapability(Status.ENEMY);
     }
 
     public int getHp() {
-        return hp;
+        return this.hp;
+    }
+
+    @Override
+    public void hurt(int points){
+        this.setHp(this.hp - points);
     }
 
     public void setHp(int hp) {
@@ -43,6 +48,10 @@ public abstract class Enemy extends Actor {
     @Override
     abstract public ActionList allowableActions(Actor otherActor, String direction, GameMap map);
 
+    @Override
+    public boolean isConscious(){
+        return this.hp > 0;
+    }
     /**
      * currentLocation: current location of Goomba object
      * returns: Actor object in range of player. If not in range, return null

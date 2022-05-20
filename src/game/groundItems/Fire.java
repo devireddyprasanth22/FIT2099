@@ -31,7 +31,12 @@ public class Fire extends Ground {
         if (location.containsAnActor()) {
             Enemy enemy = (Enemy) location.getActor();
             enemy.hurt(20);
-            System.out.println("we are here" + enemy.getHp());
+            System.out.println("enemy hp::" + enemy.getHp());
+            if(!enemy.isConscious())
+            {
+                location.map().removeActor(enemy);
+                System.out.println(enemy + " is killed");
+            }
         }
         if (this.getTurn() == 4) {
             location.setGround(new Dirt());
