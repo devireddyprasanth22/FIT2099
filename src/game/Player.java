@@ -334,6 +334,20 @@ public class Player extends Actor {
         }
     }
 
+    public ArrayList<Object> inventoryContains(String objectName){
+        ArrayList<Object> val = new ArrayList<Object>();
+        for(int i = 0; i < this.getInventory().size(); i++){
+            if(this.getInventory().get(i).toString().equals(objectName)){
+                val.add(this.getInventory().get(i));
+                val.add(true);
+                return val;
+            }
+        }
+        val.add(null);
+        val.add(false);
+        return val;
+    }
+
     public void accessToMaps(GameMap... mapParams){
         maps.addAll(List.of(mapParams));
     }
