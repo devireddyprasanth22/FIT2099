@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.Player;
 import game.Status;
 
 public class ConsumeItemAction extends Action {
@@ -26,6 +27,7 @@ public class ConsumeItemAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
+        Player player = (Player) actor;
         if (this.actionFor == "SuperMushroom"){
             System.out.println("Super mushroom reached");
             boolean hasSuperMushroom = false;
@@ -44,7 +46,7 @@ public class ConsumeItemAction extends Action {
         }else if(this.actionFor == "PowerStar"){
             boolean hasPowerStar = false;
             for(Item item: actor.getInventory()){
-                if (item.getDisplayChar() == '^') {
+                if (item.getDisplayChar() == '*') {
                     hasPowerStar = true;
                     actor.removeItemFromInventory(item);
                     break;

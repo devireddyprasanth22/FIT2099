@@ -13,18 +13,18 @@ import game.actions.AttackAction;
 import game.actions.FireAttackAction;
 import game.behaviour.Behaviour;
 import game.behaviour.WanderBehaviour;
+import game.groundItems.Fire;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Bowser extends Enemy{
+public class Bowser extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
     private final int hitRate;
     private final int punchDamage;
 
     /**
      * Constructor.
-     *
      */
     public Bowser() {
         super("bowser", 'B', 500);
@@ -38,9 +38,12 @@ public class Bowser extends Enemy{
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         Location myLocation = map.locationOf(this);
         boolean hitChance = this.hitRate < (Math.random() * 100);
-        if (this.isPlayerInAttackRange(myLocation) && hitChance){
-            Player player = (Player) this.getPlayerObj(myLocation);
+        Player player = (Player) this.getPlayerObj(myLocation);
+        if (this.isPlayerInAttackRange(myLocation) && hitChance) {
             player.hurt(this.punchDamage);
+        }
+        if(this.isPlayerInAttackRange(myLocation)){
+            map.locationOf(player).setGround(new Fire());
         }
         return new DoNothingAction();
     }
@@ -50,9 +53,8 @@ public class Bowser extends Enemy{
         ActionList actions = new ActionList();
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            if (otherActor.hasCapability(Status.FIRE_ATTACK))
-            {
-                actions.add(new FireAttackAction(this,direction));
+            if (otherActor.hasCapability(Status.FIRE_ATTACK)) {
+                actions.add(new FireAttackAction(this, direction));
             }
             actions.add(new AttackAction(this, direction));
         }

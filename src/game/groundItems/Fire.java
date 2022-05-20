@@ -29,7 +29,9 @@ public class Fire extends Ground {
     public void tick(Location location) {
         this.incrementTurn();
         if (location.containsAnActor()) {
-            location.getActor().hurt(20);
+            Enemy enemy = (Enemy) location.getActor();
+            enemy.hurt(20);
+            System.out.println("enemy hp::" + enemy.getHp());
         }
         if (this.getTurn() == 4) {
             location.setGround(new Dirt());
