@@ -235,7 +235,7 @@ public class Player extends Actor {
             if (item.getDisplayChar() == '*') {
                 hasPowerStar = true;
             }
-            if (item.hasCapability(Status.FIRE_ATTACK)){
+            if (item.getDisplayChar() == 'f'){
                 hasFireFlower = true;
             }
         }

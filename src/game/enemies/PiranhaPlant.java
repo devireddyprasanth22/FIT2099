@@ -25,7 +25,7 @@ public class PiranhaPlant extends Enemy {
      */
     public PiranhaPlant() {
 
-        super("Piranha Plant", 'Y', 20);
+        super("Piranha Plant", 'Y', 40);
         this.addCapability(Status.REMOVE);
         this.addCapability(Status.ENEMY);
         this.addCapability(Status.PIRANHA_PLANT);
@@ -33,7 +33,7 @@ public class PiranhaPlant extends Enemy {
 
     @Override
     public void tick(Location currentLocation) {
-
+        System.out.println(this.getHp());
         if (isPlayerInAttackRange(currentLocation)) {
             if (chance(50)) {
                 System.out.println("Piranha Plant attacks player");

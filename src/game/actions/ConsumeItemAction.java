@@ -59,7 +59,7 @@ public class ConsumeItemAction extends Action {
         else if (this.actionFor == "FireFlower") {
             boolean hasFireFlower = false;
             for (Item item : actor.getInventory()) {
-                if (item.hasCapability(Status.FIRE_ATTACK)) {
+                if (item.getDisplayChar() == 'f') {
                     hasFireFlower = true;
                     actor.removeItemFromInventory(item);
                     break;

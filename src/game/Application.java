@@ -16,6 +16,7 @@ import game.groundItems.Dirt;
 import game.groundItems.Floor;
 import game.groundItems.Lava;
 import game.groundItems.Wall;
+import game.magicalItems.FireFlower;
 import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
 import game.tree.Sprout;
@@ -104,6 +105,7 @@ public class Application {
         // adding power star and super mushroom to inventory
         mario.addItemToInventory(new SuperMushroom());
         mario.addItemToInventory(new PowerStar());
+        mario.addItemToInventory(new FireFlower());
         mario.addItemToInventory(new Wrench());
 
 
