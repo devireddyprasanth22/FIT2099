@@ -24,6 +24,7 @@ public class FireAttackAction extends AttackAction {
     public String execute(Actor actor, GameMap map) {
         String result = "";
         if (actor.hasCapability(Status.FIRE_ATTACK)) {
+            // get location of target and place fire at that location
             map.at(map.locationOf(target).x(), map.locationOf(target).y()).setGround(new Fire());
             int damage = 20;
             result += System.lineSeparator() + actor + " " + "uses fire attack on" + " " + target + " for " + damage + " damage.";

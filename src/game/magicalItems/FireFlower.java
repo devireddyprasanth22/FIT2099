@@ -8,6 +8,5 @@ public class FireFlower extends MagicalItems{
      */
     public FireFlower() {
         super("Fire Flower", 'f', true);
-        this.addCapability(Status.FIRE_ATTACK);
     }
 }

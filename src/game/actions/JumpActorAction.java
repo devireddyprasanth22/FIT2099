@@ -57,7 +57,7 @@ public class JumpActorAction extends Action {
         if (this.moveToLocation.getGround().hasCapability(Status.MATURE)) {
             this.jumpValidation(map, actor, 70, 30, "Mature", actorLocation);
         }
-        if (this.moveToLocation.getItems().iterator().next().hasCapability(Status.TELEPORT))
+        if (this.moveToLocation.getDisplayChar() == 'c')
         {
             this.jumpValidation(map, actor, 100, 0, "Warp Pipe", actorLocation);
         }
@@ -82,7 +82,7 @@ public class JumpActorAction extends Action {
         if (this.moveToLocation.getGround().hasCapability(Status.MATURE)) {
             this.jumpValidation(map, actor, 100, 0, "Mature", actorLocation);
         }
-        if (this.moveToLocation.getItems().iterator().next().hasCapability(Status.TELEPORT))
+        if (this.moveToLocation.getDisplayChar() == 'c')
         {
             this.jumpValidation(map, actor, 100, 0, "Warp Pipe", actorLocation);
         }
