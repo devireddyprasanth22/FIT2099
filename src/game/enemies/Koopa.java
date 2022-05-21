@@ -20,7 +20,6 @@ import java.util.Map;
 
 public class Koopa extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
-    private boolean playerHasWrench = false;
 
     /**
      * Constructor for Koopa
@@ -32,10 +31,10 @@ public class Koopa extends Enemy {
     }
 
     /**
-     *
      * currentLocation is location of object on the map
      */
     public void tick(Location currentLocation) {
+
         int r1 = (int) (Math.random() * (11 - 1) + 1);
         //Dormant mechanic
         if (this.getHp() <= 0) {
@@ -64,7 +63,7 @@ public class Koopa extends Enemy {
      * otherActor: Actor around the player
      * direction: Direction in which otherActor is relative to Goomba
      * map: current GameMap object
-     *
+     * <p>
      * returns: An ActionList object of actions that the other player can do to Koopa
      */
     @Override
@@ -72,24 +71,17 @@ public class Koopa extends Enemy {
         ActionList actions = new ActionList();
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY) && this.getDisplayChar() != 'D') {
-            if (otherActor.hasCapability(Status.FIRE_ATTACK))
-            {
-                actions.add(new FireAttackAction(this,direction));
+            if (otherActor.hasCapability(Status.FIRE_ATTACK)) {
+                actions.add(new FireAttackAction(this, direction));
             }
             actions.add(new AttackAction(this, direction));
         }
-        List<Item> itemsInInventory = otherActor.getInventory();
-        for(Item item: itemsInInventory)
-        {
-            if(item.hasCapability(Status.WRENCH)) {
-                playerHasWrench = true;
-                break;
-            }
-        }
-        if (playerHasWrench && this.getDisplayChar() == 'D')
-        {
-            actions.add(new AttackAction(this, direction));
 
+        Player player = (Player) otherActor;
+        boolean playerHasWrench = (boolean) player.inventoryContains("Wrench").get(1);
+
+        if (playerHasWrench && this.getDisplayChar() == 'D') {
+            actions.add(new AttackAction(this, direction));
         }
         return actions;
     }
@@ -99,7 +91,7 @@ public class Koopa extends Enemy {
      * lastAction: Previous action of Koopa
      * map: current GameMap
      * display: current Display object
-     *
+     * <p>
      * returns: current action of Koopa. If none, returns DoNothingAction
      */
     @Override
