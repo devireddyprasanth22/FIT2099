@@ -51,7 +51,7 @@ public class Koopa extends Enemy {
 
                 Player player = (Player) this.getPlayerObj(currentLocation);
                 player.hurt(30);
-                player.deactivateSuperMushroom();
+                player.deactivateMagicalItem(Status.SUPER_MUSHROOM, 0);
 
             } else if (this.getDisplayChar() != 'D') {
                 //koopa misses player

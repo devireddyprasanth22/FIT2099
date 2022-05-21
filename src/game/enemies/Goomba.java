@@ -13,6 +13,7 @@ import game.actions.AttackAction;
 import game.actions.FireAttackAction;
 import game.behaviour.Behaviour;
 import game.behaviour.WanderBehaviour;
+import game.magicalItems.SuperMushroom;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +53,7 @@ public class Goomba extends Enemy {
                 getPlayerObj(currentLocation).hurt(10);
                 Player player = (Player) this.getPlayerObj(currentLocation);
                 player.hurt(10);
-                player.deactivateSuperMushroom();
+                player.deactivateMagicalItem(Status.SUPER_MUSHROOM, 0);
             } else {
                 //goomba misses player
                 System.out.println("Goomba misses player");

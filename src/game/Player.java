@@ -30,7 +30,7 @@ public class Player extends Actor {
      */
     private final Menu menu = new Menu();
 
-    private int turn = 0;
+    private int turn = -1;
     /**
      * a boolean method that returns true if Player has super mushroom
      *
@@ -138,7 +138,7 @@ public class Player extends Actor {
 
         Location actorLocation = new Location(map, 0, 0).map().locationOf(this);
         Toad toad = (Toad) map.getActorAt(new Location(map, 45, 10));
-        this.deactivateFireFlower();
+        this.deactivateMagicalItem(Status.FIRE_ATTACK, 20);
         if (!hasReset) {
             actions.add(new Reset(this, map));
         }
@@ -322,19 +322,16 @@ public class Player extends Actor {
     /**
      * deactivateSuperMushroom checks if player has super mushroom and removes the capability if true
      */
-    public void deactivateSuperMushroom() {
-        if (this.hasCapability(Status.SUPER_MUSHROOM)) {
-            this.removeCapability(Status.SUPER_MUSHROOM);
-        }
-    }
 
-    public void deactivateFireFlower(){
-        if(this.hasCapability(Status.FIRE_ATTACK))
+    public void deactivateMagicalItem(Status status, int counter){
+        if(this.hasCapability(status) && counter == 0)
         {
+            this.removeCapability(status);
+        }
+        else{
             this.incrementTurn();
-            if(this.getTurn() == 5) {
-                this.removeCapability(Status.FIRE_ATTACK);
-                System.out.println("Player's fire attack has been removed");
+            if(this.getTurn() == counter){
+                this.removeCapability(status);
                 this.setTurn(0);
             }
         }
