@@ -27,6 +27,8 @@ public class Koopa extends Enemy {
      */
     public Koopa() {
         super("Koopa", 'K', 100);
+        this.addCapability(Status.ENEMY);
+        System.out.println("Koopa HP: " + this.getHp());
     }
 
     /**
@@ -35,7 +37,6 @@ public class Koopa extends Enemy {
      */
     public void tick(Location currentLocation) {
         int r1 = (int) (Math.random() * (11 - 1) + 1);
-        System.out.println(r1);
         //Dormant mechanic
         if (this.getHp() <= 0) {
             this.setDisplayChar('D');

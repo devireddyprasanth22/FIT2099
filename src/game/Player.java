@@ -263,10 +263,10 @@ public class Player extends Actor {
             Location destination = exit.getDestination();
 
             if (
-                    destination.getDisplayChar() == '#' ||
-                            destination.getDisplayChar() == '+' ||
-                            destination.getDisplayChar() == 't' ||
-                            destination.getDisplayChar() == 'T' ||
+            destination.getGround().hasCapability(Status.WALL) ||
+                            destination.getGround().hasCapability(Status.SPROUT) ||
+                            destination.getGround().hasCapability(Status.SAPLING) ||
+                            destination.getGround().hasCapability(Status.MATURE) ||
                             destination.getDisplayChar() == 'c'
             ) {
                 actions.add(new JumpActorAction(destination, exit.getName(), exit.getHotKey()));
@@ -320,7 +320,6 @@ public class Player extends Actor {
 
     public void teleport(ActionList actions){
 //        WarpPipe warpPipe = new WarpPipe();
-        System.out.println("Reached");
         if(this.hasCapability(Status.TELEPORT_TO_LAVAZONE)){
 //            Teleport to lavazone
             locationOnMainMap = maps.get(0).locationOf(this);

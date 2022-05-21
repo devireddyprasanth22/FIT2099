@@ -39,7 +39,6 @@ public class Goomba extends Enemy {
      */
     public void tick(Location currentLocation) {
         int r1 = (int) (Math.random() * (11 - 1) + 1);
-        System.out.println(r1);
         //suicide mechanic
         if (r1 == 10 || this.getHp() < 0) {
             currentLocation.map().removeActor(this);
