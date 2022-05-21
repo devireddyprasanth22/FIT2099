@@ -35,7 +35,7 @@ public class Fire extends Ground {
             if(!enemy.isConscious())
             {
                 location.map().removeActor(enemy);
-                System.out.println(enemy + " is killed");
+                System.out.println(enemy + " is killed by fire");
             }
         }
         if (this.getTurn() == 4) {

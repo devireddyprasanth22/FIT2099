@@ -11,7 +11,6 @@ import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
-//import game.actions.TeleportAction;
 import game.actions.TeleportAction;
 import game.allies.Toad;
 import game.groundItems.Dirt;
@@ -31,6 +30,7 @@ public class Player extends Actor {
      */
     private final Menu menu = new Menu();
 
+    private int turn = 0;
     /**
      * a boolean method that returns true if Player has super mushroom
      *
@@ -38,15 +38,6 @@ public class Player extends Actor {
      */
     public boolean isUsingSuperMushroom() {
         return usingSuperMushroom;
-    }
-
-    /**
-     * setUsingSuperMushroom takes the boolean value from isUsingSuperMushroom and sets the UsingSuperMushroom attribute if true
-     *
-     * @param usingSuperMushroom
-     */
-    public void setUsingSuperMushroom(boolean usingSuperMushroom) {
-        this.usingSuperMushroom = usingSuperMushroom;
     }
 
 
@@ -64,6 +55,25 @@ public class Player extends Actor {
      */
     public void setHasReset(boolean hasReset) {
         this.hasReset = hasReset;
+    }
+    /**
+     * A getter for turn
+     *
+     * @return turn
+     */
+    public int getTurn() {
+        return turn;
+    }
+
+    /**
+     * method that increments turn
+     */
+    public void incrementTurn() {
+        this.turn += 1;
+    }
+
+    public void setTurn(int value) {
+        this.turn = value;
     }
 
     /**
@@ -128,6 +138,7 @@ public class Player extends Actor {
 
         Location actorLocation = new Location(map, 0, 0).map().locationOf(this);
         Toad toad = (Toad) map.getActorAt(new Location(map, 45, 10));
+        this.deactivateFireFlower();
         if (!hasReset) {
             actions.add(new Reset(this, map));
         }
@@ -289,7 +300,6 @@ public class Player extends Actor {
         System.out.println(this.printHp());
 
 //        TELEPORT
-//3
         List<Item> itemsAtGround = actorLocation.getItems();
         itemsAtGround.forEach(item -> {
             if(item.hasCapability(Status.TELEPORT)){
@@ -315,6 +325,18 @@ public class Player extends Actor {
     public void deactivateSuperMushroom() {
         if (this.hasCapability(Status.SUPER_MUSHROOM)) {
             this.removeCapability(Status.SUPER_MUSHROOM);
+        }
+    }
+
+    public void deactivateFireFlower(){
+        if(this.hasCapability(Status.FIRE_ATTACK))
+        {
+            this.incrementTurn();
+            if(this.getTurn() == 5) {
+                this.removeCapability(Status.FIRE_ATTACK);
+                System.out.println("Player's fire attack has been removed");
+                this.setTurn(0);
+            }
         }
     }
 

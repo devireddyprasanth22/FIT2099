@@ -25,7 +25,7 @@ public class PiranhaPlant extends Enemy {
      */
     public PiranhaPlant() {
 
-        super("Piranha Plant", 'Y', 40);
+        super("Piranha Plant", 'Y', 150);
         this.addCapability(Status.REMOVE);
         this.addCapability(Status.ENEMY);
         this.addCapability(Status.PIRANHA_PLANT);
