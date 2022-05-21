@@ -98,7 +98,7 @@ public class Application {
         lavaZone.at(0, 0).addItem(new WarpPipe());
 
         PrincessPeach princess = new PrincessPeach();
-        lavaZone.at(20, 6).addActor(princess);
+        lavaZone.at(2, 3).addActor(princess);
         lavaZone.at(19, 5).addActor(new Bowser());
 
         // Adding items to inventory

@@ -11,9 +11,11 @@ import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
+import game.actions.RescueAction;
 import game.actions.TeleportAction;
 import game.allies.Toad;
 import game.groundItems.Dirt;
+import game.magicalItems.Key;
 import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
 import game.resetAction.Reset;
@@ -303,10 +305,17 @@ public class Player extends Actor {
         List<Item> itemsAtGround = actorLocation.getItems();
         itemsAtGround.forEach(item -> {
             if(item.hasCapability(Status.TELEPORT)){
-                System.out.println("Reached");
                 this.teleport(actions);
             }
         });
+
+//        Rescue Princess
+        for(Exit exit: map.locationOf(this).getExits()){
+            if(exit.getDestination().getDisplayChar() == 'P'){
+                this.addItemToInventory(new Key());
+                actions.add(new RescueAction());
+            }
+        }
 
         return menu.showMenu(this, actions, display);
     }

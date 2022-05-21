@@ -10,10 +10,11 @@ public class RescueAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
         Player player = (Player) actor;
-        if((boolean) player.inventoryContains("key").get(1)){
-            map.removeActor(player);
+        if((boolean) player.inventoryContains("Key").get(1)){
+            System.out.println("princess is rescued");
+            map.removeActor(actor);
         }
-        return null;
+        return this.menuDescription(actor);
     }
 
     @Override

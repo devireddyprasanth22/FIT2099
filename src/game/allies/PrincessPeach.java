@@ -67,13 +67,13 @@ public class PrincessPeach extends Actor {
     }
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        Location myLocation = map.locationOf(this);
-
-        if (this.isPlayerInRange(myLocation)) {
-            Player player = (Player) this.getPlayerObj(myLocation);
-//            Move rescue action here
-        }
-        actions.add(new RescueAction());
+//        Location myLocation = map.locationOf(this);
+//
+//        if (this.isPlayerInRange(myLocation)) {
+//            Player player = (Player) this.getPlayerObj(myLocation);
+////            Move rescue action here
+//        }
+//        actions.add(new RescueAction());
         return new DoNothingAction();
     }
 }
