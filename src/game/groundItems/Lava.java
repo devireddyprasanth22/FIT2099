@@ -12,6 +12,7 @@ public class Lava extends Ground {
         super('L');
         this.addCapability(Status.LAVA);
     }
+
     @Override
     public boolean canActorEnter(Actor actor) {
         if(actor.hasCapability(Status.ENEMY)) {
@@ -20,7 +21,6 @@ public class Lava extends Ground {
         else{
             return true;
         }
-
     }
 
 

@@ -20,6 +20,7 @@ import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
 import game.resetAction.Reset;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class Player extends Actor {
     private final Menu menu = new Menu();
 
     private int turn = -1;
+
     /**
      * a boolean method that returns true if Player has super mushroom
      *
@@ -58,6 +60,7 @@ public class Player extends Actor {
     public void setHasReset(boolean hasReset) {
         this.hasReset = hasReset;
     }
+
     /**
      * A getter for turn
      *
@@ -248,7 +251,7 @@ public class Player extends Actor {
             if (item.getDisplayChar() == '*') {
                 hasPowerStar = true;
             }
-            if (item.getDisplayChar() == 'f'){
+            if (item.getDisplayChar() == 'f') {
                 hasFireFlower = true;
             }
         }
@@ -272,16 +275,21 @@ public class Player extends Actor {
             this.setDisplayChar('m');
         }
 
+        Status[] possibleStatusForJump = new Status[]{
+                Status.WALL, Status.SPROUT, Status.SAPLING, Status.MATURE, Status.TELEPORT
+        };
+
         for (Exit exit : actorLocation.getExits()) {
             Location destination = exit.getDestination();
+            boolean canJump = false;
+            for (Status s : possibleStatusForJump) {
+                if (destination.getGround().hasCapability(s) ||
+                        destination.getDisplayChar() == 'c') {
+                    canJump = true;
+                }
+            }
 
-            if (
-            destination.getGround().hasCapability(Status.WALL) ||
-                            destination.getGround().hasCapability(Status.SPROUT) ||
-                            destination.getGround().hasCapability(Status.SAPLING) ||
-                            destination.getGround().hasCapability(Status.MATURE) ||
-                            destination.getDisplayChar() == 'c'
-            ) {
+            if (canJump) {
                 actions.add(new JumpActorAction(destination, exit.getName(), exit.getHotKey()));
                 Action actionToRemove = null;
                 for (int i = 0; i < actions.size(); i++) {
@@ -304,15 +312,14 @@ public class Player extends Actor {
 //        TELEPORT
         List<Item> itemsAtGround = actorLocation.getItems();
         itemsAtGround.forEach(item -> {
-            if(item.hasCapability(Status.TELEPORT)){
+            if (item.hasCapability(Status.TELEPORT)) {
                 this.teleport(actions);
             }
         });
 
 //        Rescue Princess
-        for(Exit exit: map.locationOf(this).getExits()){
-            if(exit.getDestination().getDisplayChar() == 'P'){
-                this.addItemToInventory(new Key());
+        for (Exit exit : map.locationOf(this).getExits()) {
+            if (exit.getDestination().getDisplayChar() == 'P') {
                 actions.add(new RescueAction());
             }
         }
@@ -332,39 +339,37 @@ public class Player extends Actor {
      * deactivateSuperMushroom checks if player has super mushroom and removes the capability if true
      */
 
-    public void deactivateMagicalItem(Status status, int counter){
-        if(this.hasCapability(status) && counter == 0)
-        {
+    public void deactivateMagicalItem(Status status, int counter) {
+        if (this.hasCapability(status) && counter == 0) {
             this.removeCapability(status);
-        }
-        else{
+        } else {
             this.incrementTurn();
-            if(this.getTurn() == counter){
+            if (this.getTurn() == counter) {
                 this.removeCapability(status);
                 this.setTurn(0);
             }
         }
     }
 
-    public void teleport(ActionList actions){
+    public void teleport(ActionList actions) {
 //        WarpPipe warpPipe = new WarpPipe();
-        if(this.hasCapability(Status.TELEPORT_TO_LAVAZONE)){
+        if (this.hasCapability(Status.TELEPORT_TO_LAVAZONE)) {
 //            Teleport to lavazone
             locationOnMainMap = maps.get(0).locationOf(this);
             System.out.println(locationOnMainMap.x() + " " + locationOnMainMap.y());
             actions.add(new TeleportAction(maps.get(1).at(0, 0), "To LavaZone"));
-        }else if(this.hasCapability(Status.TELEPORT_TO_MAINMAP)){
+        } else if (this.hasCapability(Status.TELEPORT_TO_MAINMAP)) {
 //            Teleport to main map
             actions.add((new TeleportAction(maps.get(0).at(locationOnMainMap.x(), locationOnMainMap.y()), "To MainMap")));
-        }else{
+        } else {
 //            Raise map not found
         }
     }
 
-    public ArrayList<Object> inventoryContains(String objectName){
+    public ArrayList<Object> inventoryContains(String objectName) {
         ArrayList<Object> val = new ArrayList<Object>();
-        for(int i = 0; i < this.getInventory().size(); i++){
-            if(this.getInventory().get(i).toString().equals(objectName)){
+        for (int i = 0; i < this.getInventory().size(); i++) {
+            if (this.getInventory().get(i).toString().equals(objectName)) {
                 val.add(this.getInventory().get(i));
                 val.add(true);
                 return val;
@@ -375,7 +380,7 @@ public class Player extends Actor {
         return val;
     }
 
-    public void accessToMaps(GameMap... mapParams){
+    public void accessToMaps(GameMap... mapParams) {
         maps.addAll(List.of(mapParams));
     }
 }

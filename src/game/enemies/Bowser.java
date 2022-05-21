@@ -28,7 +28,7 @@ public class Bowser extends Enemy {
      * Constructor.
      */
     public Bowser() {
-        super("bowser", 'B', 500);
+        super("bowser", 'B', 10);
         this.behaviours.put(10, new WanderBehaviour());
         this.addCapability(Status.ENEMY);
         this.hitRate = 50;
@@ -39,7 +39,7 @@ public class Bowser extends Enemy {
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         Location myLocation = map.locationOf(this);
         if(!this.isConscious()){
-            myLocation.addItem(new Key());
+            map.at(myLocation.x(), myLocation.y()).addItem(new Key());
             map.removeActor(this);
         }
         boolean hitChance = this.hitRate < (Math.random() * 100);

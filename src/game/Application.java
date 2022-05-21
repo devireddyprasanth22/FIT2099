@@ -73,7 +73,7 @@ public class Application {
         world.addGameMap(gameMap);
         world.addGameMap(lavaZone);
 
-        Player mario = new Player("Player", 'm', 100);
+        Player mario = new Player("Player", 'm', 1000);
         mario.accessToMaps(gameMap, lavaZone);
         world.addPlayer(mario, gameMap.at(1, 0));
 
@@ -98,8 +98,8 @@ public class Application {
         lavaZone.at(0, 0).addItem(new WarpPipe());
 
         PrincessPeach princess = new PrincessPeach();
-        lavaZone.at(2, 3).addActor(princess);
-        lavaZone.at(19, 5).addActor(new Bowser());
+        lavaZone.at(4, 4).addActor(princess);
+        lavaZone.at(2, 3).addActor(new Bowser());
 
         // Adding items to inventory
         // adding power star and super mushroom to inventory
