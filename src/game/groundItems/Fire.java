@@ -36,6 +36,5 @@ public class Fire extends Ground {
         if (this.getTurn() == 4) {
             location.setGround(new Dirt());
         }
-
     }
 }

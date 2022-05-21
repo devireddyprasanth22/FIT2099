@@ -48,6 +48,11 @@ public abstract class Enemy extends Actor {
     @Override
     abstract public ActionList allowableActions(Actor otherActor, String direction, GameMap map);
 
+    @Override
+    public boolean isConscious(){
+        return this.hp > 0;
+    }
+
     /**
      * currentLocation: current location of Goomba object
      * returns: Actor object in range of player. If not in range, return null
