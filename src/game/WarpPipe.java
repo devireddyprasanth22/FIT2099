@@ -10,6 +10,7 @@ import game.enemies.PiranhaPlant;
 
 public class WarpPipe extends Item {
     private int turn = 0;
+
     public WarpPipe() {
         super("Warp Pipe", 'c', false);
         this.addCapability(Status.TELEPORT);
@@ -18,6 +19,7 @@ public class WarpPipe extends Item {
     public void addSampleAction(Action newAction) {
         this.addAction(newAction);
     }
+
     /**
      * A getter for turn
      *
@@ -37,8 +39,8 @@ public class WarpPipe extends Item {
     @Override
     public void tick(Location currentLocation) {
         this.incrementTurn();
-        if (this.getTurn() == 1 && currentLocation.x() != 0 && currentLocation.y() != 0) // make functionality better, maybe play around with status of lava map
-        {
+        if (this.getTurn() == 1 && currentLocation.x() != 0 && currentLocation.y() != 0) {
+            // make functionality better, maybe play around with status of lava map
             currentLocation.addActor(new PiranhaPlant());
         }
     }

@@ -12,6 +12,9 @@ public class Fire extends Ground {
     /**
      * Constructor for creating Fire
      */
+    /**
+     * @param status status of type status
+     */
     public Fire() {
         super('v');
         this.addCapability(Status.FIRE);

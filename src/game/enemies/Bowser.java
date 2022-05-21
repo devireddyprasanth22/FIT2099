@@ -14,6 +14,7 @@ import game.actions.FireAttackAction;
 import game.behaviour.Behaviour;
 import game.behaviour.WanderBehaviour;
 import game.groundItems.Fire;
+import game.magicalItems.Key;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,10 @@ public class Bowser extends Enemy {
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         Location myLocation = map.locationOf(this);
+        if(!this.isConscious()){
+            myLocation.addItem(new Key());
+            map.removeActor(this);
+        }
         boolean hitChance = this.hitRate < (Math.random() * 100);
         Player player = (Player) this.getPlayerObj(myLocation);
         if (this.isPlayerInAttackRange(myLocation) && hitChance) {
