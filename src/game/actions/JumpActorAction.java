@@ -129,6 +129,9 @@ public class JumpActorAction extends Action {
             this.superMushroomJump(actor, map, actorLocation);
         } else if (actor.hasCapability(Status.POWER_STAR)) {
             this.powerStarJump(actor, map, actorLocation);
+//            this.jumpValidation(map, actor, 100, 0, this.moveToLocation.getGround().toString(), actorLocation);
+//            this.moveToLocation.setGround(new Dirt());
+//            this.moveToLocation.addItem(new Coin());
         } else {
             this.normalJump(actor, map, actorLocation);
         }

@@ -7,10 +7,6 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
-import game.behaviour.Behaviour;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class Enemy extends Actor {
     private int hp;

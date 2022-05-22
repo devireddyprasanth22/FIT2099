@@ -15,6 +15,7 @@ import game.actions.RescueAction;
 import game.actions.TeleportAction;
 import game.allies.Toad;
 import game.groundItems.Dirt;
+import game.magicalItems.FireFlower;
 import game.magicalItems.Key;
 import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
@@ -80,6 +81,10 @@ public class Player extends Actor {
     public void setTurn(int value) {
         this.turn = value;
     }
+
+    private final Item[] consumableItems = new Item[]{
+            new PowerStar(), new PowerStar(), new FireFlower(), new SuperMushroom()
+    };
 
     /**
      * Constructor.
@@ -241,30 +246,35 @@ public class Player extends Actor {
             actorLocation.setGround(new Dirt());
         }
 
-        boolean hasSuperMushroom = false;
-        boolean hasPowerStar = false;
-        boolean hasFireFlower = false;
-        for (Item item : this.getInventory()) {
-            if (item.getDisplayChar() == '^') {
-                hasSuperMushroom = true;
-            }
-            if (item.getDisplayChar() == '*') {
-                hasPowerStar = true;
-            }
-            if (item.getDisplayChar() == 'f') {
-                hasFireFlower = true;
-            }
-        }
-        if (hasSuperMushroom || actorLocation.getDisplayChar() == '^') {
-            actions.add(new ConsumeItemAction("SuperMushroom"));
-        }
+        System.out.println(new PowerStar().toString());
 
-        if (hasPowerStar || actorLocation.getDisplayChar() == '*') {
-            actions.add(new ConsumeItemAction("PowerStar"));
-        }
-        if (hasFireFlower || actorLocation.getDisplayChar() == 'f') {
-            actions.add(new ConsumeItemAction("FireFlower"));
-        }
+        // Consume Items
+//        boolean hasSuperMushroom = (boolean) this.inventoryContains("Super Mushroom").get(1);
+//        boolean hasPowerStar = (boolean) this.inventoryContains("Power Star").get(1);
+//        boolean hasFireFlower = (boolean) this.inventoryContains("Fire Flower").get(1);
+//
+//        if (hasSuperMushroom || actorLocation.getDisplayChar() == '^') {
+//            actions.add(new ConsumeItemAction("SuperMushroom"));
+//        }
+//        if (hasPowerStar || actorLocation.getDisplayChar() == '*') {
+//            actions.add(new ConsumeItemAction("PowerStar"));
+//        }
+//        if (hasFireFlower || actorLocation.getDisplayChar() == 'f') {
+//            actions.add(new ConsumeItemAction("FireFlower"));
+//        }
+
+        this.getInventory().forEach(item -> {
+            boolean isConsumableItem = false;
+            for(Item consumable: consumableItems){
+                if (item.toString() == consumable.toString()) {
+                    isConsumableItem = true;
+                    break;
+                }
+            }
+            if (isConsumableItem){
+                actions.add(new ConsumeItemAction(item.toString()));
+            }
+        });
 
 
         System.out.print("POWERSTAR IN USE :::" + this.hasCapability(Status.POWER_STAR));
