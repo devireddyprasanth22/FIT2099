@@ -71,9 +71,6 @@ public class FlyingKoopa extends AbstractKoopa{
                     Player player = (Player) this.getPlayerObj(exit.getDestination());
                     System.out.println("Player in vicinity");
                     this.behaviours.put(9, new FollowBehaviour(player));
-                    {
-
-                    }
                     break;
                 } catch (Exception e) {
 
