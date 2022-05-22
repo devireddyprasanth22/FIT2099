@@ -336,7 +336,7 @@ public class Player extends Actor {
     }
 
     /**
-     * deactivateSuperMushroom checks if player has super mushroom and removes the capability if true
+     * deactivateSuperMushroom checks if player has super mushroom or fire flower and removes the capability if true
      */
 
     public void deactivateMagicalItem(Status status, int counter) {

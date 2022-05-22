@@ -15,6 +15,7 @@ public class Mature extends Tree {
     public Mature() {
         super('T');
         this.addCapability(Status.MATURE);
+        this.addCapability(Status.IS_JUMPABLE);
     }
 
     /**
@@ -27,7 +28,12 @@ public class Mature extends Tree {
     public void tick(Location location) {
         this.incrementTurn();
         if (chance(15) && !location.containsAnActor()) {
-            location.addActor(new Koopa());
+            if(chance(50)) {
+                location.addActor(new Koopa());
+            }
+            else{
+                location.addActor(new Koopa(true));
+            }
         }
         if (this.getTurn() % 5 == 0) {
             ArrayList<Exit> exits = new ArrayList<>();

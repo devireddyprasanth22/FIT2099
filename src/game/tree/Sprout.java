@@ -12,6 +12,7 @@ public class Sprout extends Tree {
     public Sprout() {
         super('+');
         this.addCapability(Status.SPROUT);
+        this.addCapability(Status.IS_JUMPABLE);
     }
 
     /**

@@ -13,6 +13,7 @@ import game.actions.FireAttackAction;
 import game.behaviour.Behaviour;
 import game.Player;
 import game.Status;
+import game.behaviour.WanderBehaviour;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class Koopa extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
     private boolean playerHasWrench = false;
+    private boolean isFlyable = false;
 
     /**
      * Constructor for Koopa
@@ -31,6 +33,17 @@ public class Koopa extends Enemy {
         System.out.println("Koopa HP: " + this.getHp());
     }
 
+    public Koopa(boolean isFlyable){
+        super("Flying Koopa", 'F', 150);
+        this.isFlyable = isFlyable;
+        this.behaviours.put(10, new WanderBehaviour());
+        if(isFlyable){
+            this.addCapability(Status.ENEMY);
+            this.addCapability(Status.IS_FLYABLE);
+        }
+
+        System.out.println("Koopa HP: " + this.getHp());
+    }
     /**
      *
      * currentLocation is location of object on the map
@@ -46,9 +59,14 @@ public class Koopa extends Enemy {
             //koopa is in attack range
             if (r1 > 5 && this.getDisplayChar() != 'D') {
                 //koopa attacks player
-                System.out.println("Koopa attacks player");
-                getPlayerObj(currentLocation).hurt(30);
+                if(isFlyable){
+                    System.out.println("Flying Koopa attacks player");
+                }
+                else{
+                    System.out.println("Koopa attacks player");
+                }
 
+                getPlayerObj(currentLocation).hurt(30);
                 Player player = (Player) this.getPlayerObj(currentLocation);
                 player.hurt(30);
                 player.deactivateMagicalItem(Status.SUPER_MUSHROOM, 0);

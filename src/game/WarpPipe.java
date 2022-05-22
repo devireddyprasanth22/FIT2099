@@ -14,6 +14,7 @@ public class WarpPipe extends Item {
     public WarpPipe() {
         super("Warp Pipe", 'c', false);
         this.addCapability(Status.TELEPORT);
+        this.addCapability(Status.IS_JUMPABLE);
     }
 
     public void addSampleAction(Action newAction) {

@@ -11,6 +11,7 @@ public class Wall extends Ground {
 	public Wall() {
 		super('#');
 		this.addCapability(Status.WALL);
+		this.addCapability(Status.IS_JUMPABLE);
 	}
 	
 	@Override

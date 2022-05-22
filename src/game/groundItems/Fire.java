@@ -15,7 +15,6 @@ public class Fire extends Ground {
      */
     public Fire() {
         super('v');
-        this.addCapability(Status.FIRE);
     }
 
     public int getTurn() {
