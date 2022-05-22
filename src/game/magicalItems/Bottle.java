@@ -2,6 +2,7 @@ package game.magicalItems;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 
 public class Bottle extends MagicalItems{
 
@@ -12,7 +13,7 @@ public class Bottle extends MagicalItems{
     }
     private differentWaters waterInBottle;
 
-    public Bottle(String name, char displayChar, boolean portable) {
+    public Bottle() {
         /**
          * Constructor for MagicalItems
          *
@@ -21,7 +22,9 @@ public class Bottle extends MagicalItems{
          * @param portable
          * @param waterInBottle
          */
-        super(name, displayChar, portable);
+
+        super("Bottle", 'b', true);
+        this.addCapability(Status.BOTTLE);
         waterInBottle = differentWaters.NO_WATER;
     }
 
@@ -29,8 +32,16 @@ public class Bottle extends MagicalItems{
         return waterInBottle;
     }
 
-    public void setWaterInBottle(differentWaters val){
-        waterInBottle = val;
+    public void setHealthWaterInBottle(){
+        waterInBottle = differentWaters.HEALTH_WATER;
+    }
+
+    public void setPowerWaterInBottle(){
+        waterInBottle = differentWaters.POWER_WATER;
+    }
+
+    public void setNoWaterInBottle(){
+        waterInBottle = differentWaters.NO_WATER;
     }
 
     @Override
