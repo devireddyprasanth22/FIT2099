@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
+import game.Speak;
 import game.Status;
 import game.actions.AttackAction;
 import game.actions.FireAttackAction;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class PiranhaPlant extends Enemy {
+public class PiranhaPlant extends Enemy implements Speak {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
     private int turn = 0;
@@ -104,7 +105,7 @@ public class PiranhaPlant extends Enemy {
         return null;
     }
 
-
+    @Override
     public void speak(){
         int max = monologueLines.length-1;
         int min = 0;

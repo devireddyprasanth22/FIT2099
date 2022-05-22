@@ -8,11 +8,12 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
+import game.Speak;
 import game.actions.RescueAction;
 
 import java.util.Random;
 
-public class PrincessPeach extends Actor {
+public class PrincessPeach extends Actor implements Speak {
 
     private int turn = 0;
     public PrincessPeach() {
@@ -79,6 +80,7 @@ public class PrincessPeach extends Actor {
         return false;
     }
 
+    @Override
     public void speak(){
         int max = monologueLines.length-1;
         int min = 0;

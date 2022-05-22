@@ -22,7 +22,7 @@ import java.util.Random;
 /**
  * A little fungus guy.
  */
-public class Goomba extends Enemy {
+public class Goomba extends Enemy implements Speak {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
     private int turn = 0;
@@ -98,6 +98,7 @@ public class Goomba extends Enemy {
         return actions;
     }
 
+    @Override
     public void speak(){
         int max = monologueLines.length-1;
         int min = 0;

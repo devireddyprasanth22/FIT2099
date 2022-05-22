@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
+import game.Speak;
 import game.Status;
 import game.actions.AttackAction;
 import game.actions.FireAttackAction;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Bowser extends Enemy {
+public class Bowser extends Enemy implements Speak {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
     private final int hitRate;
     private final int punchDamage;
@@ -89,6 +90,7 @@ public class Bowser extends Enemy {
 
     }
 
+    @Override
     public void speak(){
         int max = monologueLines.length-1;
         int min = 0;
