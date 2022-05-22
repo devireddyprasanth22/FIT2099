@@ -8,6 +8,9 @@ import game.magicalItems.FireFlower;
 
 
 public class Sapling extends Tree {
+
+    private final int upgradeSpawnTurns = 10;
+
     /**
      * Constructor for Sapling
      */
@@ -26,7 +29,7 @@ public class Sapling extends Tree {
         if (chance(10)) {
             location.addItem(new Coin());
         }
-        if (this.getTurn() == 10) {
+        if (this.getTurn() == upgradeSpawnTurns) {
             location.setGround(new Mature());
             if (chance(50) && !location.containsAnActor()) {
                 location.addItem(new FireFlower());

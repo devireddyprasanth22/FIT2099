@@ -3,6 +3,7 @@ package game.tree;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
+import game.enemies.FlyingKoopa;
 import game.groundItems.Dirt;
 import game.enemies.Koopa;
 
@@ -27,7 +28,11 @@ public class Mature extends Tree {
     public void tick(Location location) {
         this.incrementTurn();
         if (chance(15) && !location.containsAnActor()) {
-            location.addActor(new Koopa());
+            if (chance(50)) {
+                location.addActor(new FlyingKoopa());
+            } else {
+                location.addActor(new Koopa());
+            }
         }
         if (this.getTurn() % 5 == 0) {
             ArrayList<Exit> exits = new ArrayList<>();
