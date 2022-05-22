@@ -18,7 +18,6 @@ import game.groundItems.Dirt;
 import game.magicalItems.*;
 import game.resetAction.Reset;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

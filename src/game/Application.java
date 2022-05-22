@@ -76,7 +76,7 @@ public class Application {
 
         Player mario = new Player("Player", 'm', 1000);
         mario.accessToMaps(gameMap, lavaZone);
-        world.addPlayer(mario, gameMap.at(1, 0));
+        world.addPlayer(mario, gameMap.at(42, 10));
 
         //WarpPipe warpPipe = new WarpPipe();
         Location[] warpPipeLocations = {

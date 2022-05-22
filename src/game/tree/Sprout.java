@@ -6,6 +6,9 @@ import game.enemies.Goomba;
 import game.magicalItems.FireFlower;
 
 public class Sprout extends Tree {
+
+    private final int upgradeSpawnTurns = 10;
+
     /**
      * Constructor for Sprout
      */
@@ -26,7 +29,7 @@ public class Sprout extends Tree {
         if (chance(10) && !location.containsAnActor()) {
             location.addActor(new Goomba());
         }
-        if (this.getTurn() == 10) {
+        if (this.getTurn() == upgradeSpawnTurns) {
             location.setGround(new Sapling());
             if (chance(50) && !location.containsAnActor()) {
                 location.addItem(new FireFlower());
