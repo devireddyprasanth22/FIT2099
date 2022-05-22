@@ -10,10 +10,23 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
 import game.actions.RescueAction;
 
+import java.util.Random;
+
 public class PrincessPeach extends Actor {
+
+    private int turn = 0;
     public PrincessPeach() {
         super("princess peach", 'P', 100);
     }
+
+    private final String[] monologueLines = new String[]
+            {
+                    "Dear Mario, I'll be waiting for you...",
+
+                    "Never gonna give you up!",
+
+                    "Release me, or I will kick you!",
+            };
 
     public Actor getPlayerObj(Location currentLocation) {
         int x = currentLocation.x();
@@ -65,6 +78,17 @@ public class PrincessPeach extends Actor {
         }
         return false;
     }
+
+    public void speak(){
+        int max = monologueLines.length-1;
+        int min = 0;
+        if(turn % 2 == 0){
+            Random random = new Random();
+            int randomNum = random.nextInt(max + 1 - min) + min;
+            System.out.println(monologueLines[randomNum]);
+        }
+    }
+
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 //        Location myLocation = map.locationOf(this);
@@ -74,6 +98,8 @@ public class PrincessPeach extends Actor {
 ////            Move rescue action here
 //        }
 //        actions.add(new RescueAction());
+        turn++;
+        speak();
         return new DoNothingAction();
     }
 }

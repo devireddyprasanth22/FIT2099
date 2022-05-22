@@ -96,13 +96,13 @@ public class Application {
         gameMap.at(20, 4).addItem(new SuperMushroom()); // add super mushroom
 
         mario.addItemToInventory(new Bottle());
-        gameMap.at(2, 2).addItem(new Fountain("Health fountain", 'H', false));
+        gameMap.at(2, 2).addItem(new Fountain("Power fountain", 'A', false));
 
         // Adding items and actors to lazazone map
         lavaZone.at(0, 0).addItem(new WarpPipe());
 
         PrincessPeach princess = new PrincessPeach();
-        lavaZone.at(4, 4).addActor(princess);
+        gameMap.at(4, 4).addActor(princess);
         lavaZone.at(2, 3).addActor(new Bowser());
 
         // Adding items to inventory
