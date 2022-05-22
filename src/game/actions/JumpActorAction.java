@@ -149,8 +149,8 @@ public class JumpActorAction extends Action {
 
     /**
      * successChance returns a boolean value depending on wether or not the chance percent is met
-     * @param chance
-     * @return
+     * @param chance: chance amount
+     * @return: boolean value, after calculating expected probability
      */
     private boolean successChance(int chance) {
         return new Random().nextInt(100) < chance;

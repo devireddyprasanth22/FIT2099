@@ -16,6 +16,7 @@ import game.groundItems.Dirt;
 import game.groundItems.Floor;
 import game.groundItems.Lava;
 import game.groundItems.Wall;
+import game.magicalItems.Bottle;
 import game.magicalItems.FireFlower;
 import game.magicalItems.PowerStar;
 import game.magicalItems.SuperMushroom;
@@ -93,6 +94,9 @@ public class Application {
         gameMap.at(45, 10).addActor(new Toad()); // add toad
         gameMap.at(42, 15).addItem(new PowerStar()); // add power star
         gameMap.at(20, 4).addItem(new SuperMushroom()); // add super mushroom
+
+        mario.addItemToInventory(new Bottle());
+        gameMap.at(2, 2).addItem(new Fountain("Health fountain", 'H', false));
 
         // Adding items and actors to lazazone map
         lavaZone.at(0, 0).addItem(new WarpPipe());
