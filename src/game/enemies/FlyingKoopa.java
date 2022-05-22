@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
@@ -46,8 +47,15 @@ public class FlyingKoopa extends AbstractKoopa{
         }
         // Adding follow behaviour
         if(this.isPlayerInAttackRange(location)){
-            Player player = (Player) this.getPlayerObj(location);
-            this.behaviours.put(9, new FollowBehaviour(player));
+            for (Exit exit: location.getExits()){
+                try{
+                    Player player = (Player) this.getPlayerObj(exit.getDestination());
+                    this.behaviours.put(9, new FollowBehaviour(player));
+                }catch (Exception e){
+
+                    //  do nothing
+                }
+            }
         }
         return new DoNothingAction();
     }

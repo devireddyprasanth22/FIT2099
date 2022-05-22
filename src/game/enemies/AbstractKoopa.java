@@ -78,8 +78,13 @@ abstract public class AbstractKoopa extends Enemy{
             actions.add(new AttackAction(this, direction));
         }
 
-        Player player = (Player) otherActor;
-        boolean playerHasWrench = (boolean) player.inventoryContains("Wrench").get(1);
+        boolean playerHasWrench = false;
+        try{
+            Player player = (Player) otherActor;
+            playerHasWrench = (boolean) player.inventoryContains("Wrench").get(1);
+        }catch(Exception e){
+            // do nothing
+        }
 
         if (playerHasWrench && this.getDisplayChar() == 'D') {
             actions.add(new AttackAction(this, direction));
