@@ -15,10 +15,7 @@ import game.actions.RescueAction;
 import game.actions.TeleportAction;
 import game.allies.Toad;
 import game.groundItems.Dirt;
-import game.magicalItems.FireFlower;
-import game.magicalItems.Key;
-import game.magicalItems.PowerStar;
-import game.magicalItems.SuperMushroom;
+import game.magicalItems.*;
 import game.resetAction.Reset;
 
 import java.lang.reflect.Array;
@@ -246,12 +243,26 @@ public class Player extends Actor {
             actorLocation.setGround(new Dirt());
         }
 
+        System.out.println(new PowerStar().toString());
+
         // Consume Items
+//        boolean hasSuperMushroom = (boolean) this.inventoryContains("Super Mushroom").get(1);
+//        boolean hasPowerStar = (boolean) this.inventoryContains("Power Star").get(1);
+//        boolean hasFireFlower = (boolean) this.inventoryContains("Fire Flower").get(1);
+//
+//        if (hasSuperMushroom || actorLocation.getDisplayChar() == '^') {
+//            actions.add(new ConsumeItemAction("SuperMushroom"));
+//        }
+//        if (hasPowerStar || actorLocation.getDisplayChar() == '*') {
+//            actions.add(new ConsumeItemAction("PowerStar"));
+//        }
+//        if (hasFireFlower || actorLocation.getDisplayChar() == 'f') {
+//            actions.add(new ConsumeItemAction("FireFlower"));
+//        }
+
         this.getInventory().forEach(item -> {
-            // iterate through inventory items
             boolean isConsumableItem = false;
             for(Item consumable: consumableItems){
-                // Check if current inventory item is in consumableItems
                 if (item.toString() == consumable.toString()) {
                     isConsumableItem = true;
                     break;
@@ -300,6 +311,38 @@ public class Player extends Actor {
                 String spoken = toad.speak(this);
                 System.out.println("TOAD SAYS ::: " + spoken);
             }
+        }
+
+        System.out.println((boolean) inventoryContains("Bottle").get(1));
+        System.out.println(map.locationOf(this).getGround().getDisplayChar() == 'H');
+        //Health fountain
+        boolean hasWaterFountain = false;
+        for(Item item : map.locationOf(this).getItems()){
+            if(item.hasCapability(Status.WATERFOUNTAIN)){
+                hasWaterFountain = true;
+                break;
+            }
+        }
+        if((boolean) inventoryContains("Bottle").get(1) && hasWaterFountain){
+            System.out.println("IF STATEMENT EXECUTED");
+            actions.add(new Action() {
+                @Override
+                public String execute(Actor actor, GameMap map) {
+                    for(Item item: actor.getInventory()){
+                        if(item.hasCapability(Status.BOTTLE)){
+                            Bottle i = (Bottle) item;
+                            i.setHealthWaterInBottle();
+                            break;
+                        }
+                    }
+                    return "Player fills bottle with health water";
+                }
+
+                @Override
+                public String menuDescription(Actor actor) {
+                    return "Fill bottle with health water";
+                }
+            });
         }
 
 
