@@ -20,6 +20,15 @@ import java.util.Random;
 public class PiranhaPlant extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
+    private int turn = 0;
+
+    private final String[] monologueLines = new String[]
+            {
+                    "Slsstssthshs~! (Never gonna say goodbye~)",
+
+                    "Ohmnom nom nom nom.",
+            };
+
     /**
      * Constructor.
      */
@@ -95,6 +104,17 @@ public class PiranhaPlant extends Enemy {
         return null;
     }
 
+
+    public void speak(){
+        int max = monologueLines.length-1;
+        int min = 0;
+        if(turn % 2 == 0){
+            Random random = new Random();
+            int randomNum = random.nextInt(max + 1 - min) + min;
+            System.out.println(monologueLines[randomNum]);
+        }
+    }
+
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
@@ -111,6 +131,9 @@ public class PiranhaPlant extends Enemy {
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+
+        turn++;
+        speak();
         Location location = map.locationOf(this);
         tick(location);
         for (game.behaviour.Behaviour Behaviour : behaviours.values()) {

@@ -29,11 +29,11 @@ public class Goomba extends Enemy {
 
     private final String[] monologueLines = new String[]
             {
-                    "Dear Mario, I'll be waiting for you...",
+                    "Mugga mugga!",
 
-                    "Never gonna give you up!",
+                    "Ugha ugha... (Never gonna run around and desert you...)",
 
-                    "Release me, or I will kick you!",
+                    "Ooga-Chaka Ooga-Ooga!",
             };
 
     /**

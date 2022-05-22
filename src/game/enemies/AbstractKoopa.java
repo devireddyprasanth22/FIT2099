@@ -15,6 +15,7 @@ import game.behaviour.Behaviour;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 abstract public class AbstractKoopa extends Enemy{
 
@@ -25,6 +26,17 @@ abstract public class AbstractKoopa extends Enemy{
      * @param displayChar the character that will represent the Actor in the display
      * @param hitPoints   the Actor's starting hit points
      */
+
+    private int turn = 0;
+
+    private final String[] monologueLines = new String[]
+            {
+                    "Never gonna make you cry!",
+
+                    "Koopi koopi koopii~!"
+            };
+
+
     public AbstractKoopa(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
     }
@@ -67,6 +79,17 @@ abstract public class AbstractKoopa extends Enemy{
      * <p>
      * returns: An ActionList object of actions that the other player can do to Koopa
      */
+
+    public void speak(){
+        int max = monologueLines.length-1;
+        int min = 0;
+        if(turn % 2 == 0){
+            Random random = new Random();
+            int randomNum = random.nextInt(max + 1 - min) + min;
+            System.out.println(monologueLines[randomNum]);
+        }
+    }
+
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
@@ -102,6 +125,8 @@ abstract public class AbstractKoopa extends Enemy{
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        turn++;
+        speak();
         Location location = map.locationOf(this);
         tick(location);
         for (Behaviour Behaviour : behaviours.values()) {
