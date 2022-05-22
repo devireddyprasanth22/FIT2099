@@ -246,26 +246,12 @@ public class Player extends Actor {
             actorLocation.setGround(new Dirt());
         }
 
-        System.out.println(new PowerStar().toString());
-
         // Consume Items
-//        boolean hasSuperMushroom = (boolean) this.inventoryContains("Super Mushroom").get(1);
-//        boolean hasPowerStar = (boolean) this.inventoryContains("Power Star").get(1);
-//        boolean hasFireFlower = (boolean) this.inventoryContains("Fire Flower").get(1);
-//
-//        if (hasSuperMushroom || actorLocation.getDisplayChar() == '^') {
-//            actions.add(new ConsumeItemAction("SuperMushroom"));
-//        }
-//        if (hasPowerStar || actorLocation.getDisplayChar() == '*') {
-//            actions.add(new ConsumeItemAction("PowerStar"));
-//        }
-//        if (hasFireFlower || actorLocation.getDisplayChar() == 'f') {
-//            actions.add(new ConsumeItemAction("FireFlower"));
-//        }
-
         this.getInventory().forEach(item -> {
+            // iterate through inventory items
             boolean isConsumableItem = false;
             for(Item consumable: consumableItems){
+                // Check if current inventory item is in consumableItems
                 if (item.toString() == consumable.toString()) {
                     isConsumableItem = true;
                     break;
