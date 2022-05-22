@@ -28,11 +28,13 @@ public class Mature extends Tree {
     public void tick(Location location) {
         this.incrementTurn();
         if (chance(15) && !location.containsAnActor()) {
+
             if (chance(50)) {
                 location.addActor(new FlyingKoopa());
             } else {
                 location.addActor(new Koopa());
             }
+
         }
         if (this.getTurn() % 5 == 0) {
             ArrayList<Exit> exits = new ArrayList<>();

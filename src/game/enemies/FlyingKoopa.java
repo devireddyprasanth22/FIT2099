@@ -10,6 +10,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.Player;
 import game.behaviour.Behaviour;
 import game.behaviour.FollowBehaviour;
+import game.behaviour.WanderBehaviour;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,23 +63,30 @@ public class FlyingKoopa extends AbstractKoopa{
         speak();
         Location location = map.locationOf(this);
         tick(location);
-        for (game.behaviour.Behaviour Behaviour : this.behaviours.values()) {
-            if (location.map().locationOf(this) != null || this.getDisplayChar() != 'D') {
-                Action action = Behaviour.getAction(this, map);
-                if (action != null) {
-                    return action;
+
+        // Adding follow behaviour
+        if(this.isPlayerInAttackRange(location)) {
+            for (Exit exit : location.getExits()) {
+                try {
+                    Player player = (Player) this.getPlayerObj(exit.getDestination());
+                    System.out.println("Player in vicinity");
+                    this.behaviours.put(9, new FollowBehaviour(player));
+                    {
+
+                    }
+                    break;
+                } catch (Exception e) {
+
+                    //  do nothing
                 }
             }
         }
-        // Adding follow behaviour
-        if(this.isPlayerInAttackRange(location)){
-            for (Exit exit: location.getExits()){
-                try{
-                    Player player = (Player) this.getPlayerObj(exit.getDestination());
-                    this.behaviours.put(9, new FollowBehaviour(player));
-                }catch (Exception e){
 
-                    //  do nothing
+        for (Behaviour behaviour : behaviours.values()) {
+            if (location.map().locationOf(this) != null || this.getDisplayChar() != 'D') {
+                Action action = behaviour.getAction(this, map);
+                if (action != null) {
+                    return action;
                 }
             }
         }

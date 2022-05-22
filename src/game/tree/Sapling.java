@@ -17,6 +17,7 @@ public class Sapling extends Tree {
     public Sapling() {
         super('t');
         this.addCapability(Status.SAPLING);
+
     }
     /**
      * Method called tick that helps keep track of turns and gets location
