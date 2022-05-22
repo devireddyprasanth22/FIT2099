@@ -324,7 +324,7 @@ public class Player extends Actor {
             }
         }
         if((boolean) inventoryContains("Bottle").get(1) && hasWaterFountain){
-            System.out.println("IF STATMENT EXECUTED");
+            System.out.println("IF STATEMENT EXECUTED");
             actions.add(new Action() {
                 @Override
                 public String execute(Actor actor, GameMap map) {

@@ -16,6 +16,7 @@ public class Fountain extends Item {
      */
     public Fountain(String name, char displayChar, boolean portable) {
         super(name, displayChar, portable);
+        this.addCapability(Status.WATERFOUNTAIN);
     }
 
 
