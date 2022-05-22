@@ -18,6 +18,6 @@ public enum Status {
     TELEPORT_TO_MAINMAP,
     WRENCH,
     PIRANHA_PLANT,
-    WALL, SPROUT, SAPLING, MATURE, FIRE, LAVA, //use this status to locate lava ground
+    WALL, SPROUT, SAPLING, MATURE, LAVA, //use this status to locate lava ground
     BOTTLE, WATERFOUNTAIN
 }

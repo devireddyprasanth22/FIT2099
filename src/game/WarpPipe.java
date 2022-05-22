@@ -14,11 +14,6 @@ public class WarpPipe extends Item {
     public WarpPipe() {
         super("Warp Pipe", 'c', false);
         this.addCapability(Status.TELEPORT);
-        this.addCapability(Status.IS_JUMPABLE);
-    }
-
-    public void addSampleAction(Action newAction) {
-        this.addAction(newAction);
     }
 
     /**
@@ -41,7 +36,6 @@ public class WarpPipe extends Item {
     public void tick(Location currentLocation) {
         this.incrementTurn();
         if (this.getTurn() == 2 && currentLocation.x() != 0 && currentLocation.y() != 0) {
-            // make functionality better, maybe play around with status of lava map
             currentLocation.addActor(new PiranhaPlant());
         }
     }
