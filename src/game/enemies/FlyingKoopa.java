@@ -6,7 +6,9 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Player;
 import game.behaviour.Behaviour;
+import game.behaviour.FollowBehaviour;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +39,15 @@ public class FlyingKoopa extends AbstractKoopa{
         for (game.behaviour.Behaviour Behaviour : this.behaviours.values()) {
             if (location.map().locationOf(this) != null || this.getDisplayChar() != 'D') {
                 Action action = Behaviour.getAction(this, map);
-                if (action != null)
+                if (action != null) {
                     return action;
+                }
             }
+        }
+        // Adding follow behaviour
+        if(this.isPlayerInAttackRange(location)){
+            Player player = (Player) this.getPlayerObj(location);
+            this.behaviours.put(9, new FollowBehaviour(player));
         }
         return new DoNothingAction();
     }

@@ -4,12 +4,14 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 
 public abstract class Enemy extends Actor {
     private int hp;
+
     /**
      * Constructor.
      *
@@ -29,7 +31,7 @@ public abstract class Enemy extends Actor {
     }
 
     @Override
-    public void hurt(int points){
+    public void hurt(int points) {
         this.setHp(this.hp - points);
     }
 
@@ -45,9 +47,10 @@ public abstract class Enemy extends Actor {
     abstract public ActionList allowableActions(Actor otherActor, String direction, GameMap map);
 
     @Override
-    public boolean isConscious(){
+    public boolean isConscious() {
         return this.hp > 0;
     }
+
     /**
      * currentLocation: current location of Goomba object
      * returns: Actor object in range of player. If not in range, return null
@@ -87,21 +90,28 @@ public abstract class Enemy extends Actor {
         int[] xArr = {-1, 0, 1};
         int[] yArr = {-1, 0, 1};
 
-        for (int k : xArr) {
-            for (int i : yArr) {
-                try {
-                    Location newLocation = currentLocation.map().at(x + k, y + i);
-                    if (newLocation.containsAnActor()) {
-                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
-                            return true;
-                        }
-                    }
-                } catch (Exception e) {
-                    //doing nothing
-                }
-
+        for (Exit exit : currentLocation.getExits()) {
+            Location loc = exit.getDestination();
+            if (loc.containsAnActor()) {
+                return loc.getDisplayChar() == 'm' || loc.getDisplayChar() == 'M';
             }
         }
         return false;
+//        for (int k : xArr) {
+//            for (int i : yArr) {
+//                try {
+//                    Location newLocation = currentLocation.map().at(x + k, y + i);
+//                    if (newLocation.containsAnActor()) {
+//                        if (newLocation.getActor().getDisplayChar() == 'm' || newLocation.getActor().getDisplayChar() == 'M') {
+//                            return true;
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    //doing nothing
+//                }
+//
+//            }
+//        }
+//        return false;
     }
 }
