@@ -32,18 +32,12 @@ public class Player extends Actor {
      */
     private final Menu menu = new Menu();
 
+    /**
+     *
+     */
     private int turn = -1;
 
     private int hpBonusIncrease = 0;
-
-    /**
-     * a boolean method that returns true if Player has super mushroom
-     *
-     * @return
-     */
-    public boolean isUsingSuperMushroom() {
-        return usingSuperMushroom;
-    }
 
 
     private boolean usingSuperMushroom = false;
@@ -133,20 +127,18 @@ public class Player extends Actor {
         return false;
     }
 
-
+    /**
+     * Does all necessary functions for a player's turn
+     *
+     * @param actions A list of actions the player can do
+     * @param lastAction Last action player did
+     * @param map Current map player is on
+     * @param display display object
+     *
+     * @return Action the player is doing this turn
+     */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        /**
-         * Does all necessary functions for a player's turn
-         *
-         * @param actions A list of actions the player can do
-         * @param lastAction Last action player did
-         * @param map Current map player is on
-         * @param display display object
-         *
-         * @return Action the player is doing this turn
-         */
-
         Location actorLocation = new Location(map, 0, 0).map().locationOf(this);
         Toad toad = (Toad) map.getActorAt(new Location(map, 45, 10));
         this.deactivateMagicalItem(Status.FIRE_ATTACK, 20);
