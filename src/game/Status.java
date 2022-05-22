@@ -19,5 +19,5 @@ public enum Status {
     WRENCH,
     PIRANHA_PLANT,
     WALL, SPROUT, SAPLING, MATURE, FIRE, LAVA, //use this status to locate lava ground
-    BOTTLE, WATERFOUNTAIN
+    BOTTLE, HEALTHFOUNTAIN, POWERFOUNTAIN
 }

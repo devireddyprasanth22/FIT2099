@@ -16,9 +16,10 @@ public class Fountain extends Item {
      */
     public Fountain(String name, char displayChar, boolean portable) {
         super(name, displayChar, portable);
-        this.addCapability(Status.WATERFOUNTAIN);
+        if(displayChar == 'H'){
+            this.addCapability(Status.HEALTHFOUNTAIN);
+        } else {
+            this.addCapability(Status.POWERFOUNTAIN);
+        }
     }
-
-
-
 }

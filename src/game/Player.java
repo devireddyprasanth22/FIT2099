@@ -9,6 +9,8 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.Location;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import edu.monash.fit2099.engine.weapons.Weapon;
 import game.actions.ConsumeItemAction;
 import game.actions.JumpActorAction;
 import game.actions.RescueAction;
@@ -32,6 +34,8 @@ public class Player extends Actor {
     private final Menu menu = new Menu();
 
     private int turn = -1;
+
+    private int hpBonusIncrease = 0;
 
     /**
      * a boolean method that returns true if Player has super mushroom
@@ -74,6 +78,7 @@ public class Player extends Actor {
     public void incrementTurn() {
         this.turn += 1;
     }
+
 
     public void setTurn(int value) {
         this.turn = value;
@@ -316,15 +321,38 @@ public class Player extends Actor {
         System.out.println((boolean) inventoryContains("Bottle").get(1));
         System.out.println(map.locationOf(this).getGround().getDisplayChar() == 'H');
         //Health fountain
-        boolean hasWaterFountain = false;
+        boolean hasHealthFountain = false;
+        boolean hasPowerFountain = false;
         for(Item item : map.locationOf(this).getItems()){
-            if(item.hasCapability(Status.WATERFOUNTAIN)){
-                hasWaterFountain = true;
+            if(item.hasCapability(Status.POWERFOUNTAIN)){
+                hasPowerFountain = true;
+                break;
+            } else if(item.hasCapability((Status.HEALTHFOUNTAIN))){
+                hasHealthFountain = true;
                 break;
             }
         }
-        if((boolean) inventoryContains("Bottle").get(1) && hasWaterFountain){
-            System.out.println("IF STATEMENT EXECUTED");
+        if((boolean) inventoryContains("Bottle").get(1) && hasPowerFountain){
+            actions.add(new Action() {
+                @Override
+                public String execute(Actor actor, GameMap map) {
+                    for(Item item: actor.getInventory()){
+                        if(item.hasCapability(Status.BOTTLE)){
+                            Bottle i = (Bottle) item;
+                            i.setPowerWaterInBottle();
+                            break;
+                        }
+                    }
+                    return "Player fills bottle with power water";
+                }
+
+                @Override
+                public String menuDescription(Actor actor) {
+                    return "Fill bottle with power water";
+                }
+            });
+        }
+        if((boolean) inventoryContains("Bottle").get(1) && hasHealthFountain){
             actions.add(new Action() {
                 @Override
                 public String execute(Actor actor, GameMap map) {
@@ -345,6 +373,37 @@ public class Player extends Actor {
             });
         }
 
+        //DRINKING FUNCTION HANDLING
+        if((boolean) inventoryContains("Bottle").get(1)){
+            Bottle invBottle = (Bottle) inventoryContains("Bottle").get(0);
+            if(invBottle.getWaterInBottle() != Bottle.differentWaters.NO_WATER) {
+                actions.add(new Action() {
+                    @Override
+                    public String execute(Actor actor, GameMap map) {
+                        if (invBottle.getWaterInBottle() == Bottle.differentWaters.POWER_WATER) {
+                            setHpBonusIncrease();
+                            return "Player increased intrinsic weapon attack damage!";
+
+                        } else if (invBottle.getWaterInBottle() == Bottle.differentWaters.HEALTH_WATER) {
+                            heal(50);
+                            return "Player healed!";
+                        }
+
+                        return null;
+                    }
+                    @Override
+                    public String menuDescription(Actor actor) {
+                        if(invBottle.getWaterInBottle() == Bottle.differentWaters.POWER_WATER){
+                            return "Drink power water";
+
+                        } else if(invBottle.getWaterInBottle() == Bottle.differentWaters.HEALTH_WATER){
+                            return "Drink health water";
+                        }
+                        return null;
+                    }
+                });
+            }
+        }
 
         System.out.println(this.printHp());
 
@@ -365,6 +424,7 @@ public class Player extends Actor {
 
         return menu.showMenu(this, actions, display);
     }
+
 
     @Override
     /**
@@ -388,6 +448,16 @@ public class Player extends Actor {
                 this.setTurn(0);
             }
         }
+    }
+
+    @Override
+    public IntrinsicWeapon getIntrinsicWeapon(){
+        int damage = hpBonusIncrease * 15;
+        return new IntrinsicWeapon(damage, "punches");
+    }
+
+    public void setHpBonusIncrease(){
+        hpBonusIncrease++;
     }
 
     public void teleport(ActionList actions) {

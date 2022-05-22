@@ -18,11 +18,25 @@ import game.magicalItems.Key;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Bowser extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
     private final int hitRate;
     private final int punchDamage;
+
+    private int turn = 0;
+
+    private final String[] monologueLines = new String[]
+            {
+                    "What was that sound? Oh, just a fire.",
+
+                    "Princess Peach! You are formally invited... to the creation of my new kingdom!",
+
+                    "Never gonna let you down!",
+
+                    "Wrrrrrrrrrrrrrrrryyyyyyyyyyyyyy!!!!"
+            };
 
     /**
      * Constructor.
@@ -38,6 +52,10 @@ public class Bowser extends Enemy {
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         Location myLocation = map.locationOf(this);
+
+        turn++;
+        speak();
+
         if(!this.isConscious()){
             map.at(myLocation.x(), myLocation.y()).addItem(new Key());
             map.removeActor(this);
@@ -69,5 +87,15 @@ public class Bowser extends Enemy {
     @Override
     public void tick(Location currentLocation) {
 
+    }
+
+    public void speak(){
+        int max = monologueLines.length-1;
+        int min = 0;
+        if(turn % 2 == 0){
+            Random random = new Random();
+            int randomNum = random.nextInt(max + 1 - min) + min;
+            System.out.println(monologueLines[randomNum]);
+        }
     }
 }

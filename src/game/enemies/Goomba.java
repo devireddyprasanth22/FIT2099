@@ -17,12 +17,24 @@ import game.magicalItems.SuperMushroom;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * A little fungus guy.
  */
 public class Goomba extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+
+    private int turn = 0;
+
+    private final String[] monologueLines = new String[]
+            {
+                    "Dear Mario, I'll be waiting for you...",
+
+                    "Never gonna give you up!",
+
+                    "Release me, or I will kick you!",
+            };
 
     /**
      * Constructor.
@@ -34,6 +46,8 @@ public class Goomba extends Enemy {
         this.addCapability(Status.ENEMY);
 
     }
+
+
 
     /**
      * currentLocation is location of object on the map
@@ -84,6 +98,16 @@ public class Goomba extends Enemy {
         return actions;
     }
 
+    public void speak(){
+        int max = monologueLines.length-1;
+        int min = 0;
+        if(turn % 2 == 0){
+            Random random = new Random();
+            int randomNum = random.nextInt(max + 1 - min) + min;
+            System.out.println(monologueLines[randomNum]);
+        }
+    }
+
     /**
      * actions: ActionList of allowable actions of Goomba
      * lastAction: Previous action of Goomba
@@ -96,6 +120,9 @@ public class Goomba extends Enemy {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+
+        turn++;
+        speak();
 
         Location location = map.locationOf(this);
         tick(location);

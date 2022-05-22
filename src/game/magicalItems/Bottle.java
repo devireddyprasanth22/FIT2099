@@ -6,12 +6,12 @@ import game.Status;
 
 public class Bottle extends MagicalItems{
 
-    private enum differentWaters {
+    public enum differentWaters {
         NO_WATER,
         HEALTH_WATER,
         POWER_WATER
     }
-    private differentWaters waterInBottle;
+    public differentWaters waterInBottle;
 
     public Bottle() {
         /**
